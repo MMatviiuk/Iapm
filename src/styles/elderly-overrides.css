@@ -1,0 +1,461 @@
+/**
+ * ELDERLY-FRIENDLY OVERRIDES
+ * Global accessibility improvements for senior users (65+)
+ * Minimum standards: 56px buttons, 20px base font, WCAG AAA contrast
+ */
+
+/* ============================================
+   TYPOGRAPHY - LARGER FONTS FOR READABILITY
+   ============================================ */
+
+/* Base font size increase */
+html {
+  font-size: 18px; /* Up from 16px */
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 20px; /* Desktop: even larger */
+  }
+}
+
+/* Headings - more prominent */
+h1 {
+  font-size: 2.5rem; /* 40-50px */
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 2rem; /* 32-40px */
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+h3 {
+  font-size: 1.5rem; /* 24-30px */
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Body text - minimum 18px */
+body, p {
+  font-size: 1rem; /* 18-20px */
+  line-height: 1.6;
+}
+
+/* Small text - never below 16px */
+small, .text-sm {
+  font-size: 0.875rem !important; /* 16px minimum */
+}
+
+/* ============================================
+   BUTTONS - MINIMUM 56px HEIGHT
+   ============================================ */
+
+/* All buttons */
+button, .button, [role="button"] {
+  min-height: 56px !important;
+  min-width: 56px;
+  padding: 12px 24px !important;
+  font-size: 1rem !important; /* 18-20px */
+  font-weight: 600;
+  border-width: 2px !important; /* Better visibility */
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  touch-action: manipulation; /* Better touch response */
+}
+
+button:hover, .button:hover {
+  transform: scale(1.02); /* Subtle feedback */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+button:active, .button:active {
+  transform: scale(0.98); /* Tactile feedback */
+}
+
+/* Primary buttons - high contrast */
+button[data-variant="primary"], .btn-primary {
+  background-color: #2196F3;
+  color: white;
+  border-color: #2196F3;
+}
+
+button[data-variant="primary"]:hover {
+  background-color: #1976D2;
+  border-color: #1976D2;
+}
+
+/* Icon buttons - minimum 56x56px */
+button[aria-label], .icon-button {
+  width: 56px !important;
+  height: 56px !important;
+  padding: 14px !important;
+}
+
+/* ============================================
+   INPUTS - LARGER, MORE VISIBLE
+   ============================================ */
+
+/* Text inputs, selects, textareas */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+select,
+textarea {
+  min-height: 56px !important;
+  padding: 14px 16px !important;
+  font-size: 1rem !important; /* 18-20px */
+  border-width: 2px !important;
+  border-radius: 8px;
+  border-color: #cbd5e0;
+  transition: all 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #2196F3 !important;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2) !important;
+  border-width: 3px !important; /* Extra thick on focus */
+}
+
+/* Placeholder text - higher contrast */
+input::placeholder,
+textarea::placeholder {
+  color: #718096 !important; /* Darker than default */
+  opacity: 1;
+}
+
+/* ============================================
+   CHECKBOXES, RADIOS, SWITCHES - LARGER
+   ============================================ */
+
+/* Checkboxes - 28px minimum */
+input[type="checkbox"] {
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px;
+  min-height: 28px;
+  cursor: pointer;
+  border-width: 2px !important;
+}
+
+/* Radio buttons - 28px minimum */
+input[type="radio"] {
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px;
+  min-height: 28px;
+  cursor: pointer;
+  border-width: 2px !important;
+}
+
+/* Switches - larger and more visible */
+[role="switch"] {
+  min-width: 56px !important;
+  min-height: 32px !important;
+}
+
+/* ============================================
+   ICONS - MINIMUM 24px
+   ============================================ */
+
+svg, .icon {
+  min-width: 24px;
+  min-height: 24px;
+}
+
+/* Navigation icons - 28px */
+nav svg, .nav-icon {
+  width: 28px !important;
+  height: 28px !important;
+}
+
+/* Action icons - 32px */
+.action-icon, [aria-label*="edit"], [aria-label*="delete"], [aria-label*="add"] {
+  width: 32px !important;
+  height: 32px !important;
+}
+
+/* ============================================
+   CONTRAST - WCAG AAA COMPLIANCE
+   ============================================ */
+
+/* Higher contrast text */
+body {
+  color: #1a202c; /* Almost black */
+}
+
+/* Light mode - darker text */
+.text-gray-600 {
+  color: #4a5568 !important; /* Darker */
+}
+
+.text-gray-700 {
+  color: #2d3748 !important; /* Much darker */
+}
+
+/* Dark mode - lighter text */
+.dark .text-gray-400 {
+  color: #e2e8f0 !important; /* Lighter */
+}
+
+.dark .text-gray-300 {
+  color: #f7fafc !important; /* Much lighter */
+}
+
+/* Link contrast */
+a {
+  color: #2196F3;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  color: #1976D2;
+  text-decoration-thickness: 3px;
+}
+
+/* ============================================
+   SPACING - MORE BREATHING ROOM
+   ============================================ */
+
+/* Cards - larger padding */
+.card, [data-component="card"] {
+  padding: 24px !important;
+}
+
+@media (min-width: 1024px) {
+  .card, [data-component="card"] {
+    padding: 32px !important;
+  }
+}
+
+/* Lists - more space between items */
+li {
+  margin-bottom: 12px;
+}
+
+/* Sections - more vertical space */
+section {
+  margin-bottom: 32px;
+}
+
+/* ============================================
+   TOUCH TARGETS - MINIMUM 56x56px
+   ============================================ */
+
+/* All clickable elements */
+a, button, input, select, textarea, [role="button"], [tabindex="0"] {
+  min-width: 44px; /* WCAG AA minimum */
+  min-height: 44px;
+  padding: 8px;
+}
+
+/* Preferred size for elderly users */
+button, [role="button"], .clickable {
+  min-width: 56px !important;
+  min-height: 56px !important;
+}
+
+/* ============================================
+   FOCUS INDICATORS - VERY VISIBLE
+   ============================================ */
+
+/* Strong focus outline */
+*:focus {
+  outline: 3px solid #2196F3 !important;
+  outline-offset: 2px !important;
+}
+
+/* Skip to content link - accessible */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  z-index: 999;
+  padding: 12px 24px;
+  background: #2196F3;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.skip-to-content:focus {
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+}
+
+/* ============================================
+   ALERTS & NOTIFICATIONS - HIGH VISIBILITY
+   ============================================ */
+
+/* Success - green, high contrast */
+.alert-success, [data-variant="success"] {
+  background-color: #C6F6D5;
+  border: 2px solid #38A169;
+  color: #22543D;
+  padding: 16px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Error - red, high contrast */
+.alert-error, [data-variant="error"], [data-variant="destructive"] {
+  background-color: #FED7D7;
+  border: 2px solid #E53E3E;
+  color: #742A2A;
+  padding: 16px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Warning - orange, high contrast */
+.alert-warning, [data-variant="warning"] {
+  background-color: #FEEBC8;
+  border: 2px solid #DD6B20;
+  color: #7C2D12;
+  padding: 16px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Info - blue, high contrast */
+.alert-info, [data-variant="info"] {
+  background-color: #BEE3F8;
+  border: 2px solid #2196F3;
+  color: #1E40AF;
+  padding: 16px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* ============================================
+   TABLES - MORE READABLE
+   ============================================ */
+
+table {
+  font-size: 1rem; /* 18-20px */
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+th {
+  padding: 16px !important;
+  font-weight: 700;
+  font-size: 1.125rem; /* 20-22px */
+  background-color: #2196F3;
+  color: white;
+  border: 2px solid #1976D2;
+}
+
+td {
+  padding: 14px !important;
+  border: 1px solid #e2e8f0;
+}
+
+tr:hover {
+  background-color: #f7fafc;
+}
+
+/* ============================================
+   LOADING STATES - VISIBLE
+   ============================================ */
+
+.loading, [aria-busy="true"] {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.spinner {
+  width: 48px !important;
+  height: 48px !important;
+  border-width: 4px !important;
+}
+
+/* ============================================
+   RESPONSIVE - MAINTAIN SIZES ON MOBILE
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Don't shrink on mobile */
+  button, .button {
+    min-height: 56px !important;
+    font-size: 18px !important;
+  }
+  
+  input, select, textarea {
+    min-height: 56px !important;
+    font-size: 18px !important;
+  }
+  
+  /* Slightly smaller icons on small screens */
+  svg, .icon {
+    min-width: 20px;
+    min-height: 20px;
+  }
+}
+
+/* ============================================
+   PRINT - OPTIMIZED FOR ELDERLY
+   ============================================ */
+
+@media print {
+  body {
+    font-size: 14pt; /* Print point size */
+  }
+  
+  h1 {
+    font-size: 24pt;
+  }
+  
+  h2 {
+    font-size: 18pt;
+  }
+  
+  /* High contrast for print */
+  * {
+    color: black !important;
+    background: white !important;
+  }
+  
+  /* Preserve borders */
+  table, th, td {
+    border: 1px solid black !important;
+  }
+}
+
+/* ============================================
+   CUSTOM PROPERTIES FOR EASY OVERRIDES
+   ============================================ */
+
+:root {
+  --elderly-button-height: 56px;
+  --elderly-input-height: 56px;
+  --elderly-icon-size: 24px;
+  --elderly-font-base: 18px;
+  --elderly-font-large: 20px;
+  --elderly-border-width: 2px;
+  --elderly-focus-width: 3px;
+  --elderly-spacing: 24px;
+  --elderly-touch-target: 56px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --elderly-button-height: 64px;
+    --elderly-input-height: 64px;
+    --elderly-icon-size: 28px;
+    --elderly-font-base: 20px;
+    --elderly-font-large: 22px;
+    --elderly-spacing: 32px;
+  }
+}

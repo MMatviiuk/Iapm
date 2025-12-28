@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Fetch Test</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success { color: #22c55e; }
+        .error { color: #ef4444; }
+        .info { color: #3b82f6; }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 5px 10px 0;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 14px;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .status.success {
+            background: #dcfce7;
+            border: 1px solid #22c55e;
+        }
+        .status.error {
+            background: #fee2e2;
+            border: 1px solid #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Database Fetch Test</h1>
+    <p>This page tests if the database file can be loaded from different paths.</p>
+
+    <div class="test-box">
+        <h2>Quick Tests</h2>
+        <button onclick="testAllPaths()">Test All Paths</button>
+        <button onclick="testDirectPath()">Test /data/complete-database.json</button>
+        <button onclick="clearResults()">Clear Results</button>
+    </div>
+
+    <div id="results"></div>
+
+    <script>
+        const results = document.getElementById('results');
+
+        function clearResults() {
+            results.innerHTML = '';
+        }
+
+        async function testPath(path) {
+            const startTime = Date.now();
+            
+            try {
+                console.log(`Testing path: ${path}`);
+                const response = await fetch(path);
+                const loadTime = Date.now() - startTime;
+                
+                if (!response.ok) {
+                    return {
+                        path,
+                        success: false,
+                        status: response.status,
+                        statusText: response.statusText,
+                        loadTime,
+                        error: `HTTP ${response.status}: ${response.statusText}`
+                    };
+                }
+                
+                const data = await response.json();
+                const parseTime = Date.now() - startTime;
+                
+                return {
+                    path,
+                    success: true,
+                    status: 200,
+                    loadTime,
+                    parseTime,
+                    dataSize: JSON.stringify(data).length,
+                    doctors: data.doctors?.length || 0,
+                    caregivers: data.caregivers?.length || 0,
+                    patients: data.patients?.length || 0,
+                    data: data
+                };
+            } catch (error) {
+                const loadTime = Date.now() - startTime;
+                return {
+                    path,
+                    success: false,
+                    loadTime,
+                    error: error.message
+                };
+            }
+        }
+
+        function displayResult(result) {
+            const div = document.createElement('div');
+            div.className = 'test-box';
+            
+            if (result.success) {
+                div.innerHTML = `
+                    <div class="status success">
+                        <h3 class="success">✅ SUCCESS: ${result.path}</h3>
+                        <p><strong>Status:</strong> ${result.status}</p>
+                        <p><strong>Load Time:</strong> ${result.loadTime}ms</p>
+                        <p><strong>Parse Time:</strong> ${result.parseTime}ms</p>
+                        <p><strong>Data Size:</strong> ${(result.dataSize / 1024).toFixed(2)} KB</p>
+                        <p><strong>Content:</strong></p>
+                        <ul>
+                            <li>Doctors: ${result.doctors}</li>
+                            <li>Caregivers: ${result.caregivers}</li>
+                            <li>Patients: ${result.patients}</li>
+                        </ul>
+                        <details>
+                            <summary>View First Patient</summary>
+                            <pre>${JSON.stringify(result.data.patients[0], null, 2)}</pre>
+                        </details>
+                    </div>
+                `;
+            } else {
+                div.innerHTML = `
+                    <div class="status error">
+                        <h3 class="error">❌ FAILED: ${result.path}</h3>
+                        ${result.status ? `<p><strong>Status:</strong> ${result.status} ${result.statusText}</p>` : ''}
+                        <p><strong>Load Time:</strong> ${result.loadTime}ms</p>
+                        <p><strong>Error:</strong> ${result.error}</p>
+                    </div>
+                `;
+            }
+            
+            results.appendChild(div);
+        }
+
+        async function testDirectPath() {
+            clearResults();
+            results.innerHTML = '<p class="info">Testing /data/complete-database.json...</p>';
+            
+            const result = await testPath('/data/complete-database.json');
+            results.innerHTML = '';
+            displayResult(result);
+            
+            if (result.success) {
+                console.log('✅ Database loaded successfully!');
+                alert('✅ Success! Database loaded correctly.\n\n' +
+                      `Doctors: ${result.doctors}\n` +
+                      `Caregivers: ${result.caregivers}\n` +
+                      `Patients: ${result.patients}`);
+            } else {
+                console.error('❌ Failed to load database');
+                alert('❌ Failed to load database.\n\n' +
+                      `Error: ${result.error}\n\n` +
+                      'Check console for details.');
+            }
+        }
+
+        async function testAllPaths() {
+            clearResults();
+            results.innerHTML = '<p class="info">Testing multiple paths...</p>';
+            
+            const paths = [
+                '/data/complete-database.json',
+                './data/complete-database.json',
+                '../data/complete-database.json',
+                '/public/data/complete-database.json',
+                'data/complete-database.json',
+            ];
+            
+            results.innerHTML = '';
+            
+            for (const path of paths) {
+                const result = await testPath(path);
+                displayResult(result);
+                
+                if (result.success) {
+                    console.log(`✅ Working path found: ${path}`);
+                }
+            }
+        }
+
+        // Auto-test on page load
+        window.addEventListener('load', () => {
+            console.log('🚀 Page loaded. Click "Test All Paths" to begin.');
+            console.log('📍 Current URL:', window.location.href);
+            console.log('📂 Testing database accessibility...');
+        });
+    </script>
+</body>
+</html>

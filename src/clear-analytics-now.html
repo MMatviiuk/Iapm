@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear Analytics Cache</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 24px;
+            padding: 48px 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        
+        .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 36px;
+            color: #1976D2;
+            margin-bottom: 16px;
+            font-weight: 800;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 32px;
+        }
+        
+        .info-box {
+            background: #f0f9ff;
+            border: 2px solid #2196F3;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+        
+        .info-box h3 {
+            font-size: 18px;
+            color: #1976D2;
+            margin-bottom: 12px;
+        }
+        
+        .info-box p {
+            font-size: 16px;
+            color: #374151;
+            line-height: 1.6;
+        }
+        
+        .button {
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            margin: 8px;
+        }
+        
+        .button-primary {
+            background: #2196F3;
+            color: white;
+        }
+        
+        .button-primary:hover {
+            background: #1976D2;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(33, 150, 243, 0.3);
+        }
+        
+        .button-danger {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .button-danger:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+        }
+        
+        .status {
+            margin-top: 24px;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            display: none;
+        }
+        
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 2px solid #10b981;
+        }
+        
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 2px solid #ef4444;
+        }
+        
+        .steps {
+            text-align: left;
+            margin: 24px 0;
+        }
+        
+        .steps h3 {
+            font-size: 20px;
+            color: #1976D2;
+            margin-bottom: 16px;
+        }
+        
+        .steps ol {
+            padding-left: 24px;
+        }
+        
+        .steps li {
+            font-size: 16px;
+            color: #374151;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">🔄</div>
+        <h1>Clear Analytics Cache</h1>
+        <p class="subtitle">Fix forEach error in analytics</p>
+        
+        <div class="info-box">
+            <h3>⚠️ What does this do?</h3>
+            <p>
+                This will remove cached analytics data that may be causing the 
+                <strong>"Cannot read properties of undefined (reading 'forEach')"</strong> error.
+                Your actual patient/medication data will NOT be deleted.
+            </p>
+        </div>
+        
+        <div class="steps">
+            <h3>📋 What happens after clearing:</h3>
+            <ol>
+                <li>Analytics cache is removed from browser storage</li>
+                <li>Page automatically refreshes</li>
+                <li>Analytics will regenerate from fresh database data</li>
+                <li>Charts should load without errors</li>
+            </ol>
+        </div>
+        
+        <button class="button button-primary" onclick="clearCache()">
+            ✅ Clear Analytics Cache
+        </button>
+        
+        <button class="button button-danger" onclick="clearAllCache()">
+            🗑️ Clear ALL Cache (if still broken)
+        </button>
+        
+        <div id="status" class="status"></div>
+    </div>
+    
+    <script>
+        function clearCache() {
+            try {
+                // Remove only analytics cache
+                localStorage.removeItem('caregiver_analytics_data');
+                localStorage.removeItem('doctor_analytics_data');
+                
+                // Show success message
+                const status = document.getElementById('status');
+                status.className = 'status success';
+                status.style.display = 'block';
+                status.textContent = '✅ Analytics cache cleared! Reloading page...';
+                
+                // Reload after 2 seconds
+                setTimeout(() => {
+                    location.reload(true);
+                }, 2000);
+            } catch (error) {
+                const status = document.getElementById('status');
+                status.className = 'status error';
+                status.style.display = 'block';
+                status.textContent = '❌ Error: ' + error.message;
+            }
+        }
+        
+        function clearAllCache() {
+            if (confirm('⚠️ This will clear ALL localStorage data. Continue?')) {
+                try {
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    
+                    const status = document.getElementById('status');
+                    status.className = 'status success';
+                    status.style.display = 'block';
+                    status.textContent = '✅ All cache cleared! Reloading page...';
+                    
+                    setTimeout(() => {
+                        location.reload(true);
+                    }, 2000);
+                } catch (error) {
+                    const status = document.getElementById('status');
+                    status.className = 'status error';
+                    status.style.display = 'block';
+                    status.textContent = '❌ Error: ' + error.message;
+                }
+            }
+        }
+        
+        // Check if there's cached data
+        window.addEventListener('load', () => {
+            const caregiverCache = localStorage.getItem('caregiver_analytics_data');
+            const doctorCache = localStorage.getItem('doctor_analytics_data');
+            
+            if (caregiverCache || doctorCache) {
+                console.log('📊 Found cached analytics data:');
+                if (caregiverCache) console.log('  - Caregiver cache:', caregiverCache.length, 'bytes');
+                if (doctorCache) console.log('  - Doctor cache:', doctorCache.length, 'bytes');
+            } else {
+                console.log('✅ No analytics cache found - already clean!');
+            }
+        });
+    </script>
+</body>
+</html>

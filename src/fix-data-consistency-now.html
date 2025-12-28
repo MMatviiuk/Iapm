@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 Fix Data Consistency - Prescription Clarity</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.95;
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .alert {
+            background: #fef2f2;
+            border: 2px solid #fca5a5;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .alert h3 {
+            color: #dc2626;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .alert p {
+            color: #7f1d1d;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .info-box h4 {
+            color: #1e40af;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .info-box p {
+            color: #1e3a8a;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .button {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 18px 32px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+        }
+        
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(33, 150, 243, 0.4);
+        }
+        
+        .button:active {
+            transform: translateY(0);
+        }
+        
+        .success {
+            background: #10b981;
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            display: none;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .steps {
+            margin: 30px 0;
+        }
+        
+        .step {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .step-number {
+            background: #2196F3;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .step-content h4 {
+            color: #1f2937;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .step-content p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #dc2626;
+        }
+        
+        .footer {
+            background: #f9fafb;
+            padding: 20px 30px;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+        }
+        
+        .footer p {
+            color: #6b7280;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>
+                <span>🚨</span>
+                <span>Fix Data Consistency</span>
+            </h1>
+            <p>Medical-Grade Data Integrity Restoration</p>
+        </div>
+        
+        <div class="content">
+            <div class="alert">
+                <h3>⚠️ Critical Issue Detected</h3>
+                <p><strong>Problem:</strong> Dashboard and Analytics showing different data for the same patients!</p>
+                <p style="margin-top: 8px;"><strong>Cause:</strong> Old cached random data still in browser localStorage.</p>
+            </div>
+            
+            <div class="info-box">
+                <h4>🎯 What This Fix Does:</h4>
+                <p>Clears all cached analytics data and forces app to reload <strong>REAL</strong> patient data from the database. Ensures Margaret Williams shows <strong>6 medications</strong> and <strong>94% adherence</strong> everywhere!</p>
+            </div>
+            
+            <button class="button" onclick="fixDataConsistency()">
+                🔧 Fix Data Consistency Now
+            </button>
+            
+            <div id="success" class="success">
+                ✅ Cache Cleared! Reloading with real data...
+            </div>
+            
+            <div class="steps">
+                <h3 style="color: #1f2937; font-size: 18px; font-weight: 700; margin-bottom: 20px;">What Happens:</h3>
+                
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Clear Analytics Cache</h4>
+                        <p>Removes <code>analyticsCache_caregiver</code> and <code>analyticsCache_doctor</code></p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Clear Dashboard Data</h4>
+                        <p>Removes <code>caregiverDependents</code> localStorage</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Reload Application</h4>
+                        <p>App reloads and fetches <strong>real</strong> patient data from database</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Verify Consistency</h4>
+                        <p>Check that Margaret Williams shows same data in Dashboard and Analytics</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-box" style="margin-top: 30px;">
+                <h4>✅ Expected Results:</h4>
+                <p>• Margaret Williams: <strong>6 medications</strong> (not 2 or 8!)<br>
+                   • Margaret Williams: <strong>94% adherence</strong> (not 97% or 45%!)<br>
+                   • Charts: <strong>Filled with data</strong> (not empty!)<br>
+                   • All screens: <strong>Same data everywhere</strong> ✨</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Prescription Clarity</strong> - Medical-Grade Medication Tracking</p>
+            <p style="margin-top: 4px;">November 8, 2025 - Data Consistency Fix</p>
+        </div>
+    </div>
+
+    <script>
+        function fixDataConsistency() {
+            try {
+                // Clear all analytics-related cache
+                localStorage.removeItem('analyticsCache_caregiver');
+                localStorage.removeItem('analyticsCache_doctor');
+                localStorage.removeItem('caregiverDependents');
+                localStorage.removeItem('doctorPatients');
+                
+                // Show success message
+                document.getElementById('success').style.display = 'block';
+                
+                // Reload after 1.5 seconds
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 1500);
+            } catch (error) {
+                alert('Error clearing cache: ' + error.message + '\n\nPlease clear cache manually via DevTools (F12).');
+            }
+        }
+    </script>
+</body>
+</html>

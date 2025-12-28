@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест - Prescription Clarity</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 24px;
+            padding: 40px 30px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        h1 {
+            font-size: 32px;
+            color: #2196F3;
+            margin-bottom: 16px;
+        }
+        p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        .status {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .status-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+        .status-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2e7d32;
+        }
+        .btn {
+            display: inline-block;
+            background: #2196F3;
+            color: white;
+            padding: 16px 40px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:active {
+            transform: scale(0.95);
+        }
+        .steps {
+            text-align: left;
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 24px;
+        }
+        .steps h2 {
+            font-size: 20px;
+            margin-bottom: 16px;
+            color: #333;
+        }
+        .step {
+            margin-bottom: 12px;
+            padding-left: 28px;
+            position: relative;
+            font-size: 16px;
+            color: #555;
+        }
+        .step::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4caf50;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .error-box {
+            background: #ffebee;
+            border: 2px solid #f44336;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 24px;
+        }
+        .error-box h3 {
+            color: #c62828;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+        .error-box p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏥 Prescription Clarity</h1>
+        <p>Тестова сторінка для діагностики</p>
+        
+        <div class="status">
+            <div class="status-icon">✅</div>
+            <div class="status-text">Веб-сервер працює!</div>
+        </div>
+
+        <p>Якщо ви бачите цю сторінку, значить проблема НЕ в сервері.</p>
+
+        <div class="steps">
+            <h2>🔧 Що потрібно зробити:</h2>
+            <div class="step">Очистіть кеш браузера</div>
+            <div class="step">Відкрийте режим інкогніто</div>
+            <div class="step">Або перезавантажте телефон</div>
+        </div>
+
+        <div class="error-box">
+            <h3>🚨 Можлива причина</h3>
+            <p>Ваш браузер кешував стару версію з помилкою. Спробуйте відкрити сайт в інкогніто режимі.</p>
+        </div>
+
+        <a href="/" class="btn">Повернутись на головну</a>
+
+        <div style="margin-top: 32px; font-size: 14px; color: #999;">
+            <p>Якщо проблема залишається:</p>
+            <p style="margin-top: 8px;">
+                <strong>Chrome/Edge:</strong> Меню (⋮) → "Нова вкладка в режимі інкогніто"<br>
+                <strong>Safari:</strong> вкладки → "Приватний перегляд"<br>
+                <strong>Firefox:</strong> Меню → "Приватний перегляд"
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Test if JavaScript is working
+        console.log('✅ JavaScript працює!');
+        console.log('📱 Розмір екрану:', window.innerWidth, 'x', window.innerHeight);
+        console.log('🌐 User Agent:', navigator.userAgent);
+        
+        // Try to access localStorage
+        try {
+            localStorage.setItem('test', 'works');
+            localStorage.removeItem('test');
+            console.log('✅ LocalStorage працює!');
+        } catch (e) {
+            console.error('❌ LocalStorage НЕ працює:', e);
+        }
+    </script>
+</body>
+</html>

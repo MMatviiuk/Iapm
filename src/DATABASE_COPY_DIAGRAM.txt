@@ -1,0 +1,107 @@
+═══════════════════════════════════════════════════════════════
+            DATABASE FILE LOCATION EXPLAINED
+═══════════════════════════════════════════════════════════════
+
+CURRENT SITUATION (BROKEN):
+───────────────────────────────────────────────────────────────
+
+    /data/
+    └── complete-database.json  ✅ EXISTS (source code)
+    
+    /public/data/
+    └── (empty)  ❌ MISSING (needs to be served)
+    
+    Browser requests:
+    → /data/complete-database.json
+    → Vite looks in: /public/data/
+    → File not found
+    → HTTP 404 ERROR ❌
+
+═══════════════════════════════════════════════════════════════
+
+AFTER RUNNING: npm run copy-db
+───────────────────────────────────────────────────────────────
+
+    /data/
+    └── complete-database.json  ✅ EXISTS (source)
+    
+    /public/data/
+    └── complete-database.json  ✅ COPIED (served by Vite)
+    
+    Browser requests:
+    → /data/complete-database.json
+    → Vite looks in: /public/data/
+    → File found! ✅
+    → HTTP 200 SUCCESS ✅
+
+═══════════════════════════════════════════════════════════════
+
+WHY TWO LOCATIONS?
+───────────────────────────────────────────────────────────────
+
+/data/complete-database.json
+  → Source of truth
+  → Tracked by git
+  → Used by developers
+  
+/public/data/complete-database.json
+  → Copy for production
+  → Served by Vite dev server
+  → Accessible by browser
+  → NOT tracked by git (ignored)
+
+═══════════════════════════════════════════════════════════════
+
+THE COPY PROCESS:
+───────────────────────────────────────────────────────────────
+
+    npm run copy-db
+         │
+         ▼
+    scripts/copy-database.js
+         │
+         ├── Creates /public/data/ directory
+         ├── Copies complete-database.json
+         ├── Verifies file sizes match
+         └── Shows success message
+         │
+         ▼
+    ✅ Database ready for browser!
+
+═══════════════════════════════════════════════════════════════
+
+AUTOMATIC COPY (AFTER FIRST TIME):
+───────────────────────────────────────────────────────────────
+
+    npm install     → postinstall hook → copy-database.js
+    npm run dev     → predev hook     → copy-database.js
+    npm run build   → prebuild hook   → copy-database.js
+
+═══════════════════════════════════════════════════════════════
+
+MANUAL COPY ALTERNATIVES:
+───────────────────────────────────────────────────────────────
+
+Option 1: npm run copy-db
+Option 2: ./COPY_DATABASE_NOW.sh (Mac/Linux)
+Option 3: COPY_DATABASE_NOW.bat (Windows)
+Option 4: cp data/complete-database.json public/data/ (manual)
+
+═══════════════════════════════════════════════════════════════
+
+VERIFICATION:
+───────────────────────────────────────────────────────────────
+
+Check if copied:
+  Mac/Linux:  ls -lh public/data/complete-database.json
+  Windows:    dir public\data\complete-database.json
+
+Should show: ~100-200KB file
+
+═══════════════════════════════════════════════════════════════
+                    QUICK FIX COMMAND
+═══════════════════════════════════════════════════════════════
+
+    npm run copy-db && npm run dev
+
+═══════════════════════════════════════════════════════════════

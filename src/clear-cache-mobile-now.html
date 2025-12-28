@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚨 ОЧИСТИ КЕШ ЗАРАЗ!</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .problem {
+            background: rgba(255, 59, 48, 0.2);
+            border-left: 4px solid #ff3b30;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 18px;
+        }
+        .solution {
+            background: rgba(52, 199, 89, 0.2);
+            border-left: 4px solid #34c759;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .step {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: white;
+            color: #667eea;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .important {
+            background: rgba(255, 204, 0, 0.3);
+            border: 2px solid #ffcc00;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            overflow-x: auto;
+        }
+        .check {
+            background: rgba(52, 199, 89, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        li {
+            padding: 8px 0;
+            font-size: 18px;
+        }
+        li:before {
+            content: "✓ ";
+            color: #34c759;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .emoji {
+            font-size: 40px;
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚨 ОЧИСТИ КЕШ ЗАРАЗ!</h1>
+        
+        <div class="emoji">📱 → 🗑️ → ✅</div>
+        
+        <div class="problem">
+            <strong>❌ ПРОБЛЕМА:</strong><br>
+            Код правильний (кнопки 56px), але браузер показує стару версію (40px)!
+        </div>
+
+        <div class="important">
+            💡 КЕШ БРАУЗЕРА = СТАРА ВЕРСІЯ
+        </div>
+
+        <div class="solution">
+            <h2 style="margin-bottom: 15px;">✅ РІШЕННЯ: INCOGNITO РЕЖИМ</h2>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Android Chrome:</strong><br>
+                ⋮ (три крапки) → New incognito tab
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>iOS Safari:</strong><br>
+                Вкладки → Private (ліво внизу)
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                Введи: <strong>localhost:5173</strong>
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                Login: <strong>doctor@demo.com / demo123</strong>
+            </div>
+
+            <div class="step">
+                <span class="step-number">5</span>
+                Розгорни картку <strong>Anna Williams</strong>
+            </div>
+
+            <div class="step">
+                <span class="step-number">6</span>
+                Подивись на кнопки Edit/Delete біля Vitamin D3
+            </div>
+        </div>
+
+        <div class="code">
+            <strong>ЩО МАЄ БУТИ:</strong><br><br>
+            Кнопки Edit/Delete:<br>
+            ┌─────────────┐<br>
+            │   ✏️ EDIT   │ ← 56×56px (великі!)<br>
+            └─────────────┘<br><br>
+            
+            ┌─────────────┐<br>
+            │  🗑️ DELETE  │ ← 56×56px (великі!)<br>
+            └─────────────┘<br><br>
+            
+            Іконки: 24×24px (чітко видно)<br>
+            Легко натиснути пальцем ✓
+        </div>
+
+        <div class="check">
+            <h3 style="margin-bottom: 10px;">🎯 ПЕРЕВІРКА:</h3>
+            <ul>
+                <li>Кнопки ВЕЛИКІ (56×56px)</li>
+                <li>Іконки ЧІТКІ (24×24px)</li>
+                <li>Синій border на Edit</li>
+                <li>Червоний border на Delete</li>
+                <li>Легко натиснути</li>
+            </ul>
+        </div>
+
+        <div class="important">
+            🔥 INCOGNITO = 100% СВІЖИЙ КОД! 🔥
+        </div>
+
+        <div class="solution">
+            <h3 style="margin-bottom: 15px;">📊 ФАКТИЧНІ РОЗМІРИ В КОДІ:</h3>
+            <div class="code" style="background: rgba(0, 0, 0, 0.5);">
+                DoctorDashboardEnhanced.tsx:<br>
+                line 627: h-14 w-14 (56×56px) ✓<br>
+                line 636: h-14 w-14 (56×56px) ✓<br><br>
+                
+                CaregiverDashboardEnhanced.tsx:<br>
+                line 583: h-14 w-14 (56×56px) ✓<br>
+                line 592: h-14 w-14 (56×56px) ✓<br><br>
+                
+                Icons: w-6 h-6 (24×24px) ✓
+            </div>
+        </div>
+
+        <div class="problem">
+            <strong>⏱️ ЧАС:</strong> 10 секунд<br>
+            <strong>📱 ПЛАТФОРМА:</strong> Android/iOS<br>
+            <strong>✅ РЕЗУЛЬТАТ:</strong> Кнопки стануть 56×56px!
+        </div>
+
+        <div class="emoji">🚀</div>
+
+        <div class="important" style="font-size: 24px;">
+            INCOGNITO → ТЕСТ ЗАРАЗ!
+        </div>
+    </div>
+
+    <script>
+        // Auto-refresh reminder
+        setTimeout(() => {
+            if (confirm('🔄 Готовий тестувати? Відкрити Incognito режим?')) {
+                alert('📱 Відкрий Incognito вручну:\n\nAndroid Chrome: ⋮ → New incognito tab\niOS Safari: Вкладки → Private');
+            }
+        }, 5000);
+    </script>
+</body>
+</html>

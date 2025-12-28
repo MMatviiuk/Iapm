@@ -1,0 +1,40 @@
+fix: resolve database 404 error with ESM-compatible solution
+
+Root causes fixed:
+- ESM Module: __dirname undefined in "type": "module" mode
+- Timing: Vite plugin ran too late, file not ready for fetch()
+- Solution: Pre-script + ESM-compatible Vite plugin
+
+Changes:
+- vite.config.ts: Added fileURLToPath() for ESM __dirname compatibility
+- package.json: Pre-script runs copy before Vite starts (dev & build)
+- scripts/copy-database.js: Dedicated copy script with verification
+- public/data/.gitkeep: Preserve directory structure in git
+- public/data/.gitignore: Ignore auto-copied database file
+- Documentation: Complete ESM-specific guides and checklists
+
+Technical details:
+- fetch('/data/complete-database.json') works in both dev & production
+- Dual copy mechanism: Node script (primary) + Vite plugin (backup)
+- Database: /data/*.json (source) → /public/data/*.json (dev) → /dist/data/*.json (prod)
+- Verified: Works with ESM modules, dev server, production build
+
+Testing:
+npm run dev shows:
+  📋 Database Copy Script
+  ✓ Copied complete-database.json to public/data/
+  ✓ Copied complete-database.json to public/data/ (Vite plugin)
+  VITE ready...
+
+Browser console: No HTTP 404 errors ✅
+All dashboards load successfully ✅
+
+Documentation:
+- Quick Fix: /DATABASE_FIX_QUICKSTART.md
+- Complete Guide: /DATABASE_FIX_ESM_FINAL_NOV5_2025.md
+- Verification: /DATABASE_FIX_CHECKLIST.md
+- Summary: /LATEST_FIXES_NOV5_2025.md
+
+Status: PRODUCTION READY ✅
+Fix Version: ESM v3.0
+Date: November 5, 2025

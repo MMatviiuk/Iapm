@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Test - Prescription Clarity</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2196F3;
+            margin: 0 0 20px 0;
+        }
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 8px 0;
+            font-weight: 500;
+        }
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        button {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 8px 8px 8px 0;
+        }
+        button:hover {
+            background: #1976d2;
+        }
+        pre {
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 14px;
+        }
+        .test-result {
+            margin: 12px 0;
+            padding: 12px;
+            border-left: 4px solid #2196F3;
+            background: #f8fafc;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🔧 Database Loading Test</h1>
+        <p>This page tests if the complete-database.json file is accessible.</p>
+        
+        <div id="status"></div>
+        
+        <button onclick="testDatabase()">🧪 Test Database Loading</button>
+        <button onclick="clearStorage()">🗑️ Clear LocalStorage</button>
+        <button onclick="location.reload()">🔄 Reload Page</button>
+    </div>
+
+    <div class="card" id="results" style="display: none;">
+        <h2>Test Results</h2>
+        <div id="test-output"></div>
+    </div>
+
+    <div class="card" id="data-preview" style="display: none;">
+        <h2>Database Preview</h2>
+        <pre id="data-content"></pre>
+    </div>
+
+    <script>
+        const paths = [
+            '/data/complete-database.json',
+            './data/complete-database.json',
+            '../data/complete-database.json',
+            '/public/data/complete-database.json',
+        ];
+
+        function showStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('status');
+            const emoji = type === 'success' ? '✅' : type === 'error' ? '❌' : type === 'warning' ? '⚠️' : 'ℹ️';
+            statusDiv.innerHTML += `<div class="status ${type}">${emoji} ${message}</div>`;
+        }
+
+        function showTestResult(test, passed, details = '') {
+            const output = document.getElementById('test-output');
+            const emoji = passed ? '✅' : '❌';
+            output.innerHTML += `
+                <div class="test-result">
+                    <strong>${emoji} ${test}</strong>
+                    ${details ? `<div style="margin-top: 8px; color: #64748b;">${details}</div>` : ''}
+                </div>
+            `;
+        }
+
+        async function testDatabase() {
+            document.getElementById('status').innerHTML = '';
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('test-output').innerHTML = '';
+            document.getElementById('data-preview').style.display = 'none';
+
+            showStatus('Starting database tests...', 'info');
+
+            let successfulPath = null;
+            let database = null;
+
+            // Test 1: Try loading from different paths
+            for (const path of paths) {
+                try {
+                    showStatus(`Testing path: ${path}`, 'info');
+                    const response = await fetch(path);
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        successfulPath = path;
+                        database = data;
+                        showTestResult(`Path Test: ${path}`, true, `Status: ${response.status} OK`);
+                        showStatus(`✅ Database loaded successfully from: ${path}`, 'success');
+                        break;
+                    } else {
+                        showTestResult(`Path Test: ${path}`, false, `Status: ${response.status}`);
+                    }
+                } catch (error) {
+                    showTestResult(`Path Test: ${path}`, false, `Error: ${error.message}`);
+                }
+            }
+
+            if (!database) {
+                showStatus('❌ Failed to load database from any path!', 'error');
+                showStatus('⚠️ Make sure /public/data/complete-database.json exists', 'warning');
+                return;
+            }
+
+            // Test 2: Validate structure
+            const hasDoct = database.doctors && Array.isArray(database.doctors);
+            const hasCaregivers = database.caregivers && Array.isArray(database.caregivers);
+            const hasPatients = database.patients && Array.isArray(database.patients);
+            
+            showTestResult('Database Structure', hasDoct && hasCaregivers && hasPatients, 
+                `Doctors: ${hasDoct ? '✓' : '✗'}, Caregivers: ${hasCaregivers ? '✓' : '✗'}, Patients: ${hasPatients ? '✓' : '✗'}`);
+
+            // Test 3: Count records
+            const counts = {
+                doctors: database.doctors?.length || 0,
+                caregivers: database.caregivers?.length || 0,
+                patients: database.patients?.length || 0,
+            };
+
+            showTestResult('Record Counts', counts.doctors > 0 && counts.patients > 0,
+                `Doctors: ${counts.doctors}, Caregivers: ${counts.caregivers}, Patients: ${counts.patients}`);
+
+            // Test 4: Find Margaret Williams
+            const margaret = database.patients?.find(p => p.email === 'margaret.williams@example.com');
+            showTestResult('Margaret Williams Found', !!margaret, 
+                margaret ? `Found with ${margaret.medications?.length || 0} medications` : 'Not found');
+
+            // Test 5: Check localStorage
+            const mockUsers = localStorage.getItem('mock_users');
+            const hasMockUsers = !!mockUsers;
+            showTestResult('LocalStorage Users', hasMockUsers,
+                hasMockUsers ? `${JSON.parse(mockUsers).length} users stored` : 'No users in storage');
+
+            if (hasMockUsers) {
+                const users = JSON.parse(mockUsers);
+                const margaretUser = users.find(u => u.email === 'margaret.williams@example.com');
+                showTestResult('Margaret in LocalStorage', !!margaretUser,
+                    margaretUser ? `Has patientData: ${!!margaretUser.patientData}` : 'Not found');
+            }
+
+            // Show preview
+            document.getElementById('data-preview').style.display = 'block';
+            document.getElementById('data-content').textContent = JSON.stringify({
+                summary: {
+                    loadedFrom: successfulPath,
+                    doctors: counts.doctors,
+                    caregivers: counts.caregivers,
+                    patients: counts.patients,
+                },
+                margaretWilliams: margaret ? {
+                    name: `${margaret.firstName} ${margaret.lastName}`,
+                    email: margaret.email,
+                    medications: margaret.medications?.length || 0,
+                    medicationNames: margaret.medications?.map(m => m.name) || [],
+                } : 'Not found',
+            }, null, 2);
+
+            showStatus('✅ All tests completed!', 'success');
+        }
+
+        function clearStorage() {
+            localStorage.clear();
+            sessionStorage.clear();
+            showStatus('✅ LocalStorage and SessionStorage cleared!', 'success');
+            showStatus('🔄 Page will reload in 2 seconds...', 'info');
+            setTimeout(() => location.reload(), 2000);
+        }
+
+        // Auto-run test on page load
+        window.addEventListener('load', () => {
+            setTimeout(testDatabase, 500);
+        });
+    </script>
+</body>
+</html>

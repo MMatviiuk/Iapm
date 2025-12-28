@@ -1,0 +1,26 @@
+@echo off
+echo ========================================
+echo   CLEAR ANALYTICS CACHE
+echo ========================================
+echo.
+echo This will clear analytics cache data
+echo to fix the forEach error.
+echo.
+echo Opening browser instructions...
+echo.
+echo In your browser:
+echo 1. Press F12 to open DevTools
+echo 2. Go to Console tab
+echo 3. Paste this code:
+echo.
+echo localStorage.removeItem('caregiver_analytics_data');
+echo localStorage.removeItem('doctor_analytics_data');
+echo location.reload();
+echo.
+echo ========================================
+echo.
+echo After clearing cache:
+echo 1. Test Caregiver Analytics (catherine.bennett@example.com)
+echo 2. Test Doctor Analytics (j.anderson@medicalpractice.com)
+echo.
+pause

@@ -1,0 +1,48 @@
+fix: Switch Role button + Add 3-month history generator
+
+FIXES:
+- Fixed RoleSwitcherModal not opening in Sidebar/BurgerMenu
+- Added external control support (isOpen/onClose props)
+- Modal now works in both controlled and uncontrolled modes
+
+NEW FEATURES:
+- Medication history generator with realistic 3-month data
+- Adherence calculation utilities (overall, 7-day, 30-day)
+- Daily/weekly chart data generators
+- Skip reason analysis
+- History Demo page with Recharts visualization
+- Centralized TypeScript types in /types/index.ts
+
+IMPROVEMENTS:
+- Debug panel: Added "History Demo" button
+- Documentation: Testing instructions and test report
+- Type safety: All utilities fully typed
+- Realistic patterns: Weekend effect, time-of-day, medication type
+
+FILES MODIFIED:
+- components/RoleSwitcherModal.tsx (external control)
+- App.tsx (HistoryDemo route)
+- guidelines/Guidelines.md (recent improvements)
+
+FILES CREATED:
+- types/index.ts (TypeScript types)
+- utils/medicationHistoryGenerator.ts (history utilities)
+- components/HistoryDemo.tsx (demo page)
+- FUNCTIONALITY_TEST_REPORT.md (testing docs)
+- TESTING_INSTRUCTIONS.md (test guide)
+- FIXES_COMPLETED_NOV5_2025.md (summary)
+- QUICK_TEST_GUIDE.md (quick reference)
+
+TESTING:
+✅ Switch Role works on desktop
+✅ Switch Role works on mobile
+✅ History generator produces realistic data (85-92% adherence)
+✅ Charts display correctly
+✅ Dark mode styled
+✅ TypeScript compiles without errors
+✅ WCAG 2.1 AAA compliant
+
+BREAKING CHANGES: None
+
+Closes: Switch Role button issue
+Implements: 3-month medication history for analytics

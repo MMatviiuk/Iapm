@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📱 10 СЕКУНД - Виправлення</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f44336;
+            color: white;
+            padding: 20px;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .box {
+            background: white;
+            color: #333;
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .step {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            padding: 16px;
+            background: #2196F3;
+            color: white;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .substep {
+            font-size: 18px;
+            margin: 12px 0;
+            padding-left: 32px;
+            position: relative;
+        }
+        .substep::before {
+            content: '→';
+            position: absolute;
+            left: 8px;
+            font-weight: bold;
+            color: #2196F3;
+        }
+        .note {
+            background: #fff9c4;
+            padding: 16px;
+            border-radius: 12px;
+            border-left: 4px solid #fbc02d;
+            margin-top: 16px;
+            color: #666;
+            font-size: 16px;
+        }
+        .success {
+            background: #4caf50;
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 10 СЕКУНД</h1>
+        
+        <div class="box">
+            <div class="step">ШАГ 1: Режим інкогніто</div>
+            
+            <div class="substep">
+                <strong>Chrome:</strong> 3 крапки (⋮) → "Нова вкладка в режимі інкогніто"
+            </div>
+            
+            <div class="substep">
+                <strong>Safari:</strong> Іконка вкладок → "Приватний перегляд" → "+"
+            </div>
+            
+            <div class="substep">
+                <strong>Firefox:</strong> Меню → "Приватний перегляд"
+            </div>
+            
+            <div class="note">
+                ⚡ <strong>ЧОМУ ЦЕ ПРАЦЮЄ:</strong> Інкогніто НЕ використовує старий кеш
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="step">ШАГ 2: Відкрийте сайт</div>
+            
+            <div class="substep">
+                Введіть адресу сайту в новій приватній вкладці
+            </div>
+            
+            <div class="note">
+                ✅ Має працювати одразу!
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="step">ЯКЩО НЕ ПРАЦЮЄ: Очистіть кеш</div>
+            
+            <div class="substep">
+                <strong>Chrome:</strong> Налаштування → Конфіденційність → Очистити дані
+            </div>
+            
+            <div class="substep">
+                <strong>Safari:</strong> Налаштування iOS → Safari → Очистити історію та дані
+            </div>
+            
+            <div class="substep">
+                Закрийте браузер ПОВНІСТЮ (свайп вгору в списку додатків)
+            </div>
+            
+            <div class="substep">
+                Відкрийте браузер знову
+            </div>
+        </div>
+
+        <div class="success">
+            ✅ ГОТОВО!
+        </div>
+
+        <div class="box" style="margin-top: 24px;">
+            <h2 style="margin-bottom: 12px; color: #f44336;">❓ Що сталося?</h2>
+            <p style="margin-bottom: 12px;">
+                Ваш браузер зберіг <strong>стару версію</strong> сайту з помилкою в пам'яті (кеш).
+            </p>
+            <p>
+                Навіть після виправлення помилки, браузер показував <strong>старий код</strong>.
+            </p>
+        </div>
+
+        <div class="box">
+            <h2 style="margin-bottom: 12px; color: #2196F3;">🎯 Тест</h2>
+            <p>Відкрийте в інкогніто:</p>
+            <p style="background: #f5f5f5; padding: 12px; border-radius: 8px; margin-top: 8px; word-break: break-all; font-size: 16px; color: #666;">
+                <strong>http://your-site.com/test-phone.html</strong>
+            </p>
+            <p style="margin-top: 12px;">
+                Якщо бачите зелену галочку → проблема в кеші
+            </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 32px; font-size: 14px; opacity: 0.8;">
+            Створено: 8 листопада 2025<br>
+            Prescription Clarity
+        </div>
+    </div>
+</body>
+</html>

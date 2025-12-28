@@ -1,0 +1,19 @@
+@echo off
+echo ====================================
+echo CLEARING DEMO DATA
+echo ====================================
+echo.
+echo This will clear all demo data from localStorage
+echo Please refresh the browser after clearing
+echo.
+echo Instructions:
+echo 1. Open browser DevTools (F12)
+echo 2. Go to Application tab (Chrome) or Storage tab (Firefox)
+echo 3. Under Storage -> Local Storage -> select your site
+echo 4. Click "Clear All" button
+echo 5. Refresh the page (Ctrl+R or F5)
+echo.
+echo Or run this in browser console:
+echo localStorage.clear(); location.reload();
+echo.
+pause

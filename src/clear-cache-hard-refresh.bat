@@ -1,0 +1,34 @@
+@echo off
+echo.
+echo ===================================================
+echo   CRITICAL FIX: Clear Browser Cache
+echo ===================================================
+echo.
+echo Your browser cached OLD code!
+echo.
+echo INSTRUCTIONS:
+echo.
+echo 1. STOP the server (Ctrl+C in the terminal)
+echo 2. Press ANY KEY to continue...
+pause >nul
+echo.
+echo 3. Now do HARD REFRESH in browser:
+echo    - Windows: Ctrl + Shift + R
+echo    - Mac: Cmd + Shift + R
+echo.
+echo 4. If still not working:
+echo    - Open DevTools (F12)
+echo    - Right-click Refresh button
+echo    - Click "Empty Cache and Hard Reload"
+echo.
+echo 5. Test again:
+echo    - Login: patient@demo.com / demo123
+echo    - Check avatar (burger menu)
+echo    - Edit medication, change meal timing
+echo    - Check Console for messages
+echo.
+echo ===================================================
+echo   READ FULL GUIDE: 🚨_CRITICAL_FIX_CLEAR_CACHE_NOW.md
+echo ===================================================
+echo.
+pause

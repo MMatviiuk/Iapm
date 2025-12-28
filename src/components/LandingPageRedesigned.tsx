@@ -22,6 +22,7 @@ import {
 import { Button } from './ui/button';
 import { PillShieldLogo } from './PillShieldLogo';
 import { getAvatarUrl } from '../utils/avatarUtils';
+import { HeroIllustration } from './HeroIllustration';
 
 interface LandingPageRedesignedProps {
   onGetStarted: () => void;
@@ -422,45 +423,7 @@ export default function LandingPageRedesigned({
                 transition={{ duration: 0.7, delay: 0.3 }}
                 className="relative hidden lg:block"
               >
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-                  <img
-                    src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800"
-                    alt="Medication management dashboard"
-                    className="w-full h-auto object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/30 to-transparent"></div>
-                </div>
-                
-                {/* Floating Stats Cards */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.8 }}
-                  className={`absolute -bottom-6 left-8 right-8 p-6 rounded-2xl backdrop-blur-xl ${
-                    darkMode ? 'bg-slate-900/90 border border-slate-700' : 'bg-white/90 border border-slate-200'
-                  } shadow-2xl`}
-                >
-                  <div className="grid grid-cols-2 gap-6">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-950/50 flex items-center justify-center">
-                        <TrendingUp className="w-6 h-6 text-green-600 dark:text-green-400" />
-                      </div>
-                      <div>
-                        <p className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-slate-900'}`}>95%</p>
-                        <p className={`text-sm ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Adherence</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950/50 flex items-center justify-center">
-                        <Users className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                      </div>
-                      <div>
-                        <p className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-slate-900'}`}>10K+</p>
-                        <p className={`text-sm ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Users</p>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
+                <HeroIllustration darkMode={darkMode} />
               </motion.div>
             </div>
 

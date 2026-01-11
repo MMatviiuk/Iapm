@@ -1,0 +1,424 @@
+{
+  "description": "Enhanced Demo Data - November 7, 2025 - All European photos, Complex prescriptions, More dependents & patients",
+  "caregivers": [{
+    "id": "cg_001",
+    "firstName": "Catherine",
+    "lastName": "Bennett",
+    "email": "caregiver@demo.com",
+    "photoUrl": "https://images.unsplash.com/photo-1691399055809-089c52671f84?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGNsb3NlJTIwdXAlMjBwb3J0cmFpdCUyMGhlYWRzaG90fGVufDF8fHx8MTc2Mjg1NjEyMXww&ixlib=rb-4.1.0&q=80&w=400",
+    "dependents": ["dep_001", "dep_002", "dep_003", "dep_004", "dep_005", "dep_006"]
+  }],
+  "doctors": [{
+    "id": "doc_001",
+    "firstName": "Dr. James",
+    "lastName": "Anderson",
+    "email": "doctor@demo.com",
+    "specialty": "General Practice",
+    "photoUrl": "https://images.unsplash.com/photo-1631596577204-53ad0d6e6978?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkb2N0b3IlMjBtYW4lMjBjbG9zZSUyMHBvcnRyYWl0JTIwZmFjZXxlbnwxfHx8fDE3NjI4NTYxMjh8MA&ixlib=rb-4.1.0&q=80&w=400",
+    "patients": ["pt_001", "pt_002", "pt_003", "pt_004", "pt_005", "pt_006", "pt_007", "pt_008", "pt_009", "pt_010", "pt_011", "pt_012", "pt_013", "pt_014", "pt_015"]
+  }],
+  "dependents": [
+    {
+      "id": "dep_001",
+      "firstName": "Margaret",
+      "lastName": "Williams",
+      "dateOfBirth": "1945-06-15",
+      "gender": "female",
+      "caregiverId": "cg_001",
+      "adherenceRate": 95,
+      "medications": [
+        {
+          "id": "rx_001",
+          "name": "Ramipril",
+          "dosage": "5mg",
+          "time": "08:00",
+          "taken": true,
+          "form": "Tablet",
+          "frequency": "Once daily",
+          "mealTiming": "before",
+          "duration": "Lifetime"
+        },
+        {
+          "id": "rx_002",
+          "name": "Metformin",
+          "dosage": "500mg",
+          "time": "08:00",
+          "taken": true,
+          "form": "Tablet",
+          "frequency": "Twice daily",
+          "mealTiming": "with",
+          "duration": "Lifetime"
+        },
+        {
+          "id": "rx_003",
+          "name": "Metformin",
+          "dosage": "500mg",
+          "time": "20:00",
+          "taken": false,
+          "form": "Tablet",
+          "frequency": "Twice daily",
+          "mealTiming": "with",
+          "duration": "Lifetime"
+        },
+        {
+          "id": "rx_004",
+          "name": "Aspirin",
+          "dosage": "75mg",
+          "time": "08:00",
+          "taken": true,
+          "form": "Tablet",
+          "frequency": "Once daily",
+          "mealTiming": "with",
+          "duration": "Lifetime"
+        },
+        {
+          "id": "rx_005",
+          "name": "Atorvastatin",
+          "dosage": "20mg",
+          "time": "20:00",
+          "taken": false,
+          "form": "Tablet",
+          "frequency": "Once daily",
+          "mealTiming": "after",
+          "duration": "Lifetime"
+        },
+        {
+          "id": "rx_006",
+          "name": "Omeprazole",
+          "dosage": "20mg",
+          "time": "07:30",
+          "taken": true,
+          "form": "Capsule",
+          "frequency": "Once daily",
+          "mealTiming": "before",
+          "duration": "Lifetime"
+        },
+        {
+          "id": "rx_007",
+          "name": "Vitamin D3",
+          "dosage": "2000 IU",
+          "time": "08:00",
+          "taken": true,
+          "form": "Capsule",
+          "frequency": "Once daily",
+          "mealTiming": "with",
+          "duration": "Lifetime"
+        },
+        {
+          "id": "rx_008",
+          "name": "Calcium",
+          "dosage": "600mg",
+          "time": "08:00",
+          "taken": true,
+          "form": "Tablet",
+          "frequency": "Twice daily",
+          "mealTiming": "with",
+          "duration": "Lifetime"
+        },
+        {
+          "id": "rx_009",
+          "name": "Calcium",
+          "dosage": "600mg",
+          "time": "20:00",
+          "taken": false,
+          "form": "Tablet",
+          "frequency": "Twice daily",
+          "mealTiming": "with",
+          "duration": "Lifetime"
+        },
+        {
+          "id": "rx_010",
+          "name": "Bisoprolol",
+          "dosage": "2.5mg",
+          "time": "08:00",
+          "taken": true,
+          "form": "Tablet",
+          "frequency": "Once daily",
+          "mealTiming": "anytime",
+          "duration": "Lifetime"
+        }
+      ]
+    },
+    {
+      "id": "dep_002",
+      "firstName": "Hans",
+      "lastName": "Müller",
+      "dateOfBirth": "1949-03-22",
+      "gender": "male",
+      "caregiverId": "cg_001",
+      "adherenceRate": 91,
+      "medications": [
+        {
+          "id": "rx_011",
+          "name": "Insulin Glargine",
+          "dosage": "20 units",
+          "time": "22:00",
+          "taken": false,
+          "form": "Injection",
+          "frequency": "Once daily",
+          "mealTiming": "anytime",
+          "duration": "Lifetime",
+          "specialInstructions": "Subcutaneous injection"
+        },
+        {
+          "id": "rx_012",
+          "name": "Insulin Aspart",
+          "dosage": "6 units",
+          "time": "08:00",
+          "taken": true,
+          "form": "Injection",
+          "frequency": "Three times daily",
+          "mealTiming": "before",
+          "duration": "Lifetime"
+        },
+        {
+          "id": "rx_013",
+          "name": "Insulin Aspart",
+          "dosage": "6 units",
+          "time": "12:00",
+          "taken": false,
+          "form": "Injection",
+          "frequency": "Three times daily",
+          "mealTiming": "before",
+          "duration": "Lifetime"
+        },
+        {
+          "id": "rx_014",
+          "name": "Insulin Aspart",
+          "dosage": "6 units",
+          "time": "18:00",
+          "taken": false,
+          "form": "Injection",
+          "frequency": "Three times daily",
+          "mealTiming": "before",
+          "duration": "Lifetime"
+        },
+        {
+          "id": "rx_015",
+          "name": "Warfarin",
+          "dosage": "5mg",
+          "time": "18:00",
+          "taken": false,
+          "form": "Tablet",
+          "frequency": "Once daily",
+          "mealTiming": "anytime",
+          "duration": "Lifetime",
+          "specialInstructions": "Monitor INR weekly"
+        },
+        {
+          "id": "rx_016",
+          "name": "Furosemide",
+          "dosage": "40mg",
+          "time": "08:00",
+          "taken": true,
+          "form": "Tablet",
+          "frequency": "Once daily",
+          "mealTiming": "anytime",
+          "duration": "Lifetime"
+        }
+      ]
+    },
+    {
+      "id": "dep_003",
+      "firstName": "Sophie",
+      "lastName": "Dubois",
+      "dateOfBirth": "1955-11-08",
+      "gender": "female",
+      "caregiverId": "cg_001",
+      "adherenceRate": 97,
+      "medications": [
+        {
+          "id": "rx_017",
+          "name": "Levothyroxine",
+          "dosage": "100mcg",
+          "time": "07:00",
+          "taken": true,
+          "form": "Tablet",
+          "frequency": "Once daily",
+          "mealTiming": "before",
+          "duration": "Lifetime",
+          "specialInstructions": "Take 30min before breakfast"
+        },
+        {
+          "id": "rx_018",
+          "name": "Amlodipine",
+          "dosage": "5mg",
+          "time": "08:00",
+          "taken": true,
+          "form": "Tablet",
+          "frequency": "Once daily",
+          "mealTiming": "anytime",
+          "duration": "Lifetime"
+        },
+        {
+          "id": "rx_019",
+          "name": "Symbicort Inhaler",
+          "dosage": "2 puffs",
+          "time": "08:00",
+          "taken": true,
+          "form": "Inhaler",
+          "frequency": "Twice daily",
+          "mealTiming": "anytime",
+          "duration": "Lifetime"
+        },
+        {
+          "id": "rx_020",
+          "name": "Symbicort Inhaler",
+          "dosage": "2 puffs",
+          "time": "20:00",
+          "taken": false,
+          "form": "Inhaler",
+          "frequency": "Twice daily",
+          "mealTiming": "anytime",
+          "duration": "Lifetime"
+        }
+      ]
+    },
+    {
+      "id": "dep_004",
+      "firstName": "Elizabeth",
+      "lastName": "Clark",
+      "dateOfBirth": "1952-09-14",
+      "gender": "female",
+      "caregiverId": "cg_001",
+      "adherenceRate": 88,
+      "medications": [
+        {
+          "id": "rx_021",
+          "name": "Enoxaparin",
+          "dosage": "40mg",
+          "time": "20:00",
+          "taken": false,
+          "form": "Injection",
+          "frequency": "Mon/Wed/Fri only",
+          "mealTiming": "anytime",
+          "duration": "6 months",
+          "daysOfWeek": {
+            "mon": true,
+            "tue": false,
+            "wed": true,
+            "thu": false,
+            "fri": true,
+            "sat": false,
+            "sun": false
+          },
+          "specialInstructions": "Subcutaneous injection, Mon/Wed/Fri only"
+        },
+        {
+          "id": "rx_022",
+          "name": "Prednisolone",
+          "dosage": "10mg",
+          "time": "08:00",
+          "taken": true,
+          "form": "Tablet",
+          "frequency": "Once daily",
+          "mealTiming": "with",
+          "duration": "3 months",
+          "specialInstructions": "Take with food to prevent stomach upset"
+        },
+        {
+          "id": "rx_023",
+          "name": "Hydrocortisone Cream",
+          "dosage": "1%",
+          "time": "08:00",
+          "taken": true,
+          "form": "Cream",
+          "frequency": "Twice daily",
+          "mealTiming": "anytime",
+          "duration": "Until rash clears"
+        },
+        {
+          "id": "rx_024",
+          "name": "Hydrocortisone Cream",
+          "dosage": "1%",
+          "time": "20:00",
+          "taken": false,
+          "form": "Cream",
+          "frequency": "Twice daily",
+          "mealTiming": "anytime",
+          "duration": "Until rash clears"
+        }
+      ]
+    },
+    {
+      "id": "dep_005",
+      "firstName": "Robert",
+      "lastName": "Schmidt",
+      "dateOfBirth": "1947-01-30",
+      "gender": "male",
+      "caregiverId": "cg_001",
+      "adherenceRate": 85,
+      "medications": [
+        {
+          "id": "rx_025",
+          "name": "Donepezil",
+          "dosage": "10mg",
+          "time": "20:00",
+          "taken": false,
+          "form": "Tablet",
+          "frequency": "Once daily",
+          "mealTiming": "anytime",
+          "duration": "Lifetime",
+          "specialInstructions": "For Alzheimer's disease"
+        },
+        {
+          "id": "rx_026",
+          "name": "Memantine",
+          "dosage": "10mg",
+          "time": "08:00",
+          "taken": true,
+          "form": "Tablet",
+          "frequency": "Twice daily",
+          "mealTiming": "anytime",
+          "duration": "Lifetime"
+        },
+        {
+          "id": "rx_027",
+          "name": "Memantine",
+          "dosage": "10mg",
+          "time": "20:00",
+          "taken": false,
+          "form": "Tablet",
+          "frequency": "Twice daily",
+          "mealTiming": "anytime",
+          "duration": "Lifetime"
+        },
+        {
+          "id": "rx_028",
+          "name": "Rivastigmine Patch",
+          "dosage": "9.5mg/24hr",
+          "time": "08:00",
+          "taken": true,
+          "form": "Other",
+          "frequency": "Once daily",
+          "mealTiming": "anytime",
+          "duration": "Lifetime",
+          "specialInstructions": "Apply patch to clean, dry skin"
+        }
+      ]
+    },
+    {
+      "id": "dep_006",
+      "firstName": "Anna",
+      "lastName": "Williams",
+      "dateOfBirth": "2014-07-20",
+      "gender": "female",
+      "caregiverId": "cg_001",
+      "adherenceRate": 92,
+      "medications": [
+        {
+          "id": "rx_029",
+          "name": "Salbutamol Inhaler",
+          "dosage": "2 puffs",
+          "time": "08:00",
+          "taken": true,
+          "form": "Inhaler",
+          "frequency": "As needed",
+          "mealTiming": "anytime",
+          "duration": "Ongoing",
+          "specialInstructions": "Use before exercise or when wheezing"
+        }
+      ]
+    }
+  ]
+}

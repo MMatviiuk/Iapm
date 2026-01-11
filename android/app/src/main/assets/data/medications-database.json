@@ -1,0 +1,282 @@
+{
+  "categories": [
+    {
+      "id": "cardiovascular",
+      "name": "Cardiovascular",
+      "description": "Medications for heart and blood vessel conditions",
+      "medications": [
+        { "id": "med_001", "name": "Aspirin", "genericName": "Acetylsalicylic acid", "dosages": ["75mg", "100mg", "300mg"], "commonUses": ["Heart attack prevention", "Stroke prevention", "Blood thinner"] },
+        { "id": "med_002", "name": "Lisinopril", "genericName": "Lisinopril", "dosages": ["2.5mg", "5mg", "10mg", "20mg"], "commonUses": ["High blood pressure", "Heart failure"] },
+        { "id": "med_003", "name": "Atorvastatin", "genericName": "Atorvastatin", "dosages": ["10mg", "20mg", "40mg", "80mg"], "commonUses": ["High cholesterol", "Heart disease prevention"] },
+        { "id": "med_004", "name": "Amlodipine", "genericName": "Amlodipine", "dosages": ["2.5mg", "5mg", "10mg"], "commonUses": ["High blood pressure", "Angina"] },
+        { "id": "med_005", "name": "Metoprolol", "genericName": "Metoprolol", "dosages": ["25mg", "50mg", "100mg"], "commonUses": ["High blood pressure", "Heart failure", "Angina"] },
+        { "id": "med_006", "name": "Ramipril", "genericName": "Ramipril", "dosages": ["1.25mg", "2.5mg", "5mg", "10mg"], "commonUses": ["High blood pressure", "Heart failure"] },
+        { "id": "med_007", "name": "Bisoprolol", "genericName": "Bisoprolol", "dosages": ["2.5mg", "5mg", "10mg"], "commonUses": ["High blood pressure", "Heart failure"] },
+        { "id": "med_008", "name": "Warfarin", "genericName": "Warfarin", "dosages": ["1mg", "3mg", "5mg"], "commonUses": ["Blood clot prevention", "Atrial fibrillation"] },
+        { "id": "med_009", "name": "Clopidogrel", "genericName": "Clopidogrel", "dosages": ["75mg"], "commonUses": ["Heart attack prevention", "Stroke prevention"] },
+        { "id": "med_010", "name": "Simvastatin", "genericName": "Simvastatin", "dosages": ["10mg", "20mg", "40mg", "80mg"], "commonUses": ["High cholesterol"] }
+      ]
+    },
+    {
+      "id": "diabetes",
+      "name": "Diabetes & Metabolic",
+      "description": "Medications for diabetes and metabolic disorders",
+      "medications": [
+        { "id": "med_011", "name": "Metformin", "genericName": "Metformin", "dosages": ["500mg", "850mg", "1000mg"], "commonUses": ["Type 2 diabetes", "PCOS"] },
+        { "id": "med_012", "name": "Insulin Glargine", "genericName": "Insulin glargine", "dosages": ["100 units/mL"], "commonUses": ["Type 1 diabetes", "Type 2 diabetes"] },
+        { "id": "med_013", "name": "Gliclazide", "genericName": "Gliclazide", "dosages": ["30mg", "60mg", "80mg"], "commonUses": ["Type 2 diabetes"] },
+        { "id": "med_014", "name": "Empagliflozin", "genericName": "Empagliflozin", "dosages": ["10mg", "25mg"], "commonUses": ["Type 2 diabetes", "Heart failure"] },
+        { "id": "med_015", "name": "Sitagliptin", "genericName": "Sitagliptin", "dosages": ["25mg", "50mg", "100mg"], "commonUses": ["Type 2 diabetes"] }
+      ]
+    },
+    {
+      "id": "respiratory",
+      "name": "Respiratory",
+      "description": "Medications for asthma, COPD and respiratory conditions",
+      "medications": [
+        { "id": "med_016", "name": "Salbutamol", "genericName": "Albuterol", "dosages": ["100mcg inhaler"], "commonUses": ["Asthma", "COPD", "Bronchospasm"] },
+        { "id": "med_017", "name": "Budesonide", "genericName": "Budesonide", "dosages": ["200mcg", "400mcg"], "commonUses": ["Asthma", "COPD"] },
+        { "id": "med_018", "name": "Tiotropium", "genericName": "Tiotropium", "dosages": ["18mcg"], "commonUses": ["COPD"] },
+        { "id": "med_019", "name": "Montelukast", "genericName": "Montelukast", "dosages": ["4mg", "5mg", "10mg"], "commonUses": ["Asthma", "Allergies"] },
+        { "id": "med_020", "name": "Fluticasone", "genericName": "Fluticasone", "dosages": ["50mcg", "125mcg", "250mcg"], "commonUses": ["Asthma", "Allergic rhinitis"] }
+      ]
+    },
+    {
+      "id": "gastrointestinal",
+      "name": "Gastrointestinal",
+      "description": "Medications for digestive system disorders",
+      "medications": [
+        { "id": "med_021", "name": "Omeprazole", "genericName": "Omeprazole", "dosages": ["10mg", "20mg", "40mg"], "commonUses": ["GERD", "Stomach ulcers", "Heartburn"] },
+        { "id": "med_022", "name": "Lansoprazole", "genericName": "Lansoprazole", "dosages": ["15mg", "30mg"], "commonUses": ["GERD", "Stomach ulcers"] },
+        { "id": "med_023", "name": "Pantoprazole", "genericName": "Pantoprazole", "dosages": ["20mg", "40mg"], "commonUses": ["GERD", "Stomach ulcers"] },
+        { "id": "med_024", "name": "Ranitidine", "genericName": "Ranitidine", "dosages": ["150mg", "300mg"], "commonUses": ["Heartburn", "Stomach ulcers"] },
+        { "id": "med_025", "name": "Loperamide", "genericName": "Loperamide", "dosages": ["2mg"], "commonUses": ["Diarrhea"] }
+      ]
+    },
+    {
+      "id": "pain_inflammation",
+      "name": "Pain & Inflammation",
+      "description": "Analgesics and anti-inflammatory medications",
+      "medications": [
+        { "id": "med_026", "name": "Paracetamol", "genericName": "Acetaminophen", "dosages": ["500mg", "1000mg"], "commonUses": ["Pain relief", "Fever"] },
+        { "id": "med_027", "name": "Ibuprofen", "genericName": "Ibuprofen", "dosages": ["200mg", "400mg", "600mg"], "commonUses": ["Pain relief", "Inflammation", "Fever"] },
+        { "id": "med_028", "name": "Naproxen", "genericName": "Naproxen", "dosages": ["250mg", "500mg"], "commonUses": ["Pain relief", "Inflammation"] },
+        { "id": "med_029", "name": "Diclofenac", "genericName": "Diclofenac", "dosages": ["50mg", "75mg", "100mg"], "commonUses": ["Pain relief", "Arthritis", "Inflammation"] },
+        { "id": "med_030", "name": "Codeine", "genericName": "Codeine phosphate", "dosages": ["15mg", "30mg", "60mg"], "commonUses": ["Moderate pain", "Cough suppression"] }
+      ]
+    },
+    {
+      "id": "thyroid",
+      "name": "Thyroid Disorders",
+      "description": "Medications for thyroid conditions",
+      "medications": [
+        { "id": "med_031", "name": "Levothyroxine", "genericName": "Levothyroxine", "dosages": ["25mcg", "50mcg", "75mcg", "100mcg", "125mcg"], "commonUses": ["Hypothyroidism"] },
+        { "id": "med_032", "name": "Carbimazole", "genericName": "Carbimazole", "dosages": ["5mg", "20mg"], "commonUses": ["Hyperthyroidism"] },
+        { "id": "med_033", "name": "Propylthiouracil", "genericName": "Propylthiouracil", "dosages": ["50mg"], "commonUses": ["Hyperthyroidism"] }
+      ]
+    },
+    {
+      "id": "mental_health",
+      "name": "Mental Health",
+      "description": "Antidepressants, anxiolytics and mood stabilizers",
+      "medications": [
+        { "id": "med_034", "name": "Sertraline", "genericName": "Sertraline", "dosages": ["25mg", "50mg", "100mg"], "commonUses": ["Depression", "Anxiety", "OCD"] },
+        { "id": "med_035", "name": "Escitalopram", "genericName": "Escitalopram", "dosages": ["5mg", "10mg", "20mg"], "commonUses": ["Depression", "Anxiety"] },
+        { "id": "med_036", "name": "Fluoxetine", "genericName": "Fluoxetine", "dosages": ["20mg", "40mg", "60mg"], "commonUses": ["Depression", "OCD", "Bulimia"] },
+        { "id": "med_037", "name": "Venlafaxine", "genericName": "Venlafaxine", "dosages": ["37.5mg", "75mg", "150mg"], "commonUses": ["Depression", "Anxiety"] },
+        { "id": "med_038", "name": "Mirtazapine", "genericName": "Mirtazapine", "dosages": ["15mg", "30mg", "45mg"], "commonUses": ["Depression", "Sleep problems"] },
+        { "id": "med_039", "name": "Diazepam", "genericName": "Diazepam", "dosages": ["2mg", "5mg", "10mg"], "commonUses": ["Anxiety", "Muscle spasms", "Seizures"] },
+        { "id": "med_040", "name": "Lorazepam", "genericName": "Lorazepam", "dosages": ["0.5mg", "1mg", "2mg"], "commonUses": ["Anxiety", "Insomnia"] }
+      ]
+    },
+    {
+      "id": "antibiotics",
+      "name": "Antibiotics",
+      "description": "Antimicrobial medications for bacterial infections",
+      "medications": [
+        { "id": "med_041", "name": "Amoxicillin", "genericName": "Amoxicillin", "dosages": ["250mg", "500mg"], "commonUses": ["Bacterial infections", "Pneumonia", "UTI"] },
+        { "id": "med_042", "name": "Azithromycin", "genericName": "Azithromycin", "dosages": ["250mg", "500mg"], "commonUses": ["Respiratory infections", "STIs"] },
+        { "id": "med_043", "name": "Ciprofloxacin", "genericName": "Ciprofloxacin", "dosages": ["250mg", "500mg", "750mg"], "commonUses": ["UTI", "Respiratory infections"] },
+        { "id": "med_044", "name": "Doxycycline", "genericName": "Doxycycline", "dosages": ["100mg"], "commonUses": ["Bacterial infections", "Acne", "Malaria prevention"] },
+        { "id": "med_045", "name": "Clarithromycin", "genericName": "Clarithromycin", "dosages": ["250mg", "500mg"], "commonUses": ["Respiratory infections", "H. pylori"] }
+      ]
+    },
+    {
+      "id": "neurological",
+      "name": "Neurological",
+      "description": "Medications for neurological conditions",
+      "medications": [
+        { "id": "med_046", "name": "Gabapentin", "genericName": "Gabapentin", "dosages": ["100mg", "300mg", "400mg"], "commonUses": ["Nerve pain", "Epilepsy"] },
+        { "id": "med_047", "name": "Pregabalin", "genericName": "Pregabalin", "dosages": ["75mg", "150mg", "300mg"], "commonUses": ["Nerve pain", "Fibromyalgia", "Epilepsy"] },
+        { "id": "med_048", "name": "Levetiracetam", "genericName": "Levetiracetam", "dosages": ["250mg", "500mg", "1000mg"], "commonUses": ["Epilepsy"] },
+        { "id": "med_049", "name": "Donepezil", "genericName": "Donepezil", "dosages": ["5mg", "10mg"], "commonUses": ["Alzheimer's disease"] },
+        { "id": "med_050", "name": "Memantine", "genericName": "Memantine", "dosages": ["10mg", "20mg"], "commonUses": ["Alzheimer's disease"] }
+      ]
+    },
+    {
+      "id": "vitamins_supplements",
+      "name": "Vitamins & Supplements",
+      "description": "Nutritional supplements and vitamins",
+      "medications": [
+        { "id": "med_051", "name": "Vitamin D3", "genericName": "Cholecalciferol", "dosages": ["1000 IU", "2000 IU", "5000 IU"], "commonUses": ["Vitamin D deficiency", "Bone health"] },
+        { "id": "med_052", "name": "Vitamin B12", "genericName": "Cyanocobalamin", "dosages": ["500mcg", "1000mcg"], "commonUses": ["B12 deficiency", "Anemia"] },
+        { "id": "med_053", "name": "Folic Acid", "genericName": "Folic acid", "dosages": ["400mcg", "5mg"], "commonUses": ["Pregnancy", "Anemia"] },
+        { "id": "med_054", "name": "Calcium Carbonate", "genericName": "Calcium carbonate", "dosages": ["500mg", "1000mg"], "commonUses": ["Bone health", "Calcium deficiency"] },
+        { "id": "med_055", "name": "Iron Sulfate", "genericName": "Ferrous sulfate", "dosages": ["200mg"], "commonUses": ["Iron deficiency", "Anemia"] },
+        { "id": "med_056", "name": "Magnesium", "genericName": "Magnesium citrate", "dosages": ["200mg", "400mg"], "commonUses": ["Magnesium deficiency", "Muscle cramps"] },
+        { "id": "med_057", "name": "Omega-3", "genericName": "Omega-3 fatty acids", "dosages": ["1000mg"], "commonUses": ["Heart health", "Cholesterol"] },
+        { "id": "med_058", "name": "Multivitamin", "genericName": "Multivitamin", "dosages": ["1 tablet"], "commonUses": ["General nutrition"] }
+      ]
+    },
+    {
+      "id": "osteoporosis",
+      "name": "Bone Health",
+      "description": "Medications for osteoporosis and bone disorders",
+      "medications": [
+        { "id": "med_059", "name": "Alendronate", "genericName": "Alendronic acid", "dosages": ["70mg"], "commonUses": ["Osteoporosis"] },
+        { "id": "med_060", "name": "Risedronate", "genericName": "Risedronate", "dosages": ["35mg"], "commonUses": ["Osteoporosis"] },
+        { "id": "med_061", "name": "Denosumab", "genericName": "Denosumab", "dosages": ["60mg injection"], "commonUses": ["Osteoporosis"] }
+      ]
+    },
+    {
+      "id": "allergies",
+      "name": "Allergies",
+      "description": "Antihistamines and allergy medications",
+      "medications": [
+        { "id": "med_062", "name": "Cetirizine", "genericName": "Cetirizine", "dosages": ["10mg"], "commonUses": ["Hay fever", "Allergies", "Hives"] },
+        { "id": "med_063", "name": "Loratadine", "genericName": "Loratadine", "dosages": ["10mg"], "commonUses": ["Hay fever", "Allergies"] },
+        { "id": "med_064", "name": "Fexofenadine", "genericName": "Fexofenadine", "dosages": ["120mg", "180mg"], "commonUses": ["Hay fever", "Allergies"] },
+        { "id": "med_065", "name": "Chlorphenamine", "genericName": "Chlorpheniramine", "dosages": ["4mg"], "commonUses": ["Allergies", "Itching"] }
+      ]
+    },
+    {
+      "id": "eye_ear",
+      "name": "Eye & Ear",
+      "description": "Ophthalmic and otic medications",
+      "medications": [
+        { "id": "med_066", "name": "Latanoprost", "genericName": "Latanoprost", "dosages": ["0.005% drops"], "commonUses": ["Glaucoma", "Eye pressure"] },
+        { "id": "med_067", "name": "Timolol Eye Drops", "genericName": "Timolol", "dosages": ["0.25%", "0.5%"], "commonUses": ["Glaucoma"] },
+        { "id": "med_068", "name": "Artificial Tears", "genericName": "Hypromellose", "dosages": ["0.3% drops"], "commonUses": ["Dry eyes"] }
+      ]
+    },
+    {
+      "id": "dermatology",
+      "name": "Dermatology",
+      "description": "Skin condition medications",
+      "medications": [
+        { "id": "med_069", "name": "Hydrocortisone", "genericName": "Hydrocortisone", "dosages": ["1% cream"], "commonUses": ["Eczema", "Dermatitis", "Rashes"] },
+        { "id": "med_070", "name": "Betamethasone", "genericName": "Betamethasone", "dosages": ["0.1% cream"], "commonUses": ["Eczema", "Psoriasis"] },
+        { "id": "med_071", "name": "Fusidic Acid", "genericName": "Fusidic acid", "dosages": ["2% cream"], "commonUses": ["Skin infections"] },
+        { "id": "med_072", "name": "Clotrimazole", "genericName": "Clotrimazole", "dosages": ["1% cream"], "commonUses": ["Fungal infections", "Athlete's foot"] }
+      ]
+    },
+    {
+      "id": "urological",
+      "name": "Urological",
+      "description": "Medications for urinary and prostate conditions",
+      "medications": [
+        { "id": "med_073", "name": "Tamsulosin", "genericName": "Tamsulosin", "dosages": ["400mcg"], "commonUses": ["Enlarged prostate", "BPH"] },
+        { "id": "med_074", "name": "Finasteride", "genericName": "Finasteride", "dosages": ["5mg"], "commonUses": ["Enlarged prostate"] },
+        { "id": "med_075", "name": "Solifenacin", "genericName": "Solifenacin", "dosages": ["5mg", "10mg"], "commonUses": ["Overactive bladder"] }
+      ]
+    },
+    {
+      "id": "womens_health",
+      "name": "Women's Health",
+      "description": "Medications for women's health conditions",
+      "medications": [
+        { "id": "med_076", "name": "Ethinylestradiol", "genericName": "Ethinylestradiol", "dosages": ["Combined pill"], "commonUses": ["Contraception"] },
+        { "id": "med_077", "name": "HRT Estrogen", "genericName": "Estradiol", "dosages": ["1mg", "2mg"], "commonUses": ["Menopause symptoms"] },
+        { "id": "med_078", "name": "Progesterone", "genericName": "Progesterone", "dosages": ["100mg", "200mg"], "commonUses": ["HRT", "Menstrual disorders"] }
+      ]
+    },
+    {
+      "id": "gout",
+      "name": "Gout & Uric Acid",
+      "description": "Medications for gout and hyperuricemia",
+      "medications": [
+        { "id": "med_079", "name": "Allopurinol", "genericName": "Allopurinol", "dosages": ["100mg", "300mg"], "commonUses": ["Gout", "High uric acid"] },
+        { "id": "med_080", "name": "Colchicine", "genericName": "Colchicine", "dosages": ["500mcg"], "commonUses": ["Gout attacks"] }
+      ]
+    },
+    {
+      "id": "anticoagulants",
+      "name": "Anticoagulants (Modern)",
+      "description": "Novel oral anticoagulants",
+      "medications": [
+        { "id": "med_081", "name": "Rivaroxaban", "genericName": "Rivaroxaban", "dosages": ["15mg", "20mg"], "commonUses": ["Blood clot prevention", "Atrial fibrillation"] },
+        { "id": "med_082", "name": "Apixaban", "genericName": "Apixaban", "dosages": ["2.5mg", "5mg"], "commonUses": ["Blood clot prevention", "Atrial fibrillation"] },
+        { "id": "med_083", "name": "Edoxaban", "genericName": "Edoxaban", "dosages": ["30mg", "60mg"], "commonUses": ["Blood clot prevention"] }
+      ]
+    },
+    {
+      "id": "parkinsons",
+      "name": "Parkinson's Disease",
+      "description": "Medications for Parkinson's disease",
+      "medications": [
+        { "id": "med_084", "name": "Levodopa", "genericName": "Co-careldopa", "dosages": ["100/25mg", "250/25mg"], "commonUses": ["Parkinson's disease"] },
+        { "id": "med_085", "name": "Pramipexole", "genericName": "Pramipexole", "dosages": ["0.088mg", "0.18mg", "0.35mg"], "commonUses": ["Parkinson's disease"] },
+        { "id": "med_086", "name": "Ropinirole", "genericName": "Ropinirole", "dosages": ["0.25mg", "1mg", "5mg"], "commonUses": ["Parkinson's disease"] }
+      ]
+    },
+    {
+      "id": "migraine",
+      "name": "Migraine",
+      "description": "Medications for migraine treatment and prevention",
+      "medications": [
+        { "id": "med_087", "name": "Sumatriptan", "genericName": "Sumatriptan", "dosages": ["50mg", "100mg"], "commonUses": ["Migraine attacks"] },
+        { "id": "med_088", "name": "Rizatriptan", "genericName": "Rizatriptan", "dosages": ["10mg"], "commonUses": ["Migraine attacks"] },
+        { "id": "med_089", "name": "Propranolol", "genericName": "Propranolol", "dosages": ["40mg", "80mg"], "commonUses": ["Migraine prevention", "Anxiety"] }
+      ]
+    },
+    {
+      "id": "immunosuppressants",
+      "name": "Immunosuppressants",
+      "description": "Medications for autoimmune conditions",
+      "medications": [
+        { "id": "med_090", "name": "Methotrexate", "genericName": "Methotrexate", "dosages": ["2.5mg", "10mg"], "commonUses": ["Rheumatoid arthritis", "Psoriasis"] },
+        { "id": "med_091", "name": "Azathioprine", "genericName": "Azathioprine", "dosages": ["25mg", "50mg"], "commonUses": ["Autoimmune diseases"] },
+        { "id": "med_092", "name": "Prednisolone", "genericName": "Prednisolone", "dosages": ["5mg", "10mg", "25mg"], "commonUses": ["Inflammation", "Autoimmune diseases", "Asthma"] }
+      ]
+    },
+    {
+      "id": "sleep",
+      "name": "Sleep Disorders",
+      "description": "Medications for insomnia and sleep problems",
+      "medications": [
+        { "id": "med_093", "name": "Zopiclone", "genericName": "Zopiclone", "dosages": ["3.75mg", "7.5mg"], "commonUses": ["Insomnia"] },
+        { "id": "med_094", "name": "Melatonin", "genericName": "Melatonin", "dosages": ["2mg"], "commonUses": ["Insomnia", "Jet lag"] },
+        { "id": "med_095", "name": "Zolpidem", "genericName": "Zolpidem", "dosages": ["5mg", "10mg"], "commonUses": ["Insomnia"] }
+      ]
+    },
+    {
+      "id": "copd_advanced",
+      "name": "COPD (Advanced)",
+      "description": "Advanced COPD combination therapies",
+      "medications": [
+        { "id": "med_096", "name": "Symbicort", "genericName": "Budesonide/Formoterol", "dosages": ["200/6mcg"], "commonUses": ["Asthma", "COPD"] },
+        { "id": "med_097", "name": "Seretide", "genericName": "Fluticasone/Salmeterol", "dosages": ["250/25mcg"], "commonUses": ["Asthma", "COPD"] },
+        { "id": "med_098", "name": "Spiriva", "genericName": "Tiotropium", "dosages": ["18mcg"], "commonUses": ["COPD"] }
+      ]
+    },
+    {
+      "id": "nausea",
+      "name": "Nausea & Vomiting",
+      "description": "Anti-nausea medications",
+      "medications": [
+        { "id": "med_099", "name": "Ondansetron", "genericName": "Ondansetron", "dosages": ["4mg", "8mg"], "commonUses": ["Nausea", "Vomiting", "Chemotherapy side effects"] },
+        { "id": "med_100", "name": "Metoclopramide", "genericName": "Metoclopramide", "dosages": ["10mg"], "commonUses": ["Nausea", "Vomiting", "Gastroparesis"] }
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2025-11-04",
+    "totalCategories": 22,
+    "totalMedications": 100,
+    "region": "Europe",
+    "language": "en-GB",
+    "terminology": "medicine",
+    "notes": "European medication database using 'medication' and 'medicine' terminology (not 'drug')"
+  }
+}

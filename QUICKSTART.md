@@ -196,36 +196,24 @@ adb install android/app/build/outputs/apk/debug/app-debug.apk
 
 ## 🗄️ Крок 7: Налаштувати Supabase (ОПЦІОНАЛЬНО)
 
-### 1. Створити акаунт
-1. https://supabase.com → Start your project
-2. Sign up → GitHub акаунт
+**📖 ДЕТАЛЬНА ІНСТРУКЦІЯ:** Див. **[SUPABASE_SETUP.md](./SUPABASE_SETUP.md)** - покрокова інструкція!
 
-### 2. Створити проект
-1. New Project
-2. **Name:** `medication-tracker`
-3. **Database Password:** Придумайте і збережіть!
-4. **Region:** Ближчий до вас (Europe Central)
-5. Create new project → Зачекайте 2 хв
+### Швидка версія:
 
-### 3. Налаштувати БД
-1. SQL Editor (ліва панель)
-2. New Query
-3. Відкрийте файл `supabase-schema.sql` з проекту
-4. Скопіюйте ВЕСЬ вміст → Вставте в SQL Editor
-5. RUN (Ctrl+Enter)
-6. ✅ Success!
+1. **Створити проект:** https://supabase.com → New Project
+2. **Запустити схему:** SQL Editor → Вставити `supabase-schema.sql` → Run
+3. **Створити тестових юзерів:** Authentication → Users → Add user
+   - `patient@demo.com` / `Patient123!`
+   - `caregiver@demo.com` / `Caregiver123!`
+4. **Отримати ключі:** Settings → API → Скопіювати URL та anon key
+5. **Додати в .env:**
+   ```bash
+   VITE_SUPABASE_URL=https://xxx.supabase.co
+   VITE_SUPABASE_ANON_KEY=eyJhbGc...
+   ```
+6. **Перезапустити:** `npm run dev`
 
-### 4. Отримати ключі
-1. Settings → API
-2. Скопіюйте:
-   - **Project URL** → `.env` → `VITE_SUPABASE_URL`
-   - **anon public** → `.env` → `VITE_SUPABASE_ANON_KEY`
-
-### 5. Перезапустити додаток
-```bash
-# Зупинити (Ctrl+C)
-npm run dev  # Запустити знову
-```
+⚠️ **ВАЖЛИВО:** Якщо бачите помилку "foreign key constraint" - дивіться SUPABASE_SETUP.md!
 
 ---
 

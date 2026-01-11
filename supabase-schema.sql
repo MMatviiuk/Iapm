@@ -162,3 +162,36 @@ CREATE TRIGGER update_medications_updated_at BEFORE UPDATE ON medications
 
 CREATE TRIGGER update_inventory_updated_at BEFORE UPDATE ON medication_inventory
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- Trigger для автоматичного створення profile при реєстрації
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO public.profiles (id, role, full_name)
+  VALUES (
+    NEW.id,
+    'patient', -- за замовчуванням patient
+    COALESCE(NEW.raw_user_meta_data->>'full_name', '')
+  );
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Trigger спрацьовує при створенні нового користувача
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
+
+-- Політика для INSERT profiles (тільки через trigger)
+CREATE POLICY "Allow profile creation via trigger" ON profiles FOR INSERT
+  WITH CHECK (true);
+
+-- ============================================================================
+-- ДЕМО-ДАНІ (ОПЦІОНАЛЬНО - видаліть якщо не потрібно)
+-- ============================================================================
+-- ВАЖЛИВО: Демо-користувачі створюються лише після реєстрації через Supabase Auth!
+-- Використовуйте Supabase Dashboard -> Authentication -> Users -> Invite user
+-- Або зареєструйтесь через додаток з цими email:
+--   patient@demo.com (пароль: Patient123!)
+--   caregiver@demo.com (пароль: Caregiver123!)
+--   doctor@demo.com (пароль: Doctor123!)

@@ -7,8 +7,9 @@ import { logAudit } from '../utils/auditLogger';
 import { createSession, endSession, updateActivity } from '../utils/sessionManager';
 import { log, logApiRequest, logApiResponse, logApiError } from '../utils/logger';
 import { retryWithBackoff, isRetryableError, isOnline, CircuitBreaker } from '../utils/apiResilience';
-import { firebaseApi } from './firebaseApi';
-import { isFirebaseConfigured } from './firebaseClient';
+// Firebase temporarily disabled - using Supabase instead
+// import { firebaseApi } from './firebaseApi';
+// import { isFirebaseConfigured } from './firebaseClient';
 
 const USE_MOCK_API = true; // Використовується лише для демо-режиму
 const USE_DEMO_DATA = true; // Set to false to use empty localStorage data
@@ -1212,7 +1213,8 @@ class ApiService {
   }
 }
 
-const shouldUseFirebase = isFirebaseConfigured();
+// const shouldUseFirebase = isFirebaseConfigured();
 
-export const api = shouldUseFirebase ? firebaseApi : new ApiService();
+// Using mock API for now (Supabase integration in src/lib/supabase.ts)
+export const api = new ApiService();
 export default api;

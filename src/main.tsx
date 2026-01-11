@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import './index.css';
 import './styles/globals.css';
+import './styles/unified-colors.css';
 import './styles/responsive-fixes.css';
 import { initializePWA } from './utils/pwaUtils';
 import { initializeAutoSync } from './utils/offlineQueue';

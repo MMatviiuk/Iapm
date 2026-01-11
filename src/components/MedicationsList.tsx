@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Search, Filter, Plus, Pill, Clock, SortAsc, X, Edit2, Trash2, Printer, CalendarClock, CheckCircle, CheckCheck, MoreVertical, Package } from 'lucide-react';
+import { Search, Filter, Plus, Pill, Clock, SortAsc, X, Edit2, Trash2, Printer, CalendarClock, CheckCircle, CheckCheck, MoreVertical, Package, Video } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Input } from './ui/input';
@@ -27,6 +27,7 @@ import MedicationExport from './MedicationExport';
 import MedicationQuickActions from './MedicationQuickActions';
 import BatchOperations from './BatchOperations';
 import MedicationInventoryScanner from './MedicationInventoryScanner';
+import MedicationVideoScanner from './MedicationVideoScanner';
 
 interface Medication {
   id: number;
@@ -71,6 +72,7 @@ export default function MedicationsList({
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [batchMode, setBatchMode] = useState(false);
   const [showInventoryScanner, setShowInventoryScanner] = useState(false);
+  const [showVideoScanner, setShowVideoScanner] = useState(false);
   const [filters, setFilters] = useState<FilterState>({
     status: 'all',
     form: 'all',
@@ -163,12 +165,20 @@ export default function MedicationsList({
             </h1>
             <div className="flex gap-2">
               <Button
+                onClick={() => setShowVideoScanner(true)}
+                size="sm"
+                className="h-10 sm:h-12 px-2 sm:px-3 bg-indigo-600 hover:bg-indigo-700 text-white touch-manipulation"
+                title="Відео інвентаризація"
+              >
+                <Video className="w-5 h-5 sm:w-6 sm:h-6" />
+              </Button>
+              <Button
                 onClick={() => setShowInventoryScanner(true)}
                 size="sm"
-                className="h-10 sm:h-12 px-3 sm:px-4 bg-purple-600 hover:bg-purple-700 text-white touch-manipulation"
+                className="h-10 sm:h-12 px-2 sm:px-3 bg-purple-600 hover:bg-purple-700 text-white touch-manipulation"
+                title="Фото інвентаризація"
               >
                 <Package className="w-5 h-5 sm:w-6 sm:h-6" />
-                <span className="hidden sm:inline ml-2">Inventory</span>
               </Button>
               <Button
                 onClick={onAddMedication}
@@ -492,7 +502,7 @@ export default function MedicationsList({
         />
       )}
 
-      {/* Інвентар Медикаментів Сканер */}
+      {/* Інвентар Медикаментів Сканер (Фото) */}
       {showInventoryScanner && (
         <MedicationInventoryScanner
           darkMode={darkMode}
@@ -507,10 +517,8 @@ export default function MedicationsList({
           }))}
           onInventoryUpdate={(inventory) => {
             console.log('📦 Оновлено інвентар:', inventory);
-            // Тут можна зберегти в localStorage або відправити на бекенд
             localStorage.setItem('medicationInventory', JSON.stringify(inventory));
 
-            // Показуємо повідомлення про низькі залишки
             inventory.forEach(item => {
               if (item.quantity <= 10) {
                 toast.warning(`Низький залишок: ${item.medicationName}`, {
@@ -521,6 +529,34 @@ export default function MedicationsList({
             });
           }}
           onClose={() => setShowInventoryScanner(false)}
+        />
+      )}
+
+      {/* Інвентар Медикаментів Сканер (Відео) */}
+      {showVideoScanner && (
+        <MedicationVideoScanner
+          darkMode={darkMode}
+          currentMedications={medications.map(med => ({
+            id: med.id.toString(),
+            name: med.name,
+            dosage: med.dosage,
+            times: med.times,
+            frequency: med.frequency,
+          }))}
+          onInventoryUpdate={(inventory) => {
+            console.log('🎥 Оновлено інвентар (відео):', inventory);
+            localStorage.setItem('medicationInventory', JSON.stringify(inventory));
+
+            inventory.forEach(item => {
+              if (item.quantity <= 10) {
+                toast.warning(`Низький залишок: ${item.medicationName}`, {
+                  description: `Залишилось лише ${item.quantity} од.`,
+                  duration: 5000,
+                });
+              }
+            });
+          }}
+          onClose={() => setShowVideoScanner(false)}
         />
       )}
     </div>

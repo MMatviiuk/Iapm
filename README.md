@@ -10,13 +10,7 @@ This is a code bundle for IAPM. The original project is available at https://www
 2) Go to the project folder (use your real path):
 
 ```
-cd /d D:\path\to\Iapm
-```
-
-Example:
-
-```
-cd /d D:\tempbuild\Iapm
+cd D:\path\to\Iapm
 ```
 
 3) Install dependencies (once):

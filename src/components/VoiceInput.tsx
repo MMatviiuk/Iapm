@@ -16,15 +16,17 @@ export default function VoiceInput({ onResult, darkMode, currentMedications }: V
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState('');
   const [recognition, setRecognition] = useState<any>(null);
+  const [language, setLanguage] = useState<'uk-UA' | 'ru-RU'>('uk-UA');
 
   useEffect(() => {
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
       const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
       const recognitionInstance = new SpeechRecognition();
 
-      recognitionInstance.lang = 'uk-UA';
+      recognitionInstance.lang = language;
       recognitionInstance.continuous = false;
       recognitionInstance.interimResults = false;
+      recognitionInstance.maxAlternatives = 1;
 
       recognitionInstance.onresult = (event: any) => {
         const text = event.results[0][0].transcript;
@@ -42,7 +44,7 @@ export default function VoiceInput({ onResult, darkMode, currentMedications }: V
       recognitionInstance.onend = () => setIsListening(false);
       setRecognition(recognitionInstance);
     }
-  }, []);
+  }, [language]);
 
   const parseVoiceInput = (text: string) => {
     const lower = text.toLowerCase();
@@ -143,6 +145,15 @@ export default function VoiceInput({ onResult, darkMode, currentMedications }: V
             <p className="text-sm font-semibold mt-1">{transcript}</p>
           )}
         </div>
+        <button
+          onClick={() => setLanguage(language === 'uk-UA' ? 'ru-RU' : 'uk-UA')}
+          className={`px-3 py-2 rounded-lg text-sm font-semibold transition-colors ${
+            darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'
+          }`}
+          title="Перемкнути мову"
+        >
+          {language === 'uk-UA' ? '🇺🇦 УКР' : '🇷🇺 РУС'}
+        </button>
       </div>
 
       <div className="mt-3 text-xs text-gray-500">

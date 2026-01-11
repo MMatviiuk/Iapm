@@ -1,0 +1,1274 @@
+{
+  "doctors": [
+    {
+      "id": "doc_001",
+      "firstName": "James",
+      "lastName": "Anderson",
+      "email": "j.anderson@medicalpractice.com",
+      "specialty": "General Practice",
+      "licenseNumber": "GMC-7654321",
+      "phoneNumber": "+44 20 7946 0958",
+      "photoUrl": "https://images.unsplash.com/photo-1645736593731-4eef033ac37a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
+      "yearsOfExperience": 28,
+      "patients": ["patient_001", "patient_002", "patient_003"]
+    },
+    {
+      "id": "doc_002",
+      "firstName": "Sarah",
+      "lastName": "Mitchell",
+      "email": "s.mitchell@endocrineclinic.com",
+      "specialty": "Endocrinology",
+      "licenseNumber": "GMC-8765432",
+      "phoneNumber": "+44 20 7946 0959",
+      "photoUrl": "https://images.unsplash.com/photo-1706565029539-d09af5896340?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
+      "yearsOfExperience": 15,
+      "patients": ["patient_001", "patient_004", "patient_005"]
+    },
+    {
+      "id": "doc_003",
+      "firstName": "Carlos",
+      "lastName": "Rodriguez",
+      "email": "c.rodriguez@rheumatology.com",
+      "specialty": "Rheumatology",
+      "licenseNumber": "GMC-9876543",
+      "phoneNumber": "+34 91 555 1234",
+      "photoUrl": "https://images.unsplash.com/photo-1762237798212-bcc000c00891?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
+      "yearsOfExperience": 22,
+      "patients": ["patient_006", "patient_007", "patient_008"]
+    },
+    {
+      "id": "doc_004",
+      "firstName": "Emma",
+      "lastName": "Murphy",
+      "email": "e.murphy@cardiology.ie",
+      "specialty": "Cardiology",
+      "licenseNumber": "IMC-5432167",
+      "phoneNumber": "+353 1 234 5678",
+      "photoUrl": "https://images.unsplash.com/photo-1676552055618-22ec8cde399a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
+      "yearsOfExperience": 19,
+      "patients": ["patient_009", "patient_010", "patient_011", "patient_012"]
+    },
+    {
+      "id": "doc_005",
+      "firstName": "Klaus",
+      "lastName": "Schmidt",
+      "email": "k.schmidt@neurologie.de",
+      "specialty": "Neurology",
+      "licenseNumber": "ÄK-3456789",
+      "phoneNumber": "+49 30 8765 4321",
+      "photoUrl": "https://images.unsplash.com/photo-1748288166888-f1bd5d6ef9ed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
+      "yearsOfExperience": 31,
+      "patients": ["patient_013", "patient_014", "patient_015"]
+    }
+  ],
+  "caregivers": [
+    {
+      "id": "cg_001",
+      "firstName": "Catherine",
+      "lastName": "Bennett",
+      "email": "catherine.bennett@example.com",
+      "phoneNumber": "+44 7700 900123",
+      "photoUrl": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400",
+      "relationship": "Daughter",
+      "dependents": ["patient_001", "patient_004", "patient_007"]
+    },
+    {
+      "id": "cg_002",
+      "firstName": "Michael",
+      "lastName": "O'Brien",
+      "email": "michael.obrien@example.com",
+      "phoneNumber": "+353 87 123 4567",
+      "photoUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400",
+      "relationship": "Son",
+      "dependents": ["patient_002", "patient_009"]
+    },
+    {
+      "id": "cg_003",
+      "firstName": "Martina",
+      "lastName": "Rossi",
+      "email": "martina.rossi@example.com",
+      "phoneNumber": "+39 333 123 4567",
+      "photoUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400",
+      "relationship": "Niece",
+      "dependents": ["patient_003", "patient_006"]
+    },
+    {
+      "id": "cg_004",
+      "firstName": "Anna",
+      "lastName": "Weber",
+      "email": "anna.weber@example.com",
+      "phoneNumber": "+49 176 9876 5432",
+      "photoUrl": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400",
+      "relationship": "Daughter",
+      "dependents": ["patient_005", "patient_010", "patient_013"]
+    },
+    {
+      "id": "cg_005",
+      "firstName": "Robert",
+      "lastName": "Johnson",
+      "email": "robert.johnson@example.com",
+      "phoneNumber": "+1 555 123 4567",
+      "photoUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400",
+      "relationship": "Spouse",
+      "dependents": ["patient_011", "patient_012", "patient_014", "patient_015"]
+    }
+  ],
+  "patients": [
+    {
+      "id": "patient_001",
+      "firstName": "Margaret",
+      "lastName": "Williams",
+      "email": "margaret.williams@example.com",
+      "dateOfBirth": "1952-03-15",
+      "gender": "Female",
+      "photoUrl": "https://images.unsplash.com/photo-1664813495783-a7b19be83624?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
+      "address": {
+        "street": "12 Oxford Street",
+        "city": "London",
+        "postcode": "W1D 1BS",
+        "country": "United Kingdom"
+      },
+      "caregiverId": "cg_001",
+      "primaryDoctorId": "doc_001",
+      "medications": [
+        {
+          "id": "rx_001",
+          "name": "Lisinopril",
+          "dosage": "10mg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "before",
+          "startDate": "2023-01-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_001",
+          "condition": "Hypertension"
+        },
+        {
+          "id": "rx_002",
+          "name": "Atorvastatin",
+          "dosage": "20mg",
+          "frequency": "Once daily",
+          "times": ["20:00"],
+          "mealTiming": "after",
+          "startDate": "2023-01-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_001",
+          "condition": "High cholesterol"
+        },
+        {
+          "id": "rx_003",
+          "name": "Levothyroxine",
+          "dosage": "75mcg",
+          "frequency": "Once daily",
+          "times": ["07:00"],
+          "mealTiming": "before",
+          "startDate": "2022-05-20",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_002",
+          "condition": "Hypothyroidism"
+        },
+        {
+          "id": "rx_004",
+          "name": "Vitamin D3",
+          "dosage": "2000 IU",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "with",
+          "startDate": "2023-09-01",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_002",
+          "condition": "Vitamin D deficiency"
+        },
+        {
+          "id": "rx_005",
+          "name": "Alendronate",
+          "dosage": "70mg",
+          "frequency": "Once weekly",
+          "times": ["07:00"],
+          "mealTiming": "before",
+          "daysOfWeek": ["Monday"],
+          "startDate": "2024-02-01",
+          "duration": "12 months",
+          "prescribedBy": "doc_002",
+          "condition": "Osteoporosis"
+        },
+        {
+          "id": "rx_006",
+          "name": "Calcium Carbonate",
+          "dosage": "500mg",
+          "frequency": "Twice daily",
+          "times": ["12:00", "20:00"],
+          "mealTiming": "with",
+          "startDate": "2023-01-15",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_002",
+          "condition": "Bone health"
+        }
+      ],
+      "adherenceRate": 94
+    },
+    {
+      "id": "patient_002",
+      "firstName": "Thomas",
+      "lastName": "O'Connor",
+      "email": "thomas.oconnor@example.com",
+      "dateOfBirth": "1948-07-22",
+      "gender": "Male",
+      "photoUrl": "https://images.unsplash.com/photo-1655628591001-ae40b826ae24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
+      "address": {
+        "street": "45 Grafton Street",
+        "city": "Dublin",
+        "postcode": "D02 V580",
+        "country": "Ireland"
+      },
+      "caregiverId": "cg_002",
+      "primaryDoctorId": "doc_001",
+      "medications": [
+        {
+          "id": "rx_007",
+          "name": "Metformin",
+          "dosage": "1000mg",
+          "frequency": "Twice daily",
+          "times": ["08:00", "20:00"],
+          "mealTiming": "with",
+          "startDate": "2020-03-15",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_001",
+          "condition": "Type 2 Diabetes"
+        },
+        {
+          "id": "rx_008",
+          "name": "Ramipril",
+          "dosage": "5mg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "with",
+          "startDate": "2020-03-15",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_001",
+          "condition": "Hypertension"
+        },
+        {
+          "id": "rx_009",
+          "name": "Aspirin",
+          "dosage": "75mg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "with",
+          "startDate": "2020-03-15",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_001",
+          "condition": "Cardiovascular protection"
+        },
+        {
+          "id": "rx_010",
+          "name": "Tamsulosin",
+          "dosage": "400mcg",
+          "frequency": "Once daily",
+          "times": ["20:00"],
+          "mealTiming": "after",
+          "startDate": "2023-06-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_001",
+          "condition": "Benign Prostatic Hyperplasia"
+        },
+        {
+          "id": "rx_011",
+          "name": "Vitamin B12",
+          "dosage": "1000mcg",
+          "frequency": "Once daily",
+          "times": ["09:00"],
+          "mealTiming": "with",
+          "startDate": "2023-05-01",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_001",
+          "condition": "B12 deficiency"
+        }
+      ],
+      "adherenceRate": 88
+    },
+    {
+      "id": "patient_003",
+      "firstName": "Sophie",
+      "lastName": "Dubois",
+      "email": "sophie.dubois@example.com",
+      "dateOfBirth": "1955-11-08",
+      "gender": "Female",
+      "photoUrl": "https://images.unsplash.com/photo-1647774449593-41224c91da26?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
+      "address": {
+        "street": "28 Rue de Rivoli",
+        "city": "Paris",
+        "postcode": "75004",
+        "country": "France"
+      },
+      "caregiverId": "cg_003",
+      "primaryDoctorId": "doc_001",
+      "medications": [
+        {
+          "id": "rx_013",
+          "name": "Omeprazole",
+          "dosage": "20mg",
+          "frequency": "Once daily",
+          "times": ["07:30"],
+          "mealTiming": "before",
+          "startDate": "2022-08-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_001",
+          "condition": "GERD"
+        },
+        {
+          "id": "rx_014",
+          "name": "Escitalopram",
+          "dosage": "10mg",
+          "frequency": "Once daily",
+          "times": ["09:00"],
+          "mealTiming": "with",
+          "startDate": "2023-03-01",
+          "duration": "Ongoing",
+          "prescribedBy": "doc_001",
+          "condition": "Anxiety disorder"
+        },
+        {
+          "id": "rx_015",
+          "name": "Amlodipine",
+          "dosage": "5mg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "any",
+          "startDate": "2023-08-01",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_001",
+          "condition": "Hypertension"
+        },
+        {
+          "id": "rx_016",
+          "name": "Cetirizine",
+          "dosage": "10mg",
+          "frequency": "Once daily",
+          "times": ["20:00"],
+          "mealTiming": "any",
+          "startDate": "2024-03-15",
+          "duration": "6 months",
+          "prescribedBy": "doc_001",
+          "condition": "Seasonal allergies"
+        },
+        {
+          "id": "rx_017",
+          "name": "Vitamin D3",
+          "dosage": "1000 IU",
+          "frequency": "Once daily",
+          "times": ["09:00"],
+          "mealTiming": "with",
+          "startDate": "2023-01-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_001",
+          "condition": "Vitamin D deficiency"
+        }
+      ],
+      "adherenceRate": 96
+    },
+    {
+      "id": "patient_004",
+      "firstName": "Hans",
+      "lastName": "Müller",
+      "email": "hans.mueller@example.com",
+      "dateOfBirth": "1950-01-30",
+      "gender": "Male",
+      "photoUrl": "https://images.unsplash.com/photo-1560714759-60e6eb4e1db6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400",
+      "address": {
+        "street": "Kurfürstendamm 89",
+        "city": "Berlin",
+        "postcode": "10709",
+        "country": "Germany"
+      },
+      "caregiverId": "cg_001",
+      "primaryDoctorId": "doc_002",
+      "medications": [
+        {
+          "id": "rx_018",
+          "name": "Levodopa",
+          "dosage": "100/25mg",
+          "frequency": "Three times daily",
+          "times": ["08:00", "14:00", "20:00"],
+          "mealTiming": "before",
+          "startDate": "2021-05-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_005",
+          "condition": "Parkinson's disease"
+        },
+        {
+          "id": "rx_019",
+          "name": "Bisoprolol",
+          "dosage": "5mg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "with",
+          "startDate": "2022-02-15",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "Heart failure"
+        },
+        {
+          "id": "rx_020",
+          "name": "Apixaban",
+          "dosage": "5mg",
+          "frequency": "Twice daily",
+          "times": ["08:00", "20:00"],
+          "mealTiming": "with",
+          "startDate": "2022-06-01",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "Atrial fibrillation"
+        },
+        {
+          "id": "rx_021",
+          "name": "Simvastatin",
+          "dosage": "40mg",
+          "frequency": "Once daily",
+          "times": ["21:00"],
+          "mealTiming": "after",
+          "startDate": "2020-11-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "High cholesterol"
+        },
+        {
+          "id": "rx_022",
+          "name": "Latanoprost",
+          "dosage": "0.005%",
+          "frequency": "Once daily",
+          "times": ["21:00"],
+          "mealTiming": "any",
+          "startDate": "2023-07-20",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_002",
+          "condition": "Glaucoma"
+        },
+        {
+          "id": "rx_023",
+          "name": "Vitamin D3",
+          "dosage": "2000 IU",
+          "frequency": "Once daily",
+          "times": ["09:00"],
+          "mealTiming": "with",
+          "startDate": "2023-01-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_002",
+          "condition": "Vitamin D deficiency"
+        }
+      ],
+      "adherenceRate": 91
+    },
+    {
+      "id": "patient_005",
+      "firstName": "Elena",
+      "lastName": "García",
+      "email": "elena.garcia@example.com",
+      "dateOfBirth": "1958-05-17",
+      "gender": "Female",
+      "photoUrl": "https://images.unsplash.com/photo-1711060266355-19214d0a15d7?w=400",
+      "address": {
+        "street": "Calle Mayor 24",
+        "city": "Madrid",
+        "postcode": "28013",
+        "country": "Spain"
+      },
+      "caregiverId": "cg_004",
+      "primaryDoctorId": "doc_002",
+      "medications": [
+        {
+          "id": "rx_025",
+          "name": "Methotrexate",
+          "dosage": "10mg",
+          "frequency": "Once weekly",
+          "times": ["09:00"],
+          "mealTiming": "with",
+          "daysOfWeek": ["Sunday"],
+          "startDate": "2022-04-10",
+          "duration": "Ongoing",
+          "prescribedBy": "doc_003",
+          "condition": "Rheumatoid arthritis"
+        },
+        {
+          "id": "rx_026",
+          "name": "Folic Acid",
+          "dosage": "5mg",
+          "frequency": "Six times weekly",
+          "times": ["09:00"],
+          "mealTiming": "with",
+          "daysOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "startDate": "2022-04-10",
+          "duration": "Ongoing",
+          "prescribedBy": "doc_003",
+          "condition": "Supplement for Methotrexate"
+        },
+        {
+          "id": "rx_027",
+          "name": "Ibuprofen",
+          "dosage": "400mg",
+          "frequency": "As needed",
+          "times": ["08:00", "14:00", "20:00"],
+          "mealTiming": "with",
+          "startDate": "2022-04-10",
+          "duration": "Ongoing",
+          "prescribedBy": "doc_003",
+          "condition": "Pain relief"
+        },
+        {
+          "id": "rx_028",
+          "name": "Amlodipine",
+          "dosage": "5mg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "any",
+          "startDate": "2023-08-01",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_002",
+          "condition": "Hypertension"
+        },
+        {
+          "id": "rx_029",
+          "name": "Prednisolone",
+          "dosage": "5mg",
+          "frequency": "Once daily",
+          "times": ["09:00"],
+          "mealTiming": "with",
+          "startDate": "2022-04-10",
+          "duration": "Ongoing",
+          "prescribedBy": "doc_003",
+          "condition": "Rheumatoid arthritis"
+        },
+        {
+          "id": "rx_030",
+          "name": "Omeprazole",
+          "dosage": "20mg",
+          "frequency": "Once daily",
+          "times": ["07:30"],
+          "mealTiming": "before",
+          "startDate": "2023-05-01",
+          "duration": "Ongoing",
+          "prescribedBy": "doc_002",
+          "condition": "GERD"
+        }
+      ],
+      "adherenceRate": 93
+    },
+    {
+      "id": "patient_006",
+      "firstName": "Jan",
+      "lastName": "De Vries",
+      "email": "jan.devries@example.com",
+      "dateOfBirth": "1953-09-12",
+      "gender": "Male",
+      "photoUrl": "https://images.unsplash.com/photo-1694654359742-58382d5d9742?w=400",
+      "address": {
+        "street": "Prinsengracht 265",
+        "city": "Amsterdam",
+        "postcode": "1016 GV",
+        "country": "Netherlands"
+      },
+      "caregiverId": "cg_003",
+      "primaryDoctorId": "doc_003",
+      "medications": [
+        {
+          "id": "rx_031",
+          "name": "Salbutamol",
+          "dosage": "100mcg",
+          "frequency": "As needed",
+          "times": ["08:00", "12:00", "16:00", "20:00"],
+          "mealTiming": "any",
+          "startDate": "2019-06-15",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_003",
+          "condition": "COPD"
+        },
+        {
+          "id": "rx_032",
+          "name": "Symbicort",
+          "dosage": "200/6mcg",
+          "frequency": "Twice daily",
+          "times": ["08:00", "20:00"],
+          "mealTiming": "any",
+          "startDate": "2019-06-15",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_003",
+          "condition": "COPD"
+        },
+        {
+          "id": "rx_033",
+          "name": "Prednisolone",
+          "dosage": "5mg",
+          "frequency": "Once daily",
+          "times": ["09:00"],
+          "mealTiming": "with",
+          "startDate": "2023-10-01",
+          "duration": "3 months",
+          "prescribedBy": "doc_003",
+          "condition": "COPD exacerbation"
+        },
+        {
+          "id": "rx_034",
+          "name": "Azithromycin",
+          "dosage": "250mg",
+          "frequency": "Three times weekly",
+          "times": ["09:00"],
+          "mealTiming": "with",
+          "daysOfWeek": ["Monday", "Wednesday", "Friday"],
+          "startDate": "2023-05-01",
+          "duration": "Ongoing",
+          "prescribedBy": "doc_003",
+          "condition": "COPD prophylaxis"
+        },
+        {
+          "id": "rx_035",
+          "name": "Atorvastatin",
+          "dosage": "40mg",
+          "frequency": "Once daily",
+          "times": ["20:00"],
+          "mealTiming": "after",
+          "startDate": "2021-03-15",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_003",
+          "condition": "High cholesterol"
+        }
+      ],
+      "adherenceRate": 85
+    },
+    {
+      "id": "patient_007",
+      "firstName": "Maria",
+      "lastName": "Andersson",
+      "email": "maria.andersson@example.com",
+      "dateOfBirth": "1956-12-03",
+      "gender": "Female",
+      "photoUrl": "https://images.unsplash.com/photo-1665686374221-eef3520d2042?w=400",
+      "address": {
+        "street": "Drottninggatan 45",
+        "city": "Stockholm",
+        "postcode": "111 21",
+        "country": "Sweden"
+      },
+      "caregiverId": "cg_001",
+      "primaryDoctorId": "doc_003",
+      "medications": [
+        {
+          "id": "rx_037",
+          "name": "Warfarin",
+          "dosage": "5mg",
+          "frequency": "Once daily",
+          "times": ["18:00"],
+          "mealTiming": "any",
+          "startDate": "2020-08-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "Atrial fibrillation"
+        },
+        {
+          "id": "rx_038",
+          "name": "Digoxin",
+          "dosage": "125mcg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "any",
+          "startDate": "2021-02-15",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "Heart failure"
+        },
+        {
+          "id": "rx_039",
+          "name": "Furosemide",
+          "dosage": "40mg",
+          "frequency": "Once daily",
+          "times": ["09:00"],
+          "mealTiming": "with",
+          "startDate": "2021-02-15",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "Edema"
+        },
+        {
+          "id": "rx_040",
+          "name": "Ramipril",
+          "dosage": "10mg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "with",
+          "startDate": "2020-08-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "Heart failure"
+        },
+        {
+          "id": "rx_041",
+          "name": "Spironolactone",
+          "dosage": "25mg",
+          "frequency": "Once daily",
+          "times": ["09:00"],
+          "mealTiming": "with",
+          "startDate": "2021-06-20",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "Heart failure"
+        }
+      ],
+      "adherenceRate": 97
+    },
+    {
+      "id": "patient_008",
+      "firstName": "Giuseppe",
+      "lastName": "Bianchi",
+      "email": "giuseppe.bianchi@example.com",
+      "dateOfBirth": "1951-04-25",
+      "gender": "Male",
+      "photoUrl": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400",
+      "address": {
+        "street": "Via Veneto 89",
+        "city": "Rome",
+        "postcode": "00187",
+        "country": "Italy"
+      },
+      "caregiverId": "cg_003",
+      "primaryDoctorId": "doc_003",
+      "medications": [
+        {
+          "id": "rx_043",
+          "name": "Insulin Glargine",
+          "dosage": "20 units",
+          "frequency": "Once daily",
+          "times": ["22:00"],
+          "mealTiming": "any",
+          "startDate": "2019-03-01",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_002",
+          "condition": "Type 1 Diabetes"
+        },
+        {
+          "id": "rx_044",
+          "name": "Insulin Aspart",
+          "dosage": "Variable",
+          "frequency": "Three times daily",
+          "times": ["07:30", "12:30", "18:30"],
+          "mealTiming": "before",
+          "startDate": "2019-03-01",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_002",
+          "condition": "Type 1 Diabetes"
+        },
+        {
+          "id": "rx_045",
+          "name": "Lisinopril",
+          "dosage": "20mg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "any",
+          "startDate": "2021-06-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_002",
+          "condition": "Diabetic nephropathy"
+        },
+        {
+          "id": "rx_046",
+          "name": "Atorvastatin",
+          "dosage": "40mg",
+          "frequency": "Once daily",
+          "times": ["20:00"],
+          "mealTiming": "after",
+          "startDate": "2020-01-15",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_002",
+          "condition": "High cholesterol"
+        },
+        {
+          "id": "rx_047",
+          "name": "Aspirin",
+          "dosage": "100mg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "with",
+          "startDate": "2020-01-15",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_002",
+          "condition": "Cardiovascular protection"
+        }
+      ],
+      "adherenceRate": 89
+    },
+    {
+      "id": "patient_009",
+      "firstName": "Patricia",
+      "lastName": "O'Neill",
+      "email": "patricia.oneill@example.com",
+      "dateOfBirth": "1954-08-14",
+      "gender": "Female",
+      "photoUrl": "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=400",
+      "address": {
+        "street": "67 Camden Street",
+        "city": "Dublin",
+        "postcode": "D02 R527",
+        "country": "Ireland"
+      },
+      "caregiverId": "cg_002",
+      "primaryDoctorId": "doc_004",
+      "medications": [
+        {
+          "id": "rx_048",
+          "name": "Metoprolol",
+          "dosage": "100mg",
+          "frequency": "Twice daily",
+          "times": ["08:00", "20:00"],
+          "mealTiming": "with",
+          "startDate": "2022-01-15",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "Hypertension"
+        },
+        {
+          "id": "rx_049",
+          "name": "Clopidogrel",
+          "dosage": "75mg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "with",
+          "startDate": "2023-03-20",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "Post-MI prophylaxis"
+        },
+        {
+          "id": "rx_050",
+          "name": "Rosuvastatin",
+          "dosage": "20mg",
+          "frequency": "Once daily",
+          "times": ["20:00"],
+          "mealTiming": "after",
+          "startDate": "2023-03-20",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "High cholesterol"
+        },
+        {
+          "id": "rx_051",
+          "name": "Omeprazole",
+          "dosage": "20mg",
+          "frequency": "Once daily",
+          "times": ["07:30"],
+          "mealTiming": "before",
+          "startDate": "2023-05-10",
+          "duration": "Ongoing",
+          "prescribedBy": "doc_004",
+          "condition": "GERD"
+        }
+      ],
+      "adherenceRate": 92
+    },
+    {
+      "id": "patient_010",
+      "firstName": "François",
+      "lastName": "Leclerc",
+      "email": "francois.leclerc@example.com",
+      "dateOfBirth": "1949-11-20",
+      "gender": "Male",
+      "photoUrl": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400",
+      "address": {
+        "street": "Avenue des Champs-Élysées 102",
+        "city": "Paris",
+        "postcode": "75008",
+        "country": "France"
+      },
+      "caregiverId": "cg_004",
+      "primaryDoctorId": "doc_004",
+      "medications": [
+        {
+          "id": "rx_052",
+          "name": "Diltiazem",
+          "dosage": "180mg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "with",
+          "startDate": "2021-09-15",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "Atrial fibrillation"
+        },
+        {
+          "id": "rx_053",
+          "name": "Apixaban",
+          "dosage": "5mg",
+          "frequency": "Twice daily",
+          "times": ["08:00", "20:00"],
+          "mealTiming": "with",
+          "startDate": "2021-09-15",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "Stroke prevention"
+        },
+        {
+          "id": "rx_054",
+          "name": "Lisinopril",
+          "dosage": "10mg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "any",
+          "startDate": "2020-05-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "Hypertension"
+        },
+        {
+          "id": "rx_055",
+          "name": "Atorvastatin",
+          "dosage": "40mg",
+          "frequency": "Once daily",
+          "times": ["20:00"],
+          "mealTiming": "after",
+          "startDate": "2020-05-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "High cholesterol"
+        }
+      ],
+      "adherenceRate": 90
+    },
+    {
+      "id": "patient_011",
+      "firstName": "Ingrid",
+      "lastName": "Johansson",
+      "email": "ingrid.johansson@example.com",
+      "dateOfBirth": "1957-02-28",
+      "gender": "Female",
+      "photoUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400",
+      "address": {
+        "street": "Kungsgatan 24",
+        "city": "Stockholm",
+        "postcode": "111 35",
+        "country": "Sweden"
+      },
+      "caregiverId": "cg_005",
+      "primaryDoctorId": "doc_004",
+      "medications": [
+        {
+          "id": "rx_056",
+          "name": "Carvedilol",
+          "dosage": "12.5mg",
+          "frequency": "Twice daily",
+          "times": ["08:00", "20:00"],
+          "mealTiming": "with",
+          "startDate": "2022-06-01",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "Heart failure"
+        },
+        {
+          "id": "rx_057",
+          "name": "Furosemide",
+          "dosage": "40mg",
+          "frequency": "Once daily",
+          "times": ["09:00"],
+          "mealTiming": "with",
+          "startDate": "2022-06-01",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "Edema"
+        },
+        {
+          "id": "rx_058",
+          "name": "Ramipril",
+          "dosage": "5mg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "with",
+          "startDate": "2022-06-01",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "Heart failure"
+        },
+        {
+          "id": "rx_059",
+          "name": "Spironolactone",
+          "dosage": "25mg",
+          "frequency": "Once daily",
+          "times": ["09:00"],
+          "mealTiming": "with",
+          "startDate": "2022-08-15",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "Heart failure"
+        }
+      ],
+      "adherenceRate": 95
+    },
+    {
+      "id": "patient_012",
+      "firstName": "Antonio",
+      "lastName": "Silva",
+      "email": "antonio.silva@example.com",
+      "dateOfBirth": "1950-06-18",
+      "gender": "Male",
+      "photoUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400",
+      "address": {
+        "street": "Rua Augusta 145",
+        "city": "Lisbon",
+        "postcode": "1100-053",
+        "country": "Portugal"
+      },
+      "caregiverId": "cg_005",
+      "primaryDoctorId": "doc_004",
+      "medications": [
+        {
+          "id": "rx_060",
+          "name": "Bisoprolol",
+          "dosage": "5mg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "with",
+          "startDate": "2021-11-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "Hypertension"
+        },
+        {
+          "id": "rx_061",
+          "name": "Amlodipine",
+          "dosage": "10mg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "any",
+          "startDate": "2022-03-20",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "Hypertension"
+        },
+        {
+          "id": "rx_062",
+          "name": "Atorvastatin",
+          "dosage": "40mg",
+          "frequency": "Once daily",
+          "times": ["20:00"],
+          "mealTiming": "after",
+          "startDate": "2021-11-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "High cholesterol"
+        },
+        {
+          "id": "rx_063",
+          "name": "Aspirin",
+          "dosage": "100mg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "with",
+          "startDate": "2021-11-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_004",
+          "condition": "Cardiovascular protection"
+        }
+      ],
+      "adherenceRate": 87
+    },
+    {
+      "id": "patient_013",
+      "firstName": "Helga",
+      "lastName": "Fischer",
+      "email": "helga.fischer@example.com",
+      "dateOfBirth": "1951-09-05",
+      "gender": "Female",
+      "photoUrl": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400",
+      "address": {
+        "street": "Unter den Linden 77",
+        "city": "Berlin",
+        "postcode": "10117",
+        "country": "Germany"
+      },
+      "caregiverId": "cg_004",
+      "primaryDoctorId": "doc_005",
+      "medications": [
+        {
+          "id": "rx_064",
+          "name": "Levodopa/Carbidopa",
+          "dosage": "100/25mg",
+          "frequency": "Three times daily",
+          "times": ["08:00", "14:00", "20:00"],
+          "mealTiming": "before",
+          "startDate": "2020-04-15",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_005",
+          "condition": "Parkinson's disease"
+        },
+        {
+          "id": "rx_065",
+          "name": "Ropinirole",
+          "dosage": "2mg",
+          "frequency": "Three times daily",
+          "times": ["08:00", "14:00", "20:00"],
+          "mealTiming": "with",
+          "startDate": "2021-02-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_005",
+          "condition": "Parkinson's disease"
+        },
+        {
+          "id": "rx_066",
+          "name": "Selegiline",
+          "dosage": "5mg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "with",
+          "startDate": "2020-04-15",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_005",
+          "condition": "Parkinson's disease"
+        },
+        {
+          "id": "rx_067",
+          "name": "Amlodipine",
+          "dosage": "5mg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "any",
+          "startDate": "2021-08-20",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_005",
+          "condition": "Hypertension"
+        }
+      ],
+      "adherenceRate": 93
+    },
+    {
+      "id": "patient_014",
+      "firstName": "Viktor",
+      "lastName": "Novak",
+      "email": "viktor.novak@example.com",
+      "dateOfBirth": "1953-03-12",
+      "gender": "Male",
+      "photoUrl": "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=400",
+      "address": {
+        "street": "Václavské náměstí 28",
+        "city": "Prague",
+        "postcode": "110 00",
+        "country": "Czech Republic"
+      },
+      "caregiverId": "cg_005",
+      "primaryDoctorId": "doc_005",
+      "medications": [
+        {
+          "id": "rx_068",
+          "name": "Donepezil",
+          "dosage": "10mg",
+          "frequency": "Once daily",
+          "times": ["20:00"],
+          "mealTiming": "after",
+          "startDate": "2023-01-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_005",
+          "condition": "Alzheimer's disease"
+        },
+        {
+          "id": "rx_069",
+          "name": "Memantine",
+          "dosage": "10mg",
+          "frequency": "Twice daily",
+          "times": ["08:00", "20:00"],
+          "mealTiming": "with",
+          "startDate": "2023-06-15",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_005",
+          "condition": "Alzheimer's disease"
+        },
+        {
+          "id": "rx_070",
+          "name": "Lisinopril",
+          "dosage": "10mg",
+          "frequency": "Once daily",
+          "times": ["08:00"],
+          "mealTiming": "any",
+          "startDate": "2022-03-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_005",
+          "condition": "Hypertension"
+        },
+        {
+          "id": "rx_071",
+          "name": "Vitamin B12",
+          "dosage": "1000mcg",
+          "frequency": "Once daily",
+          "times": ["09:00"],
+          "mealTiming": "with",
+          "startDate": "2023-01-10",
+          "duration": "Lifetime",
+          "prescribedBy": "doc_005",
+          "condition": "Cognitive support"
+        }
+      ],
+      "adherenceRate": 86
+    },
+    {
+      "id": "patient_015",
+      "firstName": "Brigitte",
+      "lastName": "Hoffmann",
+      "email": "brigitte.hoffmann@example.com",
+      "dateOfBirth": "1955-07-30",
+      "gender": "Female",
+      "photoUrl": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400",
+      "address": {
+        "street": "Maximilianstraße 15",
+        "city": "Munich",
+        "postcode": "80539",
+        "country": "Germany"
+      },
+      "caregiverId": "cg_005",
+      "primaryDoctorId": "doc_005",
+      "medications": [
+        {
+          "id": "rx_072",
+          "name": "Gabapentin",
+          "dosage": "300mg",
+          "frequency": "Three times daily",
+          "times": ["08:00", "14:00", "22:00"],
+          "mealTiming": "any",
+          "startDate": "2022-09-01",
+          "duration": "Ongoing",
+          "prescribedBy": "doc_005",
+          "condition": "Neuropathic pain"
+        },
+        {
+          "id": "rx_073",
+          "name": "Pregabalin",
+          "dosage": "75mg",
+          "frequency": "Twice daily",
+          "times": ["08:00", "20:00"],
+          "mealTiming": "with",
+          "startDate": "2023-03-15",
+          "duration": "Ongoing",
+          "prescribedBy": "doc_005",
+          "condition": "Fibromyalgia"
+        },
+        {
+          "id": "rx_074",
+          "name": "Duloxetine",
+          "dosage": "60mg",
+          "frequency": "Once daily",
+          "times": ["09:00"],
+          "mealTiming": "with",
+          "startDate": "2023-03-15",
+          "duration": "Ongoing",
+          "prescribedBy": "doc_005",
+          "condition": "Fibromyalgia"
+        },
+        {
+          "id": "rx_075",
+          "name": "Omeprazole",
+          "dosage": "20mg",
+          "frequency": "Once daily",
+          "times": ["07:30"],
+          "mealTiming": "before",
+          "startDate": "2023-05-01",
+          "duration": "Ongoing",
+          "prescribedBy": "doc_005",
+          "condition": "GERD"
+        }
+      ],
+      "adherenceRate": 91
+    }
+  ]
+}

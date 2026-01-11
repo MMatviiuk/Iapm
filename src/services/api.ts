@@ -7,8 +7,10 @@ import { logAudit } from '../utils/auditLogger';
 import { createSession, endSession, updateActivity } from '../utils/sessionManager';
 import { log, logApiRequest, logApiResponse, logApiError } from '../utils/logger';
 import { retryWithBackoff, isRetryableError, isOnline, CircuitBreaker } from '../utils/apiResilience';
+import { firebaseApi } from './firebaseApi';
+import { isFirebaseConfigured } from './firebaseClient';
 
-const USE_MOCK_API = true; // Set to false when backend is ready
+const USE_MOCK_API = true; // Використовується лише для демо-режиму
 const USE_DEMO_DATA = true; // Set to false to use empty localStorage data
 
 // Safely access environment variables
@@ -821,6 +823,16 @@ class ApiService {
     return data;
   }
 
+  async loginWithGoogle() {
+    if (USE_MOCK_API) {
+      throw new Error('Google-вхід недоступний у демо-режимі');
+    }
+
+    return this.request('/auth/google', {
+      method: 'POST',
+    });
+  }
+
   async logout() {
     // Log logout before clearing session
     logAudit('LOGOUT', 'authentication', {
@@ -1200,5 +1212,7 @@ class ApiService {
   }
 }
 
-export const api = new ApiService();
+const shouldUseFirebase = isFirebaseConfigured();
+
+export const api = shouldUseFirebase ? firebaseApi : new ApiService();
 export default api;

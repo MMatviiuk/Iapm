@@ -1,7 +1,7 @@
 {
-  "name": "Prescription Clarity",
-  "short_name": "MedTracker",
-  "description": "Track your medications with confidence. Never miss a dose.",
+  "name": "120+",
+  "short_name": "120+",
+  "description": "Відстежуйте прийом ліків без пропусків.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -38,9 +38,9 @@
   "screenshots": [],
   "shortcuts": [
     {
-      "name": "Today's Medications",
-      "short_name": "Today",
-      "description": "View today's medication schedule",
+      "name": "Ліки на сьогодні",
+      "short_name": "Сьогодні",
+      "description": "Переглянути розклад на сьогодні",
       "url": "/today",
       "icons": [
         {
@@ -50,9 +50,9 @@
       ]
     },
     {
-      "name": "Add Medication",
-      "short_name": "Add",
-      "description": "Add a new medication",
+      "name": "Додати ліки",
+      "short_name": "Додати",
+      "description": "Додати нові ліки",
       "url": "/add-medication",
       "icons": [
         {

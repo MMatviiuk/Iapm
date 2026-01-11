@@ -168,20 +168,20 @@ export function getStatusBadgeColor(status: MedicationStatus): {
 }
 
 /**
- * Отримує текст для статусу (UK English)
+ * Отримує текст для статусу (українська)
  * @param status - статус medication
  * @returns текст для відображення
  */
 export function getStatusLabel(status: MedicationStatus): string {
   switch (status) {
     case 'SCHEDULED':
-      return 'Scheduled';
+      return 'Заплановано';
     case 'ACTIVE':
-      return 'Active';
+      return 'Активні';
     case 'COMPLETED':
-      return 'Completed';
+      return 'Завершено';
     case 'DELETED':
-      return 'Deleted';
+      return 'Видалено';
   }
 }
 
@@ -193,13 +193,13 @@ export function getStatusLabel(status: MedicationStatus): string {
 export function getStatusDescription(status: MedicationStatus): string {
   switch (status) {
     case 'SCHEDULED':
-      return 'This medication is scheduled to start in the future';
+      return 'Прийом заплановано на майбутній час';
     case 'ACTIVE':
-      return 'This medication is currently active';
+      return 'Прийом ліків активний';
     case 'COMPLETED':
-      return 'This medication course has been completed';
+      return 'Курс прийому завершено';
     case 'DELETED':
-      return 'This medication has been deleted';
+      return 'Препарат видалено';
   }
 }
 
@@ -210,7 +210,7 @@ export function getStatusDescription(status: MedicationStatus): string {
  */
 export function shouldShowInTodayList(medication: MedicationWithStatus): boolean {
   const status = calculateMedicationStatus(medication);
-  // Показуємо тільки ACTIVE medications
+  // Показуємо лише ACTIVE
   return status === 'ACTIVE';
 }
 

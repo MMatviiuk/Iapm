@@ -1,14 +1,13 @@
 /**
- * APPLICATION CONSTANTS
- * Centralized constants for Prescription Clarity
- * Prevents magic numbers and hardcoded values
+ * КОНСТАНТИ ЗАСТОСУНКУ
+ * Централізовані значення без жорстко заданих рядків
  */
 
 // ==================== APPLICATION INFO ====================
 
-export const APP_NAME = 'Prescription Clarity';
+export const APP_NAME = '120+';
 export const APP_VERSION = '2.0.0';
-export const APP_DESCRIPTION = 'Universal Health Tracking Platform for medications, supplements, and wellness prescriptions';
+export const APP_DESCRIPTION = 'Платформа для відстеження ліків, добавок і призначень';
 
 // ==================== USER ROLES ====================
 
@@ -35,16 +34,16 @@ export const MEDICATION_FORMS = {
 
 export type MedicationForm = typeof MEDICATION_FORMS[keyof typeof MEDICATION_FORMS];
 
-// User-friendly labels
+// Зручні підписи для форм
 export const MEDICATION_FORM_LABELS: Record<MedicationForm, string> = {
-  [MEDICATION_FORMS.TABLET]: 'Tablet',
-  [MEDICATION_FORMS.CAPSULE]: 'Capsule',
-  [MEDICATION_FORMS.LIQUID]: 'Liquid/Syrup',
-  [MEDICATION_FORMS.INJECTION]: 'Injection',
-  [MEDICATION_FORMS.CREAM]: 'Cream/Ointment',
-  [MEDICATION_FORMS.INHALER]: 'Inhaler',
-  [MEDICATION_FORMS.POWDER]: 'Powder',
-  [MEDICATION_FORMS.OTHER]: 'Other',
+  [MEDICATION_FORMS.TABLET]: 'Таблетка',
+  [MEDICATION_FORMS.CAPSULE]: 'Капсула',
+  [MEDICATION_FORMS.LIQUID]: 'Рідина/сироп',
+  [MEDICATION_FORMS.INJECTION]: 'Інʼєкція',
+  [MEDICATION_FORMS.CREAM]: 'Крем/мазь',
+  [MEDICATION_FORMS.INHALER]: 'Інгалятор',
+  [MEDICATION_FORMS.POWDER]: 'Порошок',
+  [MEDICATION_FORMS.OTHER]: 'Інше',
 };
 
 // ==================== MEDICATION STATUS ====================
@@ -58,12 +57,12 @@ export const MEDICATION_STATUS = {
 
 export type MedicationStatus = typeof MEDICATION_STATUS[keyof typeof MEDICATION_STATUS];
 
-// Status labels
+// Підписи статусів
 export const MEDICATION_STATUS_LABELS: Record<MedicationStatus, string> = {
-  [MEDICATION_STATUS.SCHEDULED]: 'Scheduled',
-  [MEDICATION_STATUS.ACTIVE]: 'Active',
-  [MEDICATION_STATUS.COMPLETED]: 'Completed',
-  [MEDICATION_STATUS.DELETED]: 'Deleted',
+  [MEDICATION_STATUS.SCHEDULED]: 'Заплановано',
+  [MEDICATION_STATUS.ACTIVE]: 'Активні',
+  [MEDICATION_STATUS.COMPLETED]: 'Завершено',
+  [MEDICATION_STATUS.DELETED]: 'Видалено',
 };
 
 // Status colors (Tailwind classes)

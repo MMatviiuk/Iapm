@@ -1,6 +1,6 @@
 /**
  * SERVICE WORKER - PWA Offline Support
- * Prescription Clarity - Medical-Grade Reliability
+ * 120+ — сервіс‑воркер з офлайн‑надійністю
  * 
  * Features:
  * - Offline caching (works without internet)
@@ -267,7 +267,7 @@ self.addEventListener('push', (event) => {
   console.log('[SW] Push notification received');
   
   let data = {
-    title: 'Prescription Clarity',
+    title: '120+',
     body: 'Time to take your medication!',
     icon: '/logo.svg',
     badge: '/logo.svg',

@@ -176,7 +176,7 @@ export default function MedicationsList({
                 className="h-10 sm:h-12 px-3 sm:px-4 bg-purple-600 hover:bg-purple-700 text-white touch-manipulation"
               >
                 <Package className="w-5 h-5 sm:w-6 sm:h-6" />
-                <span className="hidden sm:inline ml-2">Inventory</span>
+                <span className="hidden sm:inline ml-2">Інвентар</span>
               </Button>
               <Button
                 onClick={onAddMedication}

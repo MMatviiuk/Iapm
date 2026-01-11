@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Camera, Upload, X, Loader2, Package, AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
+import { Camera, Video, X, Loader2, Package, AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   analyzeMedicationInventory,
@@ -10,6 +10,12 @@ import {
   RecognizedMedication,
   MedicationSupply,
 } from '../utils/inventoryRecognition';
+import {
+  analyzeVideoInventory,
+  analyzeVideoDemo,
+  isVideoAPIConfigured,
+  type VideoMedicationResult,
+} from '../utils/videoInventoryRecognition';
 
 interface MedicationInventoryScannerProps {
   darkMode: boolean;
@@ -39,13 +45,52 @@ export default function MedicationInventoryScanner({
   onClose,
 }: MedicationInventoryScannerProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const videoInputRef = useRef<HTMLInputElement>(null);
+  const [scanMode, setScanMode] = useState<'photo' | 'video'>('photo');
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [isScanning, setIsScanning] = useState(false);
   const [scanResults, setScanResults] = useState<RecognizedMedication[]>([]);
   const [supplyCalculations, setSupplyCalculations] = useState<MedicationSupply[]>([]);
   const [showResults, setShowResults] = useState(false);
 
-  const isAPIConfigured = isInventoryAPIConfigured();
+  const isPhotoAPIConfigured = isInventoryAPIConfigured();
+  const isVideoConfigured = isVideoAPIConfigured();
+
+  const resetResults = () => {
+    setShowResults(false);
+    setScanResults([]);
+    setSupplyCalculations([]);
+  };
+
+  const handleModeChange = (mode: 'photo' | 'video') => {
+    setScanMode(mode);
+    setSelectedPhoto(null);
+    setSelectedVideo(null);
+    resetResults();
+  };
+
+  const normalizeVideoResults = (results: VideoMedicationResult[]): RecognizedMedication[] => {
+    return results.map((result) => ({
+      medicationName: result.medicationName,
+      packageType: result.packageType,
+      estimatedCount: result.medianCount || result.averageCount,
+      confidence: result.confidence,
+      boundingBox: {
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0,
+      },
+      ocrText: [],
+      visualFeatures: {
+        hasBlisterPack: result.packageType === 'blister',
+        hasBottle: result.packageType === 'bottle',
+        visiblePills: result.medianCount || result.averageCount,
+        colors: [],
+      },
+    }));
+  };
 
   /**
    * Обробка вибору файлу
@@ -78,11 +123,49 @@ export default function MedicationInventoryScanner({
     reader.onloadend = () => {
       const base64String = reader.result as string;
       setSelectedPhoto(base64String);
-      setShowResults(false);
-      setScanResults([]);
-      setSupplyCalculations([]);
+      setSelectedVideo(null);
+      resetResults();
 
       toast.success('Фото завантажено', {
+        description: 'Натисніть "Сканувати" для розпізнавання',
+        duration: 2000,
+      });
+    };
+    reader.readAsDataURL(file);
+  };
+
+  /**
+   * Обробка вибору відео
+   */
+  const handleVideoSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('video/')) {
+      toast.error('Невірний тип файлу', {
+        description: 'Будь ласка, виберіть відео (MP4, MOV, тощо)',
+        duration: 3000,
+      });
+      return;
+    }
+
+    const maxSize = 50 * 1024 * 1024;
+    if (file.size > maxSize) {
+      toast.error('Файл занадто великий', {
+        description: 'Розмір відео не повинен перевищувати 50MB',
+        duration: 3000,
+      });
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64String = reader.result as string;
+      setSelectedVideo(base64String);
+      setSelectedPhoto(null);
+      resetResults();
+
+      toast.success('Відео завантажено', {
         description: 'Натисніть "Сканувати" для розпізнавання',
         duration: 2000,
       });
@@ -94,33 +177,52 @@ export default function MedicationInventoryScanner({
    * Запуск сканування
    */
   const handleScan = async () => {
-    if (!selectedPhoto) {
+    const isPhotoMode = scanMode === 'photo';
+
+    if (isPhotoMode && !selectedPhoto) {
       toast.error('Оберіть фото');
+      return;
+    }
+
+    if (!isPhotoMode && !selectedVideo) {
+      toast.error('Оберіть відео');
       return;
     }
 
     setIsScanning(true);
 
     try {
-      let results: RecognizedMedication[];
+      let results: RecognizedMedication[] = [];
 
-      if (isAPIConfigured) {
-        // Справжнє розпізнавання з Google Vision API
-        console.log('🔍 Використовую Google Vision API...');
-        results = await analyzeMedicationInventory(selectedPhoto, currentMedications);
+      if (isPhotoMode) {
+        if (isPhotoAPIConfigured) {
+          results = await analyzeMedicationInventory(selectedPhoto as string, currentMedications);
+        } else {
+          toast.info('Демо режим', {
+            description: 'Vision API не налаштований. Показую тестові результати.',
+            duration: 3000,
+          });
+          results = await analyzeDemoInventory(currentMedications);
+        }
       } else {
-        // Демо режим
-        console.log('🎭 Демо режим (API не налаштований)');
-        toast.info('Демо режим', {
-          description: 'Vision API не налаштований. Показую тестові результати.',
-          duration: 3000,
-        });
-        results = await analyzeDemoInventory(currentMedications);
+        if (isVideoConfigured) {
+          const videoResults = await analyzeVideoInventory(
+            selectedVideo as string,
+            currentMedications
+          );
+          results = normalizeVideoResults(videoResults);
+        } else {
+          toast.info('Демо режим', {
+            description: 'Video Intelligence API не налаштований. Показую тестові результати.',
+            duration: 3000,
+          });
+          const videoResults = await analyzeVideoDemo(currentMedications);
+          results = normalizeVideoResults(videoResults);
+        }
       }
 
       setScanResults(results);
 
-      // Розраховуємо залишки для кожного знайденого ліку
       const supplies: MedicationSupply[] = [];
 
       results.forEach((result) => {
@@ -129,7 +231,6 @@ export default function MedicationInventoryScanner({
         );
 
         if (medication) {
-          // Розраховуємо щоденну дозу (кількість разів на день)
           const dailyDosage = medication.times.length;
 
           const supply = calculateMedicationSupply(
@@ -249,109 +350,225 @@ export default function MedicationInventoryScanner({
 
         {/* Контент */}
         <div className="p-6 space-y-6">
-          {/* Інструкції */}
-          {!selectedPhoto && (
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => handleModeChange('photo')}
+              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                scanMode === 'photo'
+                  ? 'bg-blue-600 text-white'
+                  : darkMode
+                    ? 'bg-gray-700 text-gray-200 hover:bg-gray-600'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
+              Фото
+            </button>
+            <button
+              onClick={() => handleModeChange('video')}
+              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                scanMode === 'video'
+                  ? 'bg-blue-600 text-white'
+                  : darkMode
+                    ? 'bg-gray-700 text-gray-200 hover:bg-gray-600'
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
+              Відео
+            </button>
+          </div>
+
+          {(scanMode === 'photo' ? !selectedPhoto : !selectedVideo) && (
             <div className={`p-4 rounded-lg ${
               darkMode ? 'bg-blue-900/30 border border-blue-700' : 'bg-blue-50 border border-blue-200'
             }`}>
-              <h3 className="font-semibold mb-2">📸 Як користуватись:</h3>
-              <ol className="list-decimal list-inside space-y-1 text-sm">
-                <li>Сфотографуйте медикаменти на тумбочці</li>
-                <li>Переконайтесь, що упаковки добре видно</li>
-                <li>Натисніть "Сканувати" для розпізнавання</li>
-                <li>Перевірте результати та підтвердіть</li>
-              </ol>
+              <h3 className="font-semibold mb-2">Як користуватись:</h3>
+              {scanMode === 'photo' ? (
+                <ol className="list-decimal list-inside space-y-1 text-sm">
+                  <li>Сфотографуйте медикаменти на тумбочці</li>
+                  <li>Переконайтесь, що упаковки добре видно</li>
+                  <li>Натисніть "Сканувати" для розпізнавання</li>
+                  <li>Перевірте результати та підтвердіть</li>
+                </ol>
+              ) : (
+                <ol className="list-decimal list-inside space-y-1 text-sm">
+                  <li>Запишіть відео з медикаментами на тумбочці</li>
+                  <li>Повільно обертайте упаковку перед камерою</li>
+                  <li>Натисніть "Сканувати" для аналізу</li>
+                  <li>Перевірте результати та підтвердіть</li>
+                </ol>
+              )}
             </div>
           )}
 
-          {/* Завантаження фото */}
-          {!selectedPhoto ? (
-            <div className="flex flex-col items-center gap-4">
-              <button
-                onClick={() => fileInputRef.current?.click()}
-                className={`w-full max-w-md h-64 border-2 border-dashed rounded-2xl flex flex-col items-center justify-center gap-4 transition-all ${
-                  darkMode
-                    ? 'border-gray-600 hover:border-blue-500 hover:bg-gray-700/50'
-                    : 'border-gray-300 hover:border-blue-500 hover:bg-blue-50'
-                }`}
-              >
-                <Camera className="w-16 h-16 text-gray-400" />
-                <div className="text-center">
-                  <p className="text-lg font-medium">Завантажити фото</p>
-                  <p className="text-sm text-gray-500 mt-1">
-                    або клацніть для вибору файлу
-                  </p>
-                </div>
-              </button>
-
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleFileSelect}
-                className="hidden"
-              />
-            </div>
-          ) : (
-            <>
-              {/* Попередній перегляд фото */}
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-semibold">Вибране фото:</h3>
-                  <button
-                    onClick={() => {
-                      setSelectedPhoto(null);
-                      setShowResults(false);
-                      setScanResults([]);
-                      setSupplyCalculations([]);
-                    }}
-                    className={`text-sm px-3 py-1 rounded-lg ${
-                      darkMode
-                        ? 'bg-gray-700 hover:bg-gray-600'
-                        : 'bg-gray-200 hover:bg-gray-300'
-                    }`}
-                  >
-                    Змінити фото
-                  </button>
-                </div>
-                <img
-                  src={selectedPhoto}
-                  alt="Інвентар"
-                  className="w-full rounded-lg border-2 border-gray-300 dark:border-gray-600"
-                />
-              </div>
-
-              {/* Кнопка сканування */}
-              {!showResults && (
+          {scanMode === 'photo' ? (
+            !selectedPhoto ? (
+              <div className="flex flex-col items-center gap-4">
                 <button
-                  onClick={handleScan}
-                  disabled={isScanning}
-                  className={`w-full py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all ${
-                    isScanning
-                      ? 'bg-gray-400 cursor-not-allowed'
-                      : 'bg-blue-600 hover:bg-blue-700 text-white'
+                  onClick={() => fileInputRef.current?.click()}
+                  className={`w-full max-w-md h-64 border-2 border-dashed rounded-2xl flex flex-col items-center justify-center gap-4 transition-all ${
+                    darkMode
+                      ? 'border-gray-600 hover:border-blue-500 hover:bg-gray-700/50'
+                      : 'border-gray-300 hover:border-blue-500 hover:bg-blue-50'
                   }`}
                 >
-                  {isScanning ? (
-                    <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      Сканую...
-                    </>
-                  ) : (
-                    <>
-                      <Camera className="w-5 h-5" />
-                      Сканувати інвентар
-                    </>
-                  )}
+                  <Camera className="w-16 h-16 text-gray-400" />
+                  <div className="text-center">
+                    <p className="text-lg font-medium">Завантажити фото</p>
+                    <p className="text-sm text-gray-500 mt-1">
+                      або клацніть для вибору файлу
+                    </p>
+                  </div>
                 </button>
-              )}
-            </>
+
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileSelect}
+                  className="hidden"
+                />
+              </div>
+            ) : (
+              <>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-semibold">Вибране фото:</h3>
+                    <button
+                      onClick={() => {
+                        setSelectedPhoto(null);
+                        resetResults();
+                      }}
+                      className={`text-sm px-3 py-1 rounded-lg ${
+                        darkMode
+                          ? 'bg-gray-700 hover:bg-gray-600'
+                          : 'bg-gray-200 hover:bg-gray-300'
+                      }`}
+                    >
+                      Змінити фото
+                    </button>
+                  </div>
+                  <img
+                    src={selectedPhoto}
+                    alt="Інвентар"
+                    className="w-full rounded-lg border-2 border-gray-300 dark:border-gray-600"
+                  />
+                </div>
+
+                {!showResults && (
+                  <button
+                    onClick={handleScan}
+                    disabled={isScanning}
+                    className={`w-full py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all ${
+                      isScanning
+                        ? 'bg-gray-400 cursor-not-allowed'
+                        : 'bg-blue-600 hover:bg-blue-700 text-white'
+                    }`}
+                  >
+                    {isScanning ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Сканую...
+                      </>
+                    ) : (
+                      <>
+                        <Camera className="w-5 h-5" />
+                        Сканувати інвентар
+                      </>
+                    )}
+                  </button>
+                )}
+              </>
+            )
+          ) : (
+            !selectedVideo ? (
+              <div className="flex flex-col items-center gap-4">
+                <button
+                  onClick={() => videoInputRef.current?.click()}
+                  className={`w-full max-w-md h-64 border-2 border-dashed rounded-2xl flex flex-col items-center justify-center gap-4 transition-all ${
+                    darkMode
+                      ? 'border-gray-600 hover:border-blue-500 hover:bg-gray-700/50'
+                      : 'border-gray-300 hover:border-blue-500 hover:bg-blue-50'
+                  }`}
+                >
+                  <Video className="w-16 h-16 text-gray-400" />
+                  <div className="text-center">
+                    <p className="text-lg font-medium">Завантажити відео</p>
+                    <p className="text-sm text-gray-500 mt-1">
+                      бажано до 30 секунд
+                    </p>
+                  </div>
+                </button>
+
+                <input
+                  ref={videoInputRef}
+                  type="file"
+                  accept="video/*"
+                  onChange={handleVideoSelect}
+                  className="hidden"
+                />
+              </div>
+            ) : (
+              <>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-semibold">Вибране відео:</h3>
+                    <button
+                      onClick={() => {
+                        setSelectedVideo(null);
+                        resetResults();
+                      }}
+                      className={`text-sm px-3 py-1 rounded-lg ${
+                        darkMode
+                          ? 'bg-gray-700 hover:bg-gray-600'
+                          : 'bg-gray-200 hover:bg-gray-300'
+                      }`}
+                    >
+                      Змінити відео
+                    </button>
+                  </div>
+                  <video
+                    src={selectedVideo}
+                    controls
+                    className="w-full rounded-lg border-2 border-gray-300 dark:border-gray-600"
+                  />
+                </div>
+
+                {!showResults && (
+                  <button
+                    onClick={handleScan}
+                    disabled={isScanning}
+                    className={`w-full py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all ${
+                      isScanning
+                        ? 'bg-gray-400 cursor-not-allowed'
+                        : 'bg-blue-600 hover:bg-blue-700 text-white'
+                    }`}
+                  >
+                    {isScanning ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Аналізую відео...
+                      </>
+                    ) : (
+                      <>
+                        <Video className="w-5 h-5" />
+                        Сканувати інвентар
+                      </>
+                    )}
+                  </button>
+                )}
+              </>
+            )
           )}
 
           {/* Результати сканування */}
           {showResults && scanResults.length > 0 && (
             <div className="space-y-4">
               <h3 className="font-semibold text-lg">Результати сканування:</h3>
+              {scanMode === 'video' && (
+                <p className="text-sm text-gray-500">
+                  Для відео використано медіанну оцінку по кадрах, щоб зменшити похибку.
+                </p>
+              )}
 
               {scanResults.map((result, index) => {
                 const supply = supplyCalculations[index];
@@ -446,7 +663,7 @@ export default function MedicationInventoryScanner({
                   onClick={handleConfirm}
                   className="flex-1 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors"
                 >
-                  ✅ Підтвердити та зберегти
+                  Підтвердити та зберегти
                 </button>
                 <button
                   onClick={() => {
@@ -474,7 +691,7 @@ export default function MedicationInventoryScanner({
               <AlertTriangle className="w-12 h-12 mx-auto mb-3 text-yellow-500" />
               <p className="font-semibold mb-2">Медикаменти не знайдено</p>
               <p className="text-sm text-gray-500 mb-4">
-                Спробуйте зробити фото ближче або з кращим освітленням
+                Спробуйте зробити фото або відео ближче чи з кращим освітленням
               </p>
               <button
                 onClick={() => {
@@ -493,12 +710,22 @@ export default function MedicationInventoryScanner({
           )}
 
           {/* Демо попередження */}
-          {!isAPIConfigured && (
+          {scanMode === 'photo' && !isPhotoAPIConfigured && (
             <div className={`p-4 rounded-lg border ${
               darkMode ? 'bg-yellow-900/30 border-yellow-700' : 'bg-yellow-50 border-yellow-300'
             }`}>
               <p className="text-sm">
-                ⚠️ <strong>Демо режим:</strong> Google Vision API не налаштований.
+                <strong>Демо режим:</strong> Google Vision API не налаштований.
+                Для реального розпізнавання додайте VITE_GOOGLE_VISION_API_KEY в .env файл.
+              </p>
+            </div>
+          )}
+          {scanMode === 'video' && !isVideoConfigured && (
+            <div className={`p-4 rounded-lg border ${
+              darkMode ? 'bg-yellow-900/30 border-yellow-700' : 'bg-yellow-50 border-yellow-300'
+            }`}>
+              <p className="text-sm">
+                <strong>Демо режим:</strong> Video Intelligence API не налаштований.
                 Для реального розпізнавання додайте VITE_GOOGLE_VISION_API_KEY в .env файл.
               </p>
             </div>

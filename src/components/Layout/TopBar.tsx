@@ -49,14 +49,8 @@ export default function TopBar({
   };
 
   const getRoleColorClasses = () => {
-    switch (userRole) {
-      case 'caregiver':
-        return 'bg-orange-500';
-      case 'doctor':
-        return 'bg-purple-600';
-      default:
-        return 'bg-blue-600';
-    }
+    // Unified blue color scheme
+    return 'bg-blue-600';
   };
 
   const getRoleBorderClasses = () => {

@@ -94,19 +94,10 @@ export default function BurgerMenu({
   }, [isOpen]);
 
   const roleColors = getRoleColor(userRole);
-  
-  // Use orange-500 for softer caregiver color
-  const bgColorClass = userRole === 'caregiver' 
-    ? 'bg-orange-500' 
-    : userRole === 'doctor'
-    ? 'bg-purple-600'
-    : 'bg-blue-600';
 
-  const textColorClass = userRole === 'caregiver'
-    ? 'text-orange-600'
-    : userRole === 'doctor'
-    ? 'text-purple-600'
-    : 'text-blue-600';
+  // Unified blue color scheme for all roles
+  const bgColorClass = 'bg-blue-600';
+  const textColorClass = 'text-blue-600';
 
   const getRoleLabel = () => {
     switch (userRole) {

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Search, Filter, Plus, Pill, Clock, SortAsc, X, Edit2, Trash2, Printer, CalendarClock, CheckCircle, CheckCheck, MoreVertical } from 'lucide-react';
+import { Search, Filter, Plus, Pill, Clock, SortAsc, X, Edit2, Trash2, Printer, CalendarClock, CheckCircle, CheckCheck, MoreVertical, Package } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Input } from './ui/input';
@@ -14,8 +14,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from './ui/select';
-import { 
-  updateMedicationStatuses, 
+import {
+  updateMedicationStatuses,
   shouldShowInAllMedicationsList,
   getStatusBadgeColor,
   getStatusLabel,
@@ -26,6 +26,7 @@ import AdvancedSearchFilters, { FilterState } from './AdvancedSearchFilters';
 import MedicationExport from './MedicationExport';
 import MedicationQuickActions from './MedicationQuickActions';
 import BatchOperations from './BatchOperations';
+import MedicationInventoryScanner from './MedicationInventoryScanner';
 
 interface Medication {
   id: number;
@@ -69,6 +70,7 @@ export default function MedicationsList({
   const [quickActionsId, setQuickActionsId] = useState<number | null>(null);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const [batchMode, setBatchMode] = useState(false);
+  const [showInventoryScanner, setShowInventoryScanner] = useState(false);
   const [filters, setFilters] = useState<FilterState>({
     status: 'all',
     form: 'all',
@@ -167,6 +169,24 @@ export default function MedicationsList({
               <Plus className="w-5 h-5 sm:w-6 sm:h-6" />
               <span className="hidden sm:inline ml-2">Додати</span>
             </Button>
+            <div className="flex gap-2">
+              <Button
+                onClick={() => setShowInventoryScanner(true)}
+                size="sm"
+                className="h-10 sm:h-12 px-3 sm:px-4 bg-purple-600 hover:bg-purple-700 text-white touch-manipulation"
+              >
+                <Package className="w-5 h-5 sm:w-6 sm:h-6" />
+                <span className="hidden sm:inline ml-2">Inventory</span>
+              </Button>
+              <Button
+                onClick={onAddMedication}
+                size="sm"
+                className="h-10 sm:h-12 px-3 sm:px-4 bg-[#2196F3] hover:bg-[#1976D2] text-white touch-manipulation"
+              >
+                <Plus className="w-5 h-5 sm:w-6 sm:h-6" />
+                <span className="hidden sm:inline ml-2">Add</span>
+              </Button>
+            </div>
           </div>
 
           {/* Пошук */}
@@ -483,6 +503,38 @@ export default function MedicationsList({
               duration: 2000
             });
           }}
+        />
+      )}
+
+      {/* Інвентар Медикаментів Сканер */}
+      {showInventoryScanner && (
+        <MedicationInventoryScanner
+          darkMode={darkMode}
+          currentMedications={medications.map(med => ({
+            id: med.id.toString(),
+            name: med.name,
+            dosage: med.dosage,
+            times: med.times,
+            frequency: med.frequency,
+            startDate: med.startDate ? new Date(med.startDate) : undefined,
+            endDate: med.endDate ? new Date(med.endDate) : undefined,
+          }))}
+          onInventoryUpdate={(inventory) => {
+            console.log('📦 Оновлено інвентар:', inventory);
+            // Тут можна зберегти в localStorage або відправити на бекенд
+            localStorage.setItem('medicationInventory', JSON.stringify(inventory));
+
+            // Показуємо повідомлення про низькі залишки
+            inventory.forEach(item => {
+              if (item.quantity <= 10) {
+                toast.warning(`Низький залишок: ${item.medicationName}`, {
+                  description: `Залишилось лише ${item.quantity} од. Час поповнити запас!`,
+                  duration: 5000,
+                });
+              }
+            });
+          }}
+          onClose={() => setShowInventoryScanner(false)}
         />
       )}
     </div>

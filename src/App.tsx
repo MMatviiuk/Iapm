@@ -1197,45 +1197,6 @@ export default function App() {
             }}
           />
         );
-      case 'patient-details':
-        // Show full medication list for selected patient with edit/delete buttons
-        const storedPatient = localStorage.getItem('selectedPatient');
-        const patient = storedPatient ? JSON.parse(storedPatient) : null;
-        
-        return patient ? (
-          <PatientDetails
-            darkMode={darkMode}
-            setCurrentPage={setCurrentPage}
-            patient={patient}
-            onEdit={(med) => {
-              // Prepare medication for editing
-              const editData = {
-                ...med,
-                context: 'doctor',
-                patientId: patient.id,
-                patientName: patient.name
-              };
-              localStorage.setItem('editMedicationData', JSON.stringify(editData));
-              setCurrentPage('edit-medication');
-            }}
-            onDelete={(medId, medName) => {
-              // TODO: API call to delete medication
-              toast.success(`${medName} deleted successfully`, {
-                description: `Medication removed for ${patient.name}`
-              });
-            }}
-            onPrescribeNew={() => {
-              setSelectedPatient(patient);
-              setCurrentPage('add-prescription-for-patient');
-            }}
-          />
-        ) : (
-          <div className={`min-h-screen ${darkMode ? 'bg-gray-900' : 'bg-gray-50'} flex items-center justify-center`}>
-            <p className={`text-lg ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-              Patient not found. Please select a patient from the list.
-            </p>
-          </div>
-        );
       case 'add-prescription-for-patient':
         // CRITICAL FIX: Doctor can prescribe medications for patients
         return (

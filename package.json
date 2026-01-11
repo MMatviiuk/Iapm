@@ -57,8 +57,7 @@
             "tailwind-merge": "*",
             "url": "*",
             "vaul": "^1.1.2",
-            "vite": "*",
-            "vitest": "*"
+            "vite": "*"
       },
       "devDependencies": {
             "@capacitor/android": "^8.0.0",
@@ -66,13 +65,21 @@
             "@capacitor/core": "^8.0.0",
             "@types/node": "^20.10.0",
             "@vitejs/plugin-react-swc": "^3.10.2",
-            "vite": "6.3.5"
+            "@vitest/ui": "^4.0.16",
+            "jsdom": "^27.4.0",
+            "vite": "6.3.5",
+            "vitest": "^4.0.16"
       },
       "scripts": {
             "dev": "vite",
             "build": "vite build",
+            "test": "vitest run",
+            "test:watch": "vitest",
+            "test:ui": "vitest --ui",
+            "test:android": "./android-test.sh",
             "android:sync": "npm run build && npx cap sync android",
             "android:open": "npx cap open android",
-            "android:run": "npm run android:sync && npx cap run android"
+            "android:run": "npm run android:sync && npx cap run android",
+            "android:debug": "npx cap run android -l --external"
       }
 }

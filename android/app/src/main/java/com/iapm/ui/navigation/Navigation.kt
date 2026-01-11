@@ -26,7 +26,7 @@ fun IapmNavigation() {
         navController = navController,
         startDestination = startDestination
     ) {
-        // Public screens
+        // Публічні екрани
         composable(Screen.Landing.route) {
             LandingScreen(
                 onGetStarted = { navController.navigate(Screen.Register.route) },
@@ -70,7 +70,7 @@ fun IapmNavigation() {
             )
         }
 
-        // Authenticated screens
+        // Екрани після входу
         composable(Screen.Dashboard.route) {
             val currentUser by authViewModel.currentUser.collectAsState()
 
@@ -78,10 +78,13 @@ fun IapmNavigation() {
                 com.iapm.domain.model.UserRole.CAREGIVER -> {
                     CaregiverDashboardScreen(
                         onNavigateToPatient = { patientId ->
-                            // TODO: Navigate to patient details
+                            navController.navigate(Screen.CaregiverPatientDetails.createRoute(patientId))
                         },
                         onNavigateToAddPatient = {
-                            // TODO: Navigate to add patient
+                            navController.navigate(Screen.CaregiverAddPatient.route)
+                        },
+                        onNavigateToAnalytics = {
+                            navController.navigate(Screen.CaregiverAnalytics.route)
                         },
                         onNavigateToSettings = { navController.navigate(Screen.Settings.route) }
                     )
@@ -89,17 +92,24 @@ fun IapmNavigation() {
                 com.iapm.domain.model.UserRole.DOCTOR -> {
                     DoctorDashboardScreen(
                         onNavigateToPatient = { patientId ->
-                            // TODO: Navigate to patient details
+                            // TODO: Додати перехід на деталі пацієнта
                         },
                         onNavigateToAddPatient = {
-                            // TODO: Navigate to add patient
+                            // TODO: Додати перехід на додавання пацієнта
                         },
                         onNavigateToSettings = { navController.navigate(Screen.Settings.route) }
                     )
                 }
-                else -> { // PATIENT or null
+                else -> { // Пацієнт або null
                     DashboardScreen(
                         onNavigateToAddMedication = { navController.navigate(Screen.AddMedication.route) },
+                        onNavigateToMedications = { navController.navigate(Screen.PatientMedications.route) },
+                        onNavigateToHistory = { navController.navigate(Screen.PatientHistory.route) },
+                        onNavigateToRewards = { navController.navigate(Screen.PatientRewards.route) },
+                        onNavigateToWeekView = { navController.navigate(Screen.PatientWeekView.route) },
+                        onNavigateToProfile = { navController.navigate(Screen.PatientProfile.route) },
+                        onNavigateToNotifications = { navController.navigate(Screen.PatientNotifications.route) },
+                        onNavigateToShareProfile = { navController.navigate(Screen.PatientShareProfile.route) },
                         onNavigateToSettings = { navController.navigate(Screen.Settings.route) },
                         onLogout = {
                             authViewModel.logout()
@@ -116,6 +126,92 @@ fun IapmNavigation() {
             AddMedicationScreen(
                 onMedicationAdded = { navController.popBackStack() },
                 onBack = { navController.popBackStack() }
+            )
+        }
+
+        composable(Screen.PatientMedications.route) {
+            PatientMedicationsScreen(
+                onBack = { navController.popBackStack() },
+                onMedicationSelected = { medicationId ->
+                    navController.navigate(Screen.PatientMedicationDetails.createRoute(medicationId))
+                },
+                onAddMedication = { navController.navigate(Screen.AddMedication.route) }
+            )
+        }
+
+        composable(Screen.PatientMedicationDetails.route) { backStackEntry ->
+            val medicationId = backStackEntry.arguments?.getString("medicationId") ?: ""
+            PatientMedicationDetailsScreen(
+                medicationId = medicationId,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        composable(Screen.PatientHistory.route) {
+            PatientHistoryScreen(onBack = { navController.popBackStack() })
+        }
+
+        composable(Screen.PatientRewards.route) {
+            PatientRewardsScreen(onBack = { navController.popBackStack() })
+        }
+
+        composable(Screen.PatientWeekView.route) {
+            PatientWeekViewScreen(onBack = { navController.popBackStack() })
+        }
+
+        composable(Screen.PatientProfile.route) {
+            PatientProfileScreen(onBack = { navController.popBackStack() })
+        }
+
+        composable(Screen.PatientNotifications.route) {
+            PatientNotificationsScreen(onBack = { navController.popBackStack() })
+        }
+
+        composable(Screen.PatientShareProfile.route) {
+            PatientShareProfileScreen(onBack = { navController.popBackStack() })
+        }
+
+        composable(Screen.CaregiverAnalytics.route) {
+            CaregiverAnalyticsScreen(onBack = { navController.popBackStack() })
+        }
+
+        composable(Screen.CaregiverAddPatient.route) {
+            CaregiverAddPatientScreen(
+                onBack = { navController.popBackStack() },
+                onSave = { navController.popBackStack() }
+            )
+        }
+
+        composable(Screen.CaregiverPatientDetails.route) { backStackEntry ->
+            val patientId = backStackEntry.arguments?.getString("patientId") ?: ""
+            CaregiverPatientDetailsScreen(
+                patientId = patientId,
+                onBack = { navController.popBackStack() },
+                onEdit = {
+                    navController.navigate(Screen.CaregiverEditPatient.createRoute(patientId))
+                },
+                onAddMedication = {
+                    navController.navigate(Screen.CaregiverAddMedication.createRoute(patientId))
+                }
+            )
+        }
+
+        composable(Screen.CaregiverEditPatient.route) { backStackEntry ->
+            val patientId = backStackEntry.arguments?.getString("patientId") ?: ""
+            val patientName = if (patientId == "2") "Іван Сидоров" else "Марія Петренко"
+            CaregiverEditPatientScreen(
+                patientName = patientName,
+                onBack = { navController.popBackStack() },
+                onSave = { navController.popBackStack() }
+            )
+        }
+
+        composable(Screen.CaregiverAddMedication.route) { backStackEntry ->
+            val patientId = backStackEntry.arguments?.getString("patientId") ?: ""
+            CaregiverAddMedicationScreen(
+                patientName = if (patientId.isBlank()) "Підопічний" else "Марія Петренко",
+                onBack = { navController.popBackStack() },
+                onSave = { navController.popBackStack() }
             )
         }
 
@@ -144,5 +240,26 @@ sealed class Screen(val route: String) {
     object AddMedication : Screen("add_medication")
     object PatientDetails : Screen("patient_details")
     object AddPatient : Screen("add_patient")
+    object PatientMedications : Screen("patient_medications")
+    object PatientMedicationDetails : Screen("patient_medication_details/{medicationId}") {
+        fun createRoute(medicationId: String) = "patient_medication_details/$medicationId"
+    }
+    object PatientHistory : Screen("patient_history")
+    object PatientRewards : Screen("patient_rewards")
+    object PatientWeekView : Screen("patient_week_view")
+    object PatientProfile : Screen("patient_profile")
+    object PatientNotifications : Screen("patient_notifications")
+    object PatientShareProfile : Screen("patient_share_profile")
+    object CaregiverAnalytics : Screen("caregiver_analytics")
+    object CaregiverAddPatient : Screen("caregiver_add_patient")
+    object CaregiverPatientDetails : Screen("caregiver_patient_details/{patientId}") {
+        fun createRoute(patientId: String) = "caregiver_patient_details/$patientId"
+    }
+    object CaregiverEditPatient : Screen("caregiver_edit_patient/{patientId}") {
+        fun createRoute(patientId: String) = "caregiver_edit_patient/$patientId"
+    }
+    object CaregiverAddMedication : Screen("caregiver_add_medication/{patientId}") {
+        fun createRoute(patientId: String) = "caregiver_add_medication/$patientId"
+    }
     object Settings : Screen("settings")
 }

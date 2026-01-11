@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json.schema.hyperjump.io/schema",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && vite build"
+  }
+}

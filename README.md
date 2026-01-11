@@ -7,10 +7,16 @@ This is a code bundle for IAPM. The original project is available at https://www
 ### Windows (PowerShell or Command Prompt)
 
 1) Open PowerShell or Command Prompt.
-2) Go to the project folder (your path):
+2) Go to the project folder (use your real path):
 
 ```
-cd /d d:\tempbuild
+cd /d D:\path\to\Iapm
+```
+
+Example:
+
+```
+cd /d D:\tempbuild\Iapm
 ```
 
 3) Install dependencies (once):

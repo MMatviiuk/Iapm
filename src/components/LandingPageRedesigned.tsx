@@ -22,7 +22,7 @@ import {
 import { Button } from './ui/button';
 import { PillShieldLogo } from './PillShieldLogo';
 import { getAvatarUrl } from '../utils/avatarUtils';
-import { HeroIllustration } from './HeroIllustration';
+import nurseImage from 'figma:asset/1d64c71f8bddf49650649420b23ec2f86cd09bee.png';
 
 interface LandingPageRedesignedProps {
   onGetStarted: () => void;
@@ -45,126 +45,126 @@ export default function LandingPageRedesigned({
   const features = [
     {
       icon: Calendar,
-      title: 'Smart Scheduling',
-      description: 'Stay on track with intelligent time-based reminders. Coordinate with meals and track adherence automatically.',
+      title: 'Розумне планування',
+      description: 'Залишайтеся в графіку з інтелектуальними нагадуваннями. Координуйте з прийомами їжі та відстежуйте дотримання автоматично.',
       color: 'blue',
-      benefit: '95% adherence rate',
+      benefit: '95% дотримання графіку',
     },
     {
       icon: Users,
-      title: 'Family Care',
-      description: 'Manage medications for your entire family from one dashboard. Perfect for caregivers managing elderly parents.',
+      title: 'Сімейний догляд',
+      description: 'Керуйте ліками для всієї родини з одної панелі. Ідеально для догляду за літніми батьками.',
       color: 'orange',
-      benefit: 'Manage unlimited family members',
+      benefit: 'Необмежена кількість членів сім\'ї',
     },
     {
       icon: Stethoscope,
-      title: 'Healthcare Integration',
-      description: 'Doctors can monitor patient adherence in real-time and adjust prescriptions directly through the platform.',
+      title: 'Інтеграція з лікарями',
+      description: 'Лікарі можуть відстежувати дотримання пацієнтів у реальному часі та коригувати призначення безпосередньо через платформу.',
       color: 'purple',
-      benefit: 'Real-time provider collaboration',
+      benefit: 'Співпраця з лікарями у реальному часі',
     },
     {
       icon: BarChart3,
-      title: 'Analytics & Insights',
-      description: 'Visual reports, trend analysis, and streak counters help identify patterns and celebrate consistency.',
+      title: 'Аналітика та звіти',
+      description: 'Візуальні звіти, аналіз тенденцій та лічильники серій допомагають визначити закономірності та відзначити послідовність.',
       color: 'green',
-      benefit: 'Data-driven health decisions',
+      benefit: 'Рішення на основі даних',
     },
     {
       icon: Bell,
-      title: 'Smart Notifications',
-      description: 'Customizable push notifications with sound alerts ensure medications are taken at the right time.',
+      title: 'Розумні сповіщення',
+      description: 'Налаштовувані push-сповіщення зі звуковими сигналами гарантують прийом ліків у потрібний час.',
       color: 'amber',
-      benefit: '99.9% notification reliability',
+      benefit: '99.9% надійність сповіщень',
     },
     {
       icon: Shield,
-      title: 'Secure & Private',
-      description: 'End-to-end encryption with full GDPR and HIPAA compliance. Your health data is always protected.',
+      title: 'Безпечно та конфіденційно',
+      description: 'Наскрізне шифрування з повною відповідністю GDPR та HIPAA. Ваші медичні дані завжди захищені.',
       color: 'slate',
-      benefit: 'Bank-level security',
+      benefit: 'Банківський рівень безпеки',
     },
   ];
 
-  // Pricing tiers (EUROPEAN PRICING IN EUR)
+  // Pricing tiers (UKRAINIAN PRICING IN UAH)
   const pricingPlans = [
     {
-      name: 'Free',
-      description: 'Perfect for individuals managing their own medications',
+      name: 'Безкоштовний',
+      description: 'Ідеально для тих, хто керує своїми ліками самостійно',
       priceMonthly: 0,
       priceYearly: 0,
       features: [
-        'Up to 5 medications',
-        'Basic reminders',
-        'Daily schedule view',
-        'Adherence tracking',
-        'Mobile & web access',
+        'До 5 ліків',
+        'Базові нагадування',
+        'Перегляд денного розкладу',
+        'Відстеження дотримання',
+        'Доступ з мобільного та веб',
       ],
-      cta: 'Get Started Free',
+      cta: 'Почати безкоштовно',
       popular: false,
-      role: 'Patient',
+      role: 'Пацієнт',
       color: 'blue',
     },
     {
-      name: 'Personal',
-      description: 'For patients who need advanced medication management',
-      priceMonthly: 8.99,
-      priceYearly: 89,
+      name: 'Персональний',
+      description: 'Для пацієнтів, яким потрібне розширене керування ліками',
+      priceMonthly: 249,
+      priceYearly: 2490,
       features: [
-        'Unlimited medications',
-        'Smart notifications',
-        'Weekly analytics',
-        'Medication database',
-        'Print schedules',
-        'Photo uploads',
-        'Achievement system',
-        'Priority support',
+        'Необмежена кількість ліків',
+        'Розумні сповіщення',
+        'Тижнева аналітика',
+        'База даних ліків',
+        'Друк розкладів',
+        'Завантаження фото',
+        'Система досягнень',
+        'Пріоритетна підтримка',
       ],
-      cta: 'Start Free Trial',
+      cta: 'Спробувати безкоштовно',
       popular: false,
-      role: 'Patient',
+      role: 'Пацієнт',
       color: 'blue',
     },
     {
-      name: 'Family',
-      description: 'Best for caregivers managing multiple family members',
-      priceMonthly: 17.99,
-      priceYearly: 179,
+      name: 'Сімейний',
+      description: 'Найкраще для опікунів, які керують кількома членами родини',
+      priceMonthly: 449,
+      priceYearly: 4490,
       features: [
-        'Everything in Personal',
-        'Manage up to 5 family members',
-        'Caregiver dashboard',
-        'Cross-user analytics',
-        'Shared medication history',
-        'Email notifications',
-        'Multi-device sync',
-        'Family insights',
+        'Все з Персонального',
+        'Керування до 5 членів родини',
+        'Панель опікуна',
+        'Аналітика між користувачами',
+        'Спільна історія ліків',
+        'Email-сповіщення',
+        'Синхронізація на кількох пристроях',
+        'Сімейна аналітика',
       ],
-      cta: 'Start Free Trial',
+      cta: 'Спробувати безкоштовно',
       popular: true,
-      role: 'Caregiver',
+      role: 'Опікун',
       color: 'orange',
     },
     {
-      name: 'Professional',
-      description: 'For healthcare providers managing patient cohorts',
-      priceMonthly: 44.99,
-      priceYearly: 449,
+      name: 'Професійний',
+      description: 'Для медичних працівників, які керують групами пацієнтів',
+      priceMonthly: 1199,
+      priceYearly: 11990,
       features: [
-        'Everything in Family',
-        'Manage unlimited patients',
-        'Doctor dashboard',
-        'Cohort analytics',
-        'At-risk patient alerts',
-        'Prescribing tools',
-        'Medication interaction checker',
-        'HIPAA compliance tools',
-        'Priority support',
+        'Все з Сімейного',
+        'Необмежена кількість пацієнтів',
+        'Панель лікаря',
+        'Аналітика груп',
+        'Сповіщення про пацієнтів у зоні ризику',
+        'Інструменти призначення',
+        'Перевірка взаємодії ліків',
+        'Інструменти відповідності HIPAA',
+        'Пріоритетна підтримка',
       ],
-      cta: 'Start Free Trial',
+      cta: 'Спробувати безкоштовно',
       popular: false,
-      role: 'Healthcare Professional',
+      role: 'Медичний працівник',
       color: 'purple',
     },
   ];
@@ -172,70 +172,70 @@ export default function LandingPageRedesigned({
   // FAQ items
   const faqs = [
     {
-      question: 'How does the free trial work?',
-      answer: 'All paid plans include a 30-day free trial with full access to features. No credit card required to start. Cancel anytime during the trial without being charged.',
+      question: 'Як працює безкоштовний пробний період?',
+      answer: 'Усі платні плани включають 30-денний безкоштовний пробний період з повним доступом до функцій. Кредитна картка не потрібна для початку. Скасуйте в будь-який час під час пробного періоду без списання коштів.',
     },
     {
-      question: 'Is my health data secure?',
-      answer: 'Yes! We use bank-level 256-bit encryption for all data. We\'re fully GDPR and HIPAA compliant. Your data is never shared with third parties without your explicit consent.',
+      question: 'Чи захищені мої медичні дані?',
+      answer: 'Так! Ми використовуємо 256-бітне шифрування банківського рівня для всіх даних. Ми повністю відповідаємо вимогам GDPR та HIPAA. Ваші дані ніколи не передаються третім особам без вашої явної згоди.',
     },
     {
-      question: 'Can I switch plans later?',
-      answer: 'Absolutely! You can upgrade or downgrade your plan at any time. If you upgrade, you\'ll get immediate access to new features. If you downgrade, changes take effect at the end of your billing cycle.',
+      question: 'Чи можу я змінити план пізніше?',
+      answer: 'Звичайно! Ви можете оновити або знизити свій план у будь-який час. При оновленні ви отримаєте негайний доступ до нових функцій. При зниженні зми набувають чинності в кінці вашого платіжного циклу.',
     },
     {
-      question: 'Do you offer refunds?',
-      answer: 'Yes, we offer a 30-day money-back guarantee on all paid plans. If you\'re not satisfied for any reason, contact us within 30 days for a full refund.',
+      question: 'Чи надаєте ви повернення коштів?',
+      answer: 'Так, ми пропонуємо 30-денну гарантію повернення грошей на всі платні плани. Якщо ви не задоволені з будь-якої причини, зв\'яжіться з нами протягом 30 днів для повного повернення коштів.',
     },
     {
-      question: 'How do notifications work?',
-      answer: 'You can receive notifications via push (mobile), email, and SMS. Set custom reminder times before each dose. Notifications are smart - they adapt to your adherence patterns over time.',
+      question: 'Як працюють сповіщення?',
+      answer: 'Ви можете отримувати сповіщення через push (мобільний), email та SMS. Встановіть власний час нагадування перед кожною дозою. Сповіщення розумні - вони адаптуються до ваших шаблонів дотримання з часом.',
     },
     {
-      question: 'Can family members share a subscription?',
-      answer: 'Yes! The Family plan allows up to 5 family members under one subscription. Each member gets their own secure account with privacy controls.',
+      question: 'Чи можуть члени родини ділитися підпискою?',
+      answer: 'Так! Сімейний план дозволяє до 5 членів родини в рамках однієї підписки. Кожен член отримує власний захищений обліковий запис з контролем конфіденційності.',
     },
     {
-      question: 'Is there a mobile app?',
-      answer: 'Yes! Our web app works seamlessly on all devices and is optimized for mobile. We also have native iOS and Android apps (coming soon) with offline support.',
+      question: 'Чи є мобільний додаток?',
+      answer: 'Так! Наш веб-додаток бездоганно працює на всіх пристроях і оптимізований для мобільних. У нас також є нативні додатки iOS та Android (скоро) з підтримкою офлайн-режиму.',
     },
     {
-      question: 'What if I need help?',
-      answer: 'We offer comprehensive support via email, live chat, and our help center. Personal and higher plans get priority support with faster response times.',
+      question: 'Що робити, якщо мені потрібна допомога?',
+      answer: 'Ми пропонуємо комплексну підтримку через email, живий чат та наш довідковий центр. Персональний та вищі плани отримують пріоритетну підтримку з швидшим часом відповіді.',
     },
   ];
 
   // Stats
   const stats = [
-    { value: '10,000+', label: 'Active Users', icon: Users },
-    { value: '95%', label: 'Adherence Rate', icon: CheckCircle2 },
-    { value: '4.9/5', label: 'User Rating', icon: Star },
-    { value: '50+', label: 'Countries', icon: Shield },
+    { value: '10,000+', label: 'Користувачів в Україні', icon: Users },
+    { value: '95%', label: 'Дотримання графіку', icon: CheckCircle2 },
+    { value: '4.9/5', label: 'Оцінка користувачів', icon: Star },
+    { value: 'Вся Україна', label: 'Доставка', icon: Shield },
   ];
 
-  // Testimonials with European photos
+  // Testimonials with Ukrainian names
   const testimonials = [
     {
-      quote: "Prescription Clarity has transformed how I manage my medications. The reminders are perfectly timed, and I haven't missed a dose in months.",
-      author: "Margaret Williams",
-      role: "Patient",
-      duration: "3 months using the platform",
+      quote: "120+ змінив те, як я керую своїми ліками. Нагадування ідеально налаштовані, і я не пропустила жодної дози вже кілька місяців.",
+      author: "Олена Коваленко",
+      role: "Пацієнт",
+      duration: "3 місяці користування",
       avatar: getAvatarUrl({ name: 'Sarah Johnson', gender: 'female' }),
       rating: 5,
     },
     {
-      quote: "As a caregiver for my elderly parents, this app is a lifesaver. I can manage both their medications from anywhere and get notified if they miss a dose.",
-      author: "Michael O'Brien",
-      role: "Caregiver",
-      duration: "Managing 2 family members",
+      quote: "Як опікун своїх літніх батьків, цей додаток - справжній рятівник. Я можу керувати їхніми ліками звідки завгодно та отримувати сповіщення, якщо вони пропускають дозу.",
+      author: "Андрій Мельник",
+      role: "Опікун",
+      duration: "Доглядає за 2 родичами",
       avatar: getAvatarUrl({ name: 'Michael Chen', gender: 'male' }),
       rating: 5,
     },
     {
-      quote: "The analytics dashboard helps me monitor patient adherence patterns. I can intervene early when I see someone struggling with their medication schedule.",
-      author: "Dr. Sarah Mitchell",
-      role: "Family Physician",
-      duration: "12 patients on platform",
+      quote: "Панель аналітики допомагає мені відстежувати, як пацієнти дотримуються графіку. Я можу вчасно втрутитися, коли бачу проблеми з прийомом ліків.",
+      author: "Д-р Наталія Шевченко",
+      role: "Сімейний лікар",
+      duration: "12 пацієнтів на платформі",
       avatar: getAvatarUrl({ name: 'Dr. Sarah Mitchell', gender: 'female' }),
       rating: 5,
     },
@@ -273,22 +273,22 @@ export default function LandingPageRedesigned({
 
   return (
     <div className={`min-h-screen ${darkMode ? 'dark' : ''}`}>
-      <div className="bg-gradient-to-b from-blue-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+      <div className={darkMode ? 'bg-slate-900' : 'bg-white'}>
         
         {/* Fixed Header */}
         <header className="border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md sticky top-0 z-50 shadow-sm">
           <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between py-3 sm:py-4 lg:py-5">
               <div className="flex items-center gap-1.5 sm:gap-3 lg:gap-4 flex-shrink-0 min-w-0">
-                <PillShieldLogo size={40} className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16" color="#2196F3" />
+                <PillShieldLogo size={48} className="flex-shrink-0" color="#2196F3" />
                 <div className="flex-shrink-0 min-w-0">
-                  <h1 className={`text-sm sm:text-lg lg:text-xl font-bold sm:font-extrabold tracking-tight truncate ${
+                  <h1 className={`text-lg sm:text-2xl lg:text-3xl font-bold sm:font-extrabold tracking-tight truncate ${
                     darkMode ? 'text-white' : 'text-slate-900'
                   }`}>
-                    Prescription Clarity
+                    120+
                   </h1>
-                  <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 hidden lg:block mt-0.5">
-                    Medication Management Made Simple
+                  <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 hidden sm:block mt-0.5">
+                    120 років здоров'я
                   </p>
                 </div>
               </div>
@@ -298,13 +298,13 @@ export default function LandingPageRedesigned({
                   variant="outline"
                   className="h-12 sm:h-14 lg:h-16 min-w-[90px] sm:min-w-[110px] lg:min-w-[130px] border-2 text-sm sm:text-base px-4"
                 >
-                  Sign In
+                  Увійти
                 </Button>
                 <Button
                   onClick={onGetStarted}
                   className="h-12 sm:h-14 lg:h-16 min-w-[90px] sm:min-w-[110px] lg:min-w-[130px] bg-blue-600 hover:bg-blue-700 shadow-lg text-sm sm:text-base px-4"
                 >
-                  Start
+                  Почати
                 </Button>
               </div>
             </div>
@@ -312,39 +312,39 @@ export default function LandingPageRedesigned({
         </header>
 
         {/* Hero Section */}
-        <section className={`relative overflow-hidden py-16 sm:py-20 lg:py-28 xl:py-32 ${
-          darkMode ? 'bg-slate-900' : 'bg-gradient-to-br from-blue-50 via-white to-purple-50'
+        <section className={`relative overflow-hidden py-1 sm:py-2 lg:py-4 ${ 
+          darkMode ? 'bg-slate-900' : 'bg-gradient-to-b from-blue-50 via-white to-slate-50'
         }`}>
-          {/* Background Effects */}
+          {/* Animated background elements */}
           <div className="absolute inset-0 overflow-hidden">
             <motion.div
               animate={{
                 scale: [1, 1.2, 1],
-                rotate: [0, 90, 0],
+                opacity: [0.3, 0.5, 0.3],
               }}
               transition={{
-                duration: 20,
+                duration: 8,
                 repeat: Infinity,
-                ease: "linear"
+                ease: "easeInOut"
               }}
-              className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-blue-500/10 blur-3xl"
+              className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500/10 dark:bg-blue-500/5 rounded-full blur-3xl"
             />
             <motion.div
               animate={{
                 scale: [1.2, 1, 1.2],
-                rotate: [90, 0, 90],
+                opacity: [0.3, 0.5, 0.3],
               }}
               transition={{
-                duration: 20,
+                duration: 10,
                 repeat: Infinity,
-                ease: "linear"
+                ease: "easeInOut"
               }}
-              className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-purple-500/10 blur-3xl"
+              className="absolute -bottom-24 -left-24 w-96 h-96 bg-purple-500/10 dark:bg-purple-500/5 rounded-full blur-3xl"
             />
           </div>
-
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+          
+          <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 items-center">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -352,42 +352,42 @@ export default function LandingPageRedesigned({
                 className="text-center lg:text-left"
               >
                 {/* Trust Badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 mb-6">
-                  <Sparkles className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                  <span className="text-sm lg:text-base font-medium text-blue-900 dark:text-blue-200">
-                    Trusted by 10,000+ users worldwide
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 mb-3">
+                  <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                  <span className="text-xs font-medium text-blue-900 dark:text-blue-200">
+                    Довіряють тисячі українців
                   </span>
                 </div>
                 
                 {/* Main Headline */}
-                <h1 className={`text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 leading-tight ${
+                <h1 className={`text-xl sm:text-2xl lg:text-4xl font-bold mb-2 lg:mb-3 leading-tight ${
                   darkMode ? 'text-white' : 'text-slate-900'
                 }`}>
-                  Stay on Track
+                  Дбайте про здоров'я
                   <br />
                   <span className="text-blue-600 dark:text-blue-400">
-                    With Your Medications
+                    завжди вчасно
                   </span>
                 </h1>
                 
                 {/* Subheadline */}
-                <p className={`text-lg sm:text-xl lg:text-2xl mb-6 leading-relaxed ${
+                <p className={`text-sm sm:text-base lg:text-lg mb-3 leading-relaxed ${
                   darkMode ? 'text-slate-300' : 'text-slate-600'
                 }`}>
-                  The complete medication management platform trusted by patients, caregivers, and healthcare professionals.
+                  Платформа для контролю прийому ліків. Для пацієнтів, родичів та лікарів.
                 </p>
                 
                 {/* Key Benefits */}
-                <div className="flex flex-wrap gap-3 justify-center lg:justify-start mb-8">
-                  {['95% Adherence Rate', 'GDPR & HIPAA Compliant', 'Free 30-Day Trial'].map((benefit) => (
+                <div className="flex flex-wrap gap-1.5 justify-center lg:justify-start mb-4">
+                  {['95% дотримання графіку', 'GDPR та HIPAA', '30 днів безкоштовно'].map((benefit) => (
                     <div
                       key={benefit}
-                      className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
+                      className={`flex items-center gap-1 px-2 py-1 rounded-lg ${
                         darkMode ? 'bg-green-950/30 border border-green-800' : 'bg-green-50 border border-green-200'
                       }`}
                     >
-                      <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400" />
-                      <span className={`text-sm lg:text-base ${darkMode ? 'text-green-300' : 'text-green-700'}`}>
+                      <CheckCircle2 className="w-3 h-3 text-green-600 dark:text-green-400" />
+                      <span className={`text-xs ${darkMode ? 'text-green-300' : 'text-green-700'}`}>
                         {benefit}
                       </span>
                     </div>
@@ -395,35 +395,55 @@ export default function LandingPageRedesigned({
                 </div>
                 
                 {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <div className="flex flex-col sm:flex-row gap-2 justify-center lg:justify-start">
                   <Button
                     onClick={onGetStarted}
-                    className="h-14 lg:h-16 px-8 lg:px-12 text-lg lg:text-xl bg-blue-600 hover:bg-blue-700 shadow-xl hover:shadow-2xl transition-all group"
+                    className="h-11 sm:h-12 lg:h-14 px-5 lg:px-8 text-sm lg:text-base bg-blue-600 hover:bg-blue-700 shadow-xl hover:shadow-2xl transition-all group"
                   >
-                    Start Free Trial
-                    <ArrowRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                    Почати безкоштовно
+                    <ArrowRight className="ml-1.5 w-4 h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                   {onQuickDemo && (
                     <Button
                       onClick={onQuickDemo}
                       variant="outline"
-                      className="h-14 lg:h-16 px-8 lg:px-12 text-lg lg:text-xl border-2"
+                      className="h-11 sm:h-12 lg:h-14 px-5 lg:px-8 text-sm lg:text-base border-2"
                     >
-                      <Pill className="mr-2 w-6 h-6" />
-                      Try Demo
+                      <Pill className="mr-1.5 w-4 h-4 lg:w-5 lg:h-5" />
+                      Спробувати демо
                     </Button>
                   )}
                 </div>
               </motion.div>
 
-              {/* Hero Image with Stats */}
+              {/* Hero Image - Nurse (VISIBLE ON ALL SCREENS) */}
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.7, delay: 0.3 }}
-                className="relative hidden lg:block"
+                className="relative mt-0 lg:mt-0"
               >
-                <HeroIllustration darkMode={darkMode} />
+                <div className="relative max-w-[180px] sm:max-w-[220px] mx-auto lg:max-w-[280px]">
+                  {/* White/gradient background layer behind transparent PNG */}
+                  <div 
+                    className="absolute inset-0 rounded-2xl -z-10"
+                    style={{
+                      background: darkMode 
+                        ? 'linear-gradient(to bottom, #1e293b, #0f172a)' 
+                        : 'linear-gradient(to bottom, #eff6ff, #ffffff, #f8fafc)',
+                      transform: 'scale(1.1)'
+                    }}
+                  />
+                  <img
+                    src={nurseImage}
+                    alt="Професійна медична підтримка"
+                    className="w-full h-auto object-contain relative z-10"
+                    style={{ 
+                      filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.15))',
+                      maxHeight: '300px'
+                    }}
+                  />
+                </div>
               </motion.div>
             </div>
 
@@ -432,12 +452,12 @@ export default function LandingPageRedesigned({
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.5 }}
-              className="mt-20 lg:mt-32"
+              className="mt-6 lg:mt-12"
             >
-              <p className={`text-center text-base lg:text-lg mb-8 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                Trusted by healthcare providers and patients worldwide
+              <p className={`text-center text-xs sm:text-sm mb-3 lg:mb-4 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                Довіряють лікарі та пацієнти в Україні
               </p>
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-4 max-w-5xl mx-auto">
                 {stats.map((stat, index) => {
                   const Icon = stat.icon;
                   return (
@@ -446,18 +466,18 @@ export default function LandingPageRedesigned({
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.6 + index * 0.1 }}
-                      className="p-6 rounded-2xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 shadow-lg hover:shadow-xl transition-all group"
+                      className="p-2 lg:p-4 rounded-lg lg:rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 shadow-lg hover:shadow-xl transition-all group"
                     >
                       <div className="flex flex-col items-center text-center">
-                        <div className="w-14 h-14 rounded-xl bg-blue-100 dark:bg-blue-950/50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                          <Icon className="w-7 h-7 text-blue-600 dark:text-blue-400" />
+                        <div className="w-8 h-8 lg:w-12 lg:h-12 rounded-lg bg-blue-100 dark:bg-blue-950/50 flex items-center justify-center mb-1.5 lg:mb-3 group-hover:scale-110 transition-transform">
+                          <Icon className="w-4 h-4 lg:w-6 lg:h-6 text-blue-600 dark:text-blue-400" />
                         </div>
-                        <p className={`text-3xl lg:text-4xl font-bold mb-2 ${
+                        <p className={`text-sm sm:text-base lg:text-2xl font-bold mb-0.5 ${
                           darkMode ? 'text-white' : 'text-slate-900'
                         }`}>
                           {stat.value}
                         </p>
-                        <p className={`text-base ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                        <p className={`text-xs ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                           {stat.label}
                         </p>
                       </div>
@@ -470,29 +490,29 @@ export default function LandingPageRedesigned({
         </section>
 
         {/* Features Section */}
-        <section className="bg-white dark:bg-slate-900 py-16 lg:py-24">
+        <section className="bg-white dark:bg-slate-900 py-8 lg:py-12">
           <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
+            <div className="text-center mb-8">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
               >
-                <h2 className={`text-3xl lg:text-5xl font-bold mb-4 ${
+                <h2 className={`text-2xl lg:text-4xl font-bold mb-3 ${
                   darkMode ? 'text-white' : 'text-slate-900'
                 }`}>
-                  Everything You Need to Stay on Track
+                  Все, що потрібно для дотримання графіку
                 </h2>
-                <p className={`text-lg lg:text-xl max-w-3xl mx-auto ${
+                <p className={`text-base lg:text-lg max-w-3xl mx-auto ${
                   darkMode ? 'text-slate-300' : 'text-slate-600'
                 }`}>
-                  Powerful features designed for patients, caregivers, and healthcare professionals
+                  Потужні функції, розроблені для пацієнтів, опікунів та медичних працівників
                 </p>
               </motion.div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {features.map((feature, index) => {
                 const Icon = feature.icon;
                 return (
@@ -539,10 +559,10 @@ export default function LandingPageRedesigned({
               <h2 className={`text-3xl lg:text-5xl font-bold mb-4 ${
                 darkMode ? 'text-white' : 'text-slate-900'
               }`}>
-                Loved by Users Worldwide
+                Відгуки наших користувачів
               </h2>
               <p className={`text-lg lg:text-xl ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
-                See what our community has to say
+                Подивіться, що кажуть люди про 120+
               </p>
             </div>
 
@@ -602,7 +622,7 @@ export default function LandingPageRedesigned({
                         ? 'w-8 bg-blue-600'
                         : 'w-2 bg-slate-300 dark:bg-slate-600'
                     }`}
-                    aria-label={`Go to testimonial ${index + 1}`}
+                    aria-label={`Перейти до відгуку ${index + 1}`}
                   />
                 ))}
               </div>
@@ -617,12 +637,12 @@ export default function LandingPageRedesigned({
               <h2 className={`text-3xl lg:text-5xl font-bold mb-4 ${
                 darkMode ? 'text-white' : 'text-slate-900'
               }`}>
-                Choose Your Plan
+                Виберіть свій план
               </h2>
               <p className={`text-lg lg:text-xl mb-8 ${
                 darkMode ? 'text-slate-300' : 'text-slate-600'
               }`}>
-                Start free, upgrade when you need more
+                Почніть безкоштовно, оновіться коли потрібно більше
               </p>
 
               {/* Billing Toggle */}
@@ -635,7 +655,7 @@ export default function LandingPageRedesigned({
                       : 'text-slate-600 dark:text-slate-400'
                   }`}
                 >
-                  Monthly
+                  Щомісяця
                 </button>
                 <button
                   onClick={() => setSelectedPlan('yearly')}
@@ -645,9 +665,9 @@ export default function LandingPageRedesigned({
                       : 'text-slate-600 dark:text-slate-400'
                   }`}
                 >
-                  Yearly
+                  Щороку
                   <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-0.5 rounded-full">
-                    Save 17%
+                    Економія 17%
                   </span>
                 </button>
               </div>
@@ -671,7 +691,7 @@ export default function LandingPageRedesigned({
                 >
                   {plan.popular && (
                     <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
-                      Most Popular
+                      Найпопулярніший
                     </div>
                   )}
 
@@ -690,17 +710,17 @@ export default function LandingPageRedesigned({
                       <span className={`text-5xl font-bold ${
                         darkMode ? 'text-white' : 'text-slate-900'
                       }`}>
-                        €{selectedPlan === 'monthly' ? plan.priceMonthly.toFixed(2) : (plan.priceYearly / 12).toFixed(2)}
+                        {plan.priceMonthly === 0 ? '₴0' : `₴${selectedPlan === 'monthly' ? plan.priceMonthly : Math.round(plan.priceYearly / 12)}`}
                       </span>
                       <span className={`text-lg ${
                         darkMode ? 'text-slate-400' : 'text-slate-600'
                       }`}>
-                        /month
+                        /міс
                       </span>
                     </div>
                     {selectedPlan === 'yearly' && plan.priceYearly > 0 && (
                       <p className={`text-sm ${darkMode ? 'text-slate-500' : 'text-slate-500'}`}>
-                        €{plan.priceYearly}/year billed annually
+                        ₴{plan.priceYearly}/рік при річній оплаті
                       </p>
                     )}
                   </div>
@@ -735,7 +755,7 @@ export default function LandingPageRedesigned({
             <p className={`text-center text-base mt-8 ${
               darkMode ? 'text-slate-400' : 'text-slate-600'
             }`}>
-              All plans include a 30-day free trial. No credit card required.
+              Усі плани включають 30-денний безкоштовний пробний період. Кредитна картка не потрібна.
             </p>
           </div>
         </section>
@@ -747,12 +767,12 @@ export default function LandingPageRedesigned({
               <h2 className={`text-3xl lg:text-5xl font-bold mb-4 ${
                 darkMode ? 'text-white' : 'text-slate-900'
               }`}>
-                Frequently Asked Questions
+                Часті запитання
               </h2>
               <p className={`text-lg lg:text-xl ${
                 darkMode ? 'text-slate-300' : 'text-slate-600'
               }`}>
-                Everything you need to know about Prescription Clarity
+                Все, що вам потрібно знати про 120+
               </p>
             </div>
 
@@ -818,28 +838,28 @@ export default function LandingPageRedesigned({
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              <h2 className="text-4xl lg:text-6xl font-bold text-white mb-8 leading-tight">
-                Ready to Transform Your Medication Management?
+              <h2 className="text-2xl sm:text-4xl lg:text-6xl font-bold text-white mb-6 lg:mb-8 leading-tight px-4">
+                Готові почати?
               </h2>
-              <p className="text-xl lg:text-2xl text-blue-100 mb-12 leading-relaxed max-w-3xl mx-auto">
-                Join thousands of users managing their medications with confidence. 
-                Start your free 30-day trial today.
+              <p className="text-base sm:text-xl lg:text-2xl text-blue-100 mb-8 lg:mb-12 leading-relaxed max-w-3xl mx-auto px-4">
+                Приєднуйтесь до тисяч українців. Почніть безкоштовно.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
                 <Button
                   onClick={onGetStarted}
-                  className="h-16 px-12 text-xl bg-white text-blue-600 hover:bg-blue-50 shadow-2xl hover:shadow-3xl transition-all group"
+                  className="w-full sm:w-auto h-14 sm:h-16 px-8 sm:px-12 text-base sm:text-xl bg-white text-blue-600 hover:bg-blue-50 shadow-2xl hover:shadow-3xl transition-all group"
                 >
-                  Start Your Free Trial
-                  <ArrowRight className="ml-3 w-7 h-7 group-hover:translate-x-1 transition-transform" />
+                  <span className="hidden sm:inline">Почати безкоштовний пробний період</span>
+                  <span className="sm:hidden">Почати безкоштовно</span>
+                  <ArrowRight className="ml-3 w-5 h-5 sm:w-7 sm:h-7 group-hover:translate-x-1 transition-transform" />
                 </Button>
                 {onQuickDemo && (
                   <Button
                     onClick={onQuickDemo}
                     variant="outline"
-                    className="h-16 px-12 text-xl border-2 border-white text-white hover:bg-white/20 bg-white/10"
+                    className="w-full sm:w-auto h-14 sm:h-16 px-8 sm:px-12 text-base sm:text-xl border-2 border-white text-white hover:bg-white/20 bg-white/10"
                   >
-                    Try Demo
+                    Спробувати демо
                   </Button>
                 )}
               </div>
@@ -848,15 +868,15 @@ export default function LandingPageRedesigned({
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-16 pt-12 border-t border-blue-500/30">
                 <div className="flex flex-col items-center gap-3">
                   <Shield className="w-12 h-12 text-blue-200" />
-                  <p className="text-lg text-blue-100">GDPR & HIPAA Compliant</p>
+                  <p className="text-lg text-blue-100">GDPR та HIPAA</p>
                 </div>
                 <div className="flex flex-col items-center gap-3">
                   <CheckCircle2 className="w-12 h-12 text-blue-200" />
-                  <p className="text-lg text-blue-100">No Credit Card Required</p>
+                  <p className="text-lg text-blue-100">Без кредитної картки</p>
                 </div>
                 <div className="flex flex-col items-center gap-3">
                   <Clock className="w-12 h-12 text-blue-200" />
-                  <p className="text-lg text-blue-100">Free 30-Day Trial</p>
+                  <p className="text-lg text-blue-100">30 днів безкоштовно</p>
                 </div>
               </div>
             </motion.div>
@@ -870,43 +890,43 @@ export default function LandingPageRedesigned({
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-12 mb-12">
               <div>
-                <h3 className={`text-xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                  Product
+                <h3 className={`text-base sm:text-xl font-bold mb-4 sm:mb-6 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                  Продукт
                 </h3>
-                <ul className="space-y-4">
-                  <li><a href="#" className={`text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Features</a></li>
-                  <li><a href="#pricing" className={`text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Pricing</a></li>
-                  <li><a href="#" className={`text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Security</a></li>
+                <ul className="space-y-3 sm:space-y-4">
+                  <li><a href="#" className={`text-sm sm:text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Функції</a></li>
+                  <li><a href="#pricing" className={`text-sm sm:text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Ціни</a></li>
+                  <li><a href="#" className={`text-sm sm:text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Безпека</a></li>
                 </ul>
               </div>
               <div>
-                <h3 className={`text-xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                  Company
+                <h3 className={`text-base sm:text-xl font-bold mb-4 sm:mb-6 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                  Компанія
                 </h3>
-                <ul className="space-y-4">
-                  <li><a href="#" className={`text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>About</a></li>
-                  <li><a href="#" className={`text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Blog</a></li>
-                  <li><a href="#" className={`text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Careers</a></li>
+                <ul className="space-y-3 sm:space-y-4">
+                  <li><a href="#" className={`text-sm sm:text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Про нас</a></li>
+                  <li><a href="#" className={`text-sm sm:text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Блог</a></li>
+                  <li><a href="#" className={`text-sm sm:text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Кар'єра</a></li>
                 </ul>
               </div>
               <div>
-                <h3 className={`text-xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                  Resources
+                <h3 className={`text-base sm:text-xl font-bold mb-4 sm:mb-6 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                  Ресурси
                 </h3>
-                <ul className="space-y-4">
-                  <li><a href="#" className={`text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Help Center</a></li>
-                  <li><a href="#" className={`text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Community</a></li>
-                  <li><a href="#" className={`text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Contact</a></li>
+                <ul className="space-y-3 sm:space-y-4">
+                  <li><a href="#" className={`text-sm sm:text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Довідковий центр</a></li>
+                  <li><a href="#" className={`text-sm sm:text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Спільнота</a></li>
+                  <li><a href="#" className={`text-sm sm:text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Контакти</a></li>
                 </ul>
               </div>
               <div>
-                <h3 className={`text-xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                  Legal
+                <h3 className={`text-base sm:text-xl font-bold mb-4 sm:mb-6 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                  Юридичне
                 </h3>
-                <ul className="space-y-4">
-                  <li><a href="#" className={`text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Privacy</a></li>
-                  <li><a href="#" className={`text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Terms</a></li>
-                  <li><a href="#" className={`text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>GDPR & HIPAA</a></li>
+                <ul className="space-y-3 sm:space-y-4">
+                  <li><a href="#" className={`text-sm sm:text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Конфіденційність</a></li>
+                  <li><a href="#" className={`text-sm sm:text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Умови</a></li>
+                  <li><a href="#" className={`text-sm sm:text-lg hover:text-blue-600 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>GDPR та HIPAA</a></li>
                 </ul>
               </div>
             </div>
@@ -917,12 +937,17 @@ export default function LandingPageRedesigned({
               <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
                 <div className="flex items-center gap-4">
                   <PillShieldLogo size={40} color="#2196F3" />
-                  <span className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                    Prescription Clarity
-                  </span>
+                  <div>
+                    <span className={`text-xl font-bold block ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+                      120+
+                    </span>
+                    <span className="text-sm text-slate-500 dark:text-slate-400 hidden sm:block">
+                      120 років здоров'я
+                    </span>
+                  </div>
                 </div>
                 <p className={`text-lg ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                  © 2025 Prescription Clarity. All rights reserved.
+                   © 2026 120+. Усі права захищені.
                 </p>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { CheckCircle2, TrendingUp, Users, Shield, Activity, Calendar, Bell } from 'lucide-react';
+import { CheckCircle2, TrendingUp, Users, Shield, Activity, Calendar, Bell, Pill, Clock } from 'lucide-react';
 
 export const HeroIllustration = ({ darkMode }: { darkMode: boolean }) => {
   const bgColor = darkMode ? '#1e293b' : '#ffffff';
@@ -28,78 +28,112 @@ export const HeroIllustration = ({ darkMode }: { darkMode: boolean }) => {
 
         <div className="flex h-[calc(100%-3rem)]">
           {/* Sidebar */}
-          <div className="w-16 lg:w-48 border-r border-slate-100 dark:border-slate-800 p-4 hidden sm:flex flex-col gap-4">
-            <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/30 mb-4"></div>
-            <div className="space-y-3">
-              {[1, 2, 3, 4].map(i => (
-                <div key={i} className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded bg-slate-100 dark:bg-slate-800"></div>
-                  <div className="w-20 h-2 rounded bg-slate-100 dark:bg-slate-800 hidden lg:block"></div>
+          <div className="w-16 lg:w-48 border-r border-slate-100 dark:border-slate-800 p-4 hidden sm:flex flex-col gap-6">
+            <div className="flex items-center gap-3 px-2">
+                <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white">
+                    <Shield size={18} fill="currentColor" />
                 </div>
-              ))}
+                <div className="font-bold text-slate-800 dark:text-white hidden lg:block">Clarity</div>
+            </div>
+            
+            <div className="space-y-2">
+              <div className="flex items-center gap-3 p-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
+                <Activity size={20} />
+                <div className="font-medium hidden lg:block">Dashboard</div>
+              </div>
+              <div className="flex items-center gap-3 p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                <Calendar size={20} />
+                <div className="font-medium hidden lg:block">Schedule</div>
+              </div>
+              <div className="flex items-center gap-3 p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                <Pill size={20} />
+                <div className="font-medium hidden lg:block">Meds</div>
+              </div>
+              <div className="flex items-center gap-3 p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                <Users size={20} />
+                <div className="font-medium hidden lg:block">Family</div>
+              </div>
             </div>
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 p-6 bg-slate-50/50 dark:bg-slate-900/50">
+          <div className="flex-1 p-6 bg-slate-50/50 dark:bg-slate-900/50 relative overflow-hidden">
             {/* Header Area */}
             <div className="flex justify-between items-center mb-8">
               <div>
-                <div className="w-32 h-4 rounded-lg bg-slate-200 dark:bg-slate-700 mb-2"></div>
-                <div className="w-24 h-3 rounded-lg bg-slate-100 dark:bg-slate-800"></div>
+                <div className="text-xl font-bold text-slate-800 dark:text-white mb-1">Good Morning, Alex 👋</div>
+                <div className="text-sm text-slate-500 dark:text-slate-400">Here is your daily health overview</div>
               </div>
-              <div className="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+              <div className="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-800 flex items-center justify-center text-indigo-700 dark:text-indigo-300 font-bold">
+                  AM
+              </div>
             </div>
 
-            {/* Stats Grid */}
+            {/* Stats Grid - Concrete Data */}
             <div className="grid grid-cols-2 gap-4 mb-8">
-              {[1, 2].map(i => (
-                <div key={i} className="p-4 rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700">
-                  <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/20 mb-3"></div>
-                  <div className="w-16 h-4 rounded bg-slate-200 dark:bg-slate-700 mb-2"></div>
-                  <div className="w-12 h-3 rounded bg-slate-100 dark:bg-slate-800"></div>
+              {/* Stat 1 */}
+              <div className="p-4 rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 flex flex-col justify-between h-24">
+                <div className="flex justify-between items-start">
+                    <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+                        <Pill size={18} />
+                    </div>
+                    <span className="text-xs font-medium text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">Today</span>
                 </div>
-              ))}
+                <div>
+                    <div className="text-2xl font-bold text-slate-800 dark:text-white">3<span className="text-sm text-slate-400 font-normal">/5</span></div>
+                    <div className="text-xs text-slate-500 dark:text-slate-400">Medications Taken</div>
+                </div>
+              </div>
+              
+              {/* Stat 2 */}
+               <div className="p-4 rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 flex flex-col justify-between h-24">
+                <div className="flex justify-between items-start">
+                    <div className="p-2 rounded-lg bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400">
+                        <TrendingUp size={18} />
+                    </div>
+                     <span className="text-xs font-medium text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">Streak</span>
+                </div>
+                <div>
+                    <div className="text-2xl font-bold text-slate-800 dark:text-white">12 <span className="text-sm text-slate-400 font-normal">days</span></div>
+                    <div className="text-xs text-slate-500 dark:text-slate-400">Perfect Adherence</div>
+                </div>
+              </div>
             </div>
 
-            {/* Chart Area */}
-            <div className="p-4 rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 h-32 relative overflow-hidden">
-               <div className="absolute inset-0 flex items-end px-4 pb-4 gap-2">
-                 {[40, 60, 45, 70, 50, 80, 65, 85, 75, 90, 60, 70].map((h, i) => (
-                   <motion.div 
-                     key={i}
-                     initial={{ height: 0 }}
-                     animate={{ height: `${h}%` }}
-                     transition={{ duration: 1, delay: i * 0.05 }}
-                     className="flex-1 bg-blue-100 dark:bg-blue-900/30 rounded-t-sm hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
-                   />
+            {/* Chart Area - Weekly Adherence */}
+            <div className="p-5 rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 h-40 relative flex flex-col">
+               <div className="flex justify-between items-center mb-4">
+                   <div className="font-bold text-slate-800 dark:text-white text-sm">Weekly Adherence</div>
+                   <div className="text-xs text-green-500 font-medium">+12% vs last week</div>
+               </div>
+               
+               <div className="flex-1 flex items-end justify-between gap-2 px-1">
+                 {[
+                    { day: 'M', h: 60, active: false },
+                    { day: 'T', h: 80, active: false },
+                    { day: 'W', h: 100, active: false },
+                    { day: 'T', h: 70, active: false },
+                    { day: 'F', h: 90, active: false },
+                    { day: 'S', h: 100, active: true },
+                    { day: 'S', h: 40, active: false } // Future day
+                 ].map((item, i) => (
+                   <div key={i} className="flex flex-col items-center gap-2 flex-1 group">
+                        <div className="relative w-full flex items-end justify-center h-20">
+                            <motion.div 
+                                initial={{ height: 0 }}
+                                animate={{ height: `${item.h}%` }}
+                                transition={{ duration: 0.8, delay: i * 0.1 }}
+                                className={`w-full max-w-[20px] rounded-t-md ${
+                                    item.active 
+                                    ? 'bg-blue-500 dark:bg-blue-500' 
+                                    : 'bg-slate-100 dark:bg-slate-700 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/30'
+                                } transition-colors`}
+                            />
+                        </div>
+                        <div className="text-[10px] font-medium text-slate-400">{item.day}</div>
+                   </div>
                  ))}
                </div>
-               {/* Line Overlay */}
-                <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none">
-                  <motion.path
-                    d="M0,80 C50,80 50,40 100,40 C150,40 150,70 200,70 C250,70 250,20 300,20 C350,20 350,50 400,50 C450,50 450,30 500,30 L500,150 L0,150 Z"
-                    fill="url(#gradient)"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 0.2 }}
-                    transition={{ delay: 0.5 }}
-                  />
-                  <defs>
-                    <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor={primaryColor} stopOpacity={0.5} />
-                      <stop offset="100%" stopColor={primaryColor} stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
-                  <motion.path
-                    d="M0,80 C50,80 50,40 100,40 C150,40 150,70 200,70 C250,70 250,20 300,20 C350,20 350,50 400,50 C450,50 450,30 500,30"
-                    fill="none"
-                    stroke={primaryColor}
-                    strokeWidth="3"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 1.5, ease: "easeInOut" }}
-                  />
-                </svg>
             </div>
           </div>
         </div>
@@ -182,4 +216,3 @@ export const HeroIllustration = ({ darkMode }: { darkMode: boolean }) => {
   );
 };
 
-import { Clock } from 'lucide-react';

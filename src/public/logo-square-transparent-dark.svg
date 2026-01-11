@@ -1,0 +1,36 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow-sq" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.376 0 0 0 0 0.647 0 0 0 0 0.980 0 0 0 1 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Shield background -->
+  <path d="M 32 8 Q 44 14, 56 16 L 56 32 C 56 40, 52 46, 46 50 C 40 54.5, 36 56, 32 58 C 28 56, 24 54.5, 18 50 C 12 46, 8 40, 8 32 L 8 16 Q 20 14, 32 8 Z" 
+        fill="#2B5A8C" 
+        stroke="#60A5FA" 
+        stroke-width="2" 
+        filter="url(#glow-sq)"/>
+  
+  <!-- Capsule with cross -->
+  <g transform="translate(32, 32) rotate(45)">
+    <path d="M -7.5 -11.25 A 7.5 7.5 0 0 1 7.5 -11.25 L 7.5 11.25 A 7.5 7.5 0 0 1 -7.5 11.25 Z" 
+          fill="white" 
+          stroke="#2B5A8C" 
+          stroke-width="1.5"/>
+    <rect x="-7.5" y="-0.85" width="15" height="1.7" fill="#2B5A8C"/>
+    <g transform="translate(1.7, -6.5)">
+      <path d="M -1.85 0 L 0 0 L 0 -5.4" 
+            stroke="#2B5A8C" 
+            stroke-width="1.7" 
+            stroke-linecap="square" 
+            stroke-linejoin="miter" 
+            fill="none"/>
+    </g>
+  </g>
+</svg>

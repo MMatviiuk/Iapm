@@ -1,135 +1,153 @@
-# IAPM
+# 💊 Medication Tracker App
 
-This is a code bundle for IAPM. The original project is available at https://www.figma.com/design/aSak9KiY6nHXqLygUmLvAc/IAPM.
+Повнофункціональний додаток для відстеження прийому ліків з ML аналізом, відео/фото розпізнаванням та голосовим вводом.
 
-## Running the code
+---
 
-### Windows (PowerShell)
+## 🎯 Можливості
 
-1) Open PowerShell or Command Prompt.
-2) Go to the project folder (use your real path):
+### Основні:
+- ✅ Додавання та відстеження медикаментів
+- ✅ Розклад прийому з нагадуваннями
+- ✅ Історія прийому ліків
+- ✅ Роль: Пацієнт / Опікун / Лікар
+- ✅ Real-time синхронізація (Supabase)
 
-```
-cd D:\path\to\Iapm
-```
+### ML / AI:
+- 📸 **Фото розпізнавання** інвентарю (Google Vision API)
+- 🎥 **Відео розпізнавання** інвентарю (Google Video Intelligence)
+- 🎤 **Голосовий ввід** термінів придатності (Web Speech API)
+- 📊 **ML аналіз** кореляції пульс ↔ ліки (Jupyter)
+- 🩺 Генератор даних Xiaomi Mi Band для тестування
 
-Example:
+### Платформи:
+- 🌐 Web (PWA)
+- 📱 Android APK (Capacitor)
+- 🖥️ Desktop-friendly
 
-```
-cd D:\tempbuild\Iapm
-```
+---
 
-3) Install dependencies (once):
+## 🚀 Швидкий Старт
 
-```
-npm i
-```
-
-4) Start the dev server:
-
-```
-npm run dev
-```
-
-5) Open the app in the browser:
-
-```
-http://localhost:3000
-```
-
-### Windows (Command Prompt)
-
-1) Open Command Prompt.
-2) Go to the project folder (use your real path):
-
-```
-cd /d D:\path\to\Iapm
-```
-
-Example:
-
-```
-cd /d D:\tempbuild\Iapm
-```
-
-3) Install dependencies (once):
-
-```
-npm i
-```
-
-4) Start the dev server:
-
-```
-npm run dev
-```
-
-5) Open the app in the browser:
-
-```
-http://localhost:3000
-```
-
-### macOS / Linux (Terminal)
-
-1) Open Terminal.
-2) Go to the project folder:
-
-```
-cd /path/to/Iapm
-```
-
-3) Install dependencies (once):
-
-```
-npm i
-```
-
-4) Start the dev server:
-
-```
-npm run dev
-```
-
-5) Open the app in the browser:
-
-```
-http://localhost:3000
-```
-
-## Troubleshooting (Windows Git)
-
-### "fatal: 'origin' does not appear to be a git repository"
-This means the remote is missing. Add it and pull again:
-
-```
-git remote add origin https://github.com/MMatviiuk/Iapm.git
-git pull origin main
-```
-
-If the default branch is `master`, use:
-
-```
-git pull origin master
-```
-
-### "The following untracked working tree files would be overwritten by merge"
-This happens when you copied a folder into `D:\tempbuild\Iapm` and then tried to pull.
-You have two clean options:
-
-Option A: fresh clone (recommended)
-
-```
-cd D:\tempbuild
+### 1. Клонувати репозиторій
+```bash
 git clone https://github.com/MMatviiuk/Iapm.git
-cd D:\tempbuild\Iapm
+cd Iapm
 ```
 
-Option B: keep the folder and reset it to match the remote (deletes local untracked files)
+### 2. Встановити залежності
+```bash
+npm install
+```
 
+### 3. Налаштувати змінні оточення
+```bash
+cp .env.example .env
+# Редагуйте .env - додайте ваші ключі
 ```
-cd D:\tempbuild\Iapm
-git fetch origin
-git reset --hard origin/main
-git clean -fd
+
+### 4. Запустити локально
+```bash
+npm run dev
+# Відкрийте http://localhost:5173
 ```
+
+---
+
+## 🔧 Налаштування (детально в SETUP.md)
+
+### Supabase Backend:
+1. Створіть проект на https://supabase.com
+2. Виконайте SQL з `supabase-schema.sql`
+3. Додайте URL та KEY в `.env`
+
+### Google Vision API:
+1. Активуйте API в Google Cloud Console
+2. Створіть API Key
+3. Додайте в `.env`
+
+### Android APK:
+```bash
+npm run android:sync    # Білд + синхронізація
+npm run android:open    # Відкрити Android Studio
+```
+
+**Детальна інструкція: `SETUP.md`**
+
+---
+
+## 🎤 Голосовий Ввід
+
+**Безкоштовно - Web Speech API!**
+
+Відкрийте сканер інвентарю → Натисніть мікрофон 🎤
+
+Приклади команд:
+- *"Аспірін термін до грудня 2026"*
+- *"Залишилось п'ять таблеток метформіну"*
+- *"Парацетамол закінчується 15.06.2026"*
+
+Система автоматично розпізнає назву, кількість та термін придатності.
+
+---
+
+## 💰 Вартість
+
+**БЕЗКОШТОВНО для запуску:**
+- Supabase: 500MB БД, 50K користувачів
+- Google Vision: 1000 фото + 1000 хв відео/міс
+- Web Speech API: вбудовано в браузер
+
+**$0/місяць!** 🎉
+
+---
+
+## 📚 Документація
+
+- `README.md` - Цей файл (швидкий старт)
+- `SETUP.md` - **Детальна інструкція налаштування**
+- `MEDICATION_INVENTORY_SETUP.md` - Сканери інвентарю
+- `GOOGLE_VISION_SETUP.md` - Google Vision API
+- `supabase-schema.sql` - Схема БД
+
+---
+
+## 📱 Команди
+
+```bash
+npm run dev              # Локальний сервер
+npm run build            # Production білд
+
+npm run android:sync     # Синхронізація Android
+npm run android:open     # Android Studio
+npm run android:run      # Запуск на телефоні
+```
+
+---
+
+## 🎓 Технології
+
+- React 18 + TypeScript
+- Supabase (PostgreSQL)
+- Google Vision AI
+- Capacitor (Android)
+- Python ML (Jupyter)
+
+**Для диплому:**
+- Computer Vision (розпізнавання ліків)
+- Object Detection (підрахунок таблеток)
+- Speech Recognition (голосовий ввід)
+- Time Series Analysis (пульс ↔ ліки)
+- Statistical Analysis (кореляції, p-values)
+
+---
+
+## 👨‍💻 Автор
+
+**Marta Matviiuk** - дипломний проект
+
+GitHub: [@MMatviiuk](https://github.com/MMatviiuk/Iapm)
+
+---
+
+**Успіхів! 🚀**

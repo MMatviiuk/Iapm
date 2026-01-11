@@ -10,6 +10,7 @@ import {
   RecognizedMedication,
   MedicationSupply,
 } from '../utils/inventoryRecognition';
+import VoiceInput from './VoiceInput';
 
 interface MedicationInventoryScannerProps {
   darkMode: boolean;
@@ -262,6 +263,31 @@ export default function MedicationInventoryScanner({
                 <li>Перевірте результати та підтвердіть</li>
               </ol>
             </div>
+          )}
+
+          {/* Голосовий ввід */}
+          {!selectedPhoto && (
+            <VoiceInput
+              darkMode={darkMode}
+              currentMedications={currentMedications}
+              onResult={(text, parsed) => {
+                if (parsed?.medication && parsed?.quantity) {
+                  const med = currentMedications.find(m => m.name === parsed.medication);
+                  if (med) {
+                    onInventoryUpdate([{
+                      medicationId: med.id,
+                      medicationName: med.name,
+                      quantity: parsed.quantity,
+                      lastUpdated: new Date(),
+                    }]);
+                    toast.success('Збережено голосом!', {
+                      description: `${parsed.medication}: ${parsed.quantity} од.`,
+                    });
+                    onClose();
+                  }
+                }
+              }}
+            />
           )}
 
           {/* Завантаження фото */}

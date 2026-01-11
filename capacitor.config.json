@@ -1,0 +1,8 @@
+{
+  "appId": "com.medication.tracker",
+  "appName": "Medication Tracker",
+  "webDir": "build",
+  "server": {
+    "androidScheme": "https"
+  }
+}

@@ -1,12 +1,18 @@
 package com.iapm.ui.screens
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.InsertChart
+import androidx.compose.material.icons.filled.People
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
@@ -14,12 +20,13 @@ import androidx.compose.ui.unit.dp
 fun CaregiverDashboardScreen(
     onNavigateToPatient: (String) -> Unit,
     onNavigateToAddPatient: () -> Unit,
+    onNavigateToAnalytics: () -> Unit,
     onNavigateToSettings: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
 
-    // Mock data for demonstration
+    // Тестові дані для демонстрації
     val patients = listOf(
         PatientCardData(
             id = "1",
@@ -47,7 +54,7 @@ fun CaregiverDashboardScreen(
             .verticalScroll(scrollState)
             .padding(16.dp)
     ) {
-        // Header
+        // Заголовок
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -55,7 +62,7 @@ fun CaregiverDashboardScreen(
         ) {
             Column {
                 Text(
-                    text = "Мої пацієнти",
+                    text = "Мої підопічні",
                     style = MaterialTheme.typography.headlineMedium.copy(
                         fontWeight = FontWeight.Bold
                     )
@@ -68,34 +75,37 @@ fun CaregiverDashboardScreen(
             }
 
             IconButton(onClick = onNavigateToSettings) {
-                Text("⚙️", fontSize = 24.sp)
+                Icon(
+                    imageVector = Icons.Filled.Settings,
+                    contentDescription = "Налаштування"
+                )
             }
         }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Quick stats
+        // Швидка статистика
         Row(modifier = Modifier.fillMaxWidth()) {
             StatCard(
-                title = "Пацієнтів",
+                title = "Підопічних",
                 value = patients.size.toString(),
-                icon = "👥",
+                icon = Icons.Filled.People,
                 modifier = Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.width(12.dp))
             StatCard(
                 title = "Середня прихильність",
                 value = "88%",
-                icon = "📊",
+                icon = Icons.Filled.InsertChart,
                 modifier = Modifier.weight(1f)
             )
         }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Patients list
+        // Список пацієнтів
         Text(
-            text = "Пацієнти",
+            text = "Підопічні",
             style = MaterialTheme.typography.titleLarge.copy(
                 fontWeight = FontWeight.SemiBold
             )
@@ -113,21 +123,21 @@ fun CaregiverDashboardScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Actions
+        // Дії
         OutlinedButton(
             onClick = onNavigateToAddPatient,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("➕ Додати пацієнта")
+            Text("Додати підопічного")
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { /* TODO: Navigate to analytics */ },
+            onClick = onNavigateToAnalytics,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("📈 Аналітика")
+            Text("Аналітика")
         }
     }
 }
@@ -141,7 +151,7 @@ fun DoctorDashboardScreen(
 ) {
     val scrollState = rememberScrollState()
 
-    // Mock data for demonstration
+    // Тестові дані для демонстрації
     val patients = listOf(
         DoctorPatientData(
             id = "1",
@@ -181,7 +191,7 @@ fun DoctorDashboardScreen(
             .verticalScroll(scrollState)
             .padding(16.dp)
     ) {
-        // Header
+        // Заголовок
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -202,32 +212,35 @@ fun DoctorDashboardScreen(
             }
 
             IconButton(onClick = onNavigateToSettings) {
-                Text("⚙️", fontSize = 24.sp)
+                Icon(
+                    imageVector = Icons.Filled.Settings,
+                    contentDescription = "Налаштування"
+                )
             }
         }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Quick stats
+        // Швидка статистика
         Row(modifier = Modifier.fillMaxWidth()) {
             StatCard(
                 title = "Пацієнтів",
                 value = patients.size.toString(),
-                icon = "👥",
+                icon = Icons.Filled.People,
                 modifier = Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.width(12.dp))
             StatCard(
                 title = "Високий ризик",
                 value = patients.count { it.riskLevel == "Високий" }.toString(),
-                icon = "⚠️",
+                icon = Icons.Filled.Warning,
                 modifier = Modifier.weight(1f)
             )
         }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Patients list
+        // Список пацієнтів
         Text(
             text = "Пацієнти",
             style = MaterialTheme.typography.titleLarge.copy(
@@ -247,21 +260,21 @@ fun DoctorDashboardScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Actions
+        // Дії
         OutlinedButton(
             onClick = onNavigateToAddPatient,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("➕ Додати пацієнта")
+            Text("Додати пацієнта")
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { /* TODO: Navigate to analytics */ },
+            onClick = { /* TODO: додати перехід до аналітики */ },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("📊 Звіти та аналітика")
+            Text("Звіти та аналітика")
         }
     }
 }
@@ -343,11 +356,11 @@ fun PatientCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "💊 ${patient.medicationsCount} ліків",
+                    text = "Ліків: ${patient.medicationsCount}",
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Text(
-                    text = "🕒 ${patient.lastTaken}",
+                    text = "Останній прийом: ${patient.lastTaken}",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -356,7 +369,7 @@ fun PatientCard(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "➡️ ${patient.nextDose}",
+                text = "Наступна доза: ${patient.nextDose}",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.primary
             )
@@ -425,7 +438,7 @@ fun DoctorPatientCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "💊 ${patient.medicationsCount} ліків",
+                    text = "Ліків: ${patient.medicationsCount}",
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Text(
@@ -442,7 +455,7 @@ fun DoctorPatientCard(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "📅 Останній візит: ${patient.lastVisit}",
+                text = "Останній візит: ${patient.lastVisit}",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -454,7 +467,7 @@ fun DoctorPatientCard(
 fun StatCard(
     title: String,
     value: String,
-    icon: String,
+    icon: ImageVector,
     modifier: Modifier = Modifier
 ) {
     Card(modifier = modifier) {
@@ -462,7 +475,12 @@ fun StatCard(
             modifier = Modifier.padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = icon, fontSize = 32.sp)
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                modifier = Modifier.size(32.dp),
+                tint = MaterialTheme.colorScheme.primary
+            )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = value,

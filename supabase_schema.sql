@@ -289,29 +289,34 @@ LEFT JOIN medication_history mh ON m.id = mh.medication_id
 WHERE m.active = true
 GROUP BY m.user_id, m.id, m.name;
 
--- Сегодняшние дозы
+-- Сьогоднішні дози
 CREATE OR REPLACE VIEW todays_doses AS
 SELECT 
     m.user_id,
     m.id as medication_id,
     m.name,
     m.dosage,
-    unnest(m.times_per_day) as time,
+    t.time_text::time as time,
     CASE 
         WHEN mh.taken = true THEN 'taken'
-        WHEN mh.date = CURRENT_DATE AND mh.time = unnest(m.times_per_day) THEN 'skipped'
+        WHEN mh.date = CURRENT_DATE AND mh.time = t.time_text::time THEN 'skipped'
         ELSE 'pending'
     END as status
 FROM medications m
+JOIN LATERAL (
+    SELECT NULLIF(TRIM(x), '') AS time_text
+    FROM unnest(m.times_per_day) AS x
+) AS t(time_text) ON t.time_text IS NOT NULL
 LEFT JOIN medication_history mh ON m.id = mh.medication_id 
     AND mh.date = CURRENT_DATE 
-    AND mh.time = unnest(m.times_per_day)
+    AND mh.time = t.time_text::time
 WHERE m.active = true 
     AND m.start_date <= CURRENT_DATE 
     AND (m.end_date IS NULL OR m.end_date >= CURRENT_DATE)
-    AND CURRENT_DATE IN (
-        SELECT unnest(days_of_week) 
-        WHERE unnest(days_of_week) = LOWER(TO_CHAR(CURRENT_DATE, 'Day'))
+    AND EXISTS (
+        SELECT 1
+        FROM unnest(m.days_of_week) AS d(day)
+        WHERE LOWER(TRIM(day)) = LOWER(TRIM(TO_CHAR(CURRENT_DATE, 'Day')))
     );
 
 -- Вставка демо-данных (опционально)

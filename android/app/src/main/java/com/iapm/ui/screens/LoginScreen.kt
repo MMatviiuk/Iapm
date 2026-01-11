@@ -2,6 +2,9 @@ package com.iapm.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -105,7 +108,10 @@ fun LoginScreen(
                 singleLine = true,
                 trailingIcon = {
                     IconButton(onClick = { showPassword = !showPassword }) {
-                        Text(if (showPassword) "🙈" else "👁️")
+                        Icon(
+                            imageVector = if (showPassword) Icons.Filled.VisibilityOff else Icons.Filled.Visibility,
+                            contentDescription = null
+                        )
                     }
                 }
             )
@@ -181,7 +187,7 @@ fun LoginScreen(
                 onClick = onDemo,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("🚀 Демонстрація")
+                Text("Демонстрація")
             }
         }
     }

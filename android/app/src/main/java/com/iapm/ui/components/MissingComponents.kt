@@ -1,13 +1,16 @@
 package com.iapm.ui.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-// Simple implementation of ExposedDropdownMenuBox for older Compose versions
+// Спрощена реалізація ExposedDropdownMenuBox для старіших версій Compose
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SimpleDropdownMenuBox(
@@ -24,10 +27,13 @@ fun SimpleDropdownMenuBox(
 @Composable
 fun SimpleExposedDropdownMenuDefaults() = object {
     @Composable
-    fun TrailingIcon(expanded: Boolean) = Text(if (expanded) "🔽" else "🔼")
+    fun TrailingIcon(expanded: Boolean) = Icon(
+        imageVector = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
+        contentDescription = null
+    )
 }
 
-// Simple FlowRow implementation
+// Спрощена реалізація FlowRow
 @Composable
 fun SimpleFlowRow(
     modifier: Modifier = Modifier,
@@ -36,7 +42,7 @@ fun SimpleFlowRow(
     maxItemsInEachRow: Int = Int.MAX_VALUE,
     content: @Composable () -> Unit
 ) {
-    // Simple implementation - just use Column for now
+    // Спрощена реалізація — поки використовуємо Column
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.Start,
@@ -46,7 +52,7 @@ fun SimpleFlowRow(
     }
 }
 
-// Simple FilterChip implementation
+// Спрощена реалізація FilterChip
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SimpleFilterChip(

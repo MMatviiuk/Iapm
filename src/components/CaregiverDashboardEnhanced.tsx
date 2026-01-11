@@ -22,7 +22,7 @@ import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
 import { Progress } from './ui/progress';
 import { calculateAge } from '../utils/dateUtils';
 import { getAvatarUrl } from '../utils/avatarUtils';
-import { loadDatabase } from '../data/database';
+import api from '../services/api';
 import { toast } from 'sonner@2.0.3';
 import FABButtons from './FABButtons';
 
@@ -58,14 +58,14 @@ export default function CaregiverDashboardEnhanced({
   const [sortByRisk, setSortByRisk] = useState(true);
   const [filterMissed, setFilterMissed] = useState(false);
 
-  // Helper: Calculate risk status
+  // Допоміжна логіка визначення ризику
   const getRiskStatus = (adherence: number): 'high' | 'medium' | 'low' => {
     if (adherence < 70) return 'high';
     if (adherence < 85) return 'medium';
     return 'low';
   };
 
-  // Filter by missed medications today
+  // Фільтр по пропущених прийомах
   const filteredDependents = filterMissed
     ? dependents.filter(d => {
         const missedToday = d.medications.filter(m => !m.taken).length > 0;
@@ -73,7 +73,7 @@ export default function CaregiverDashboardEnhanced({
       })
     : dependents;
 
-  // Sort dependents by risk (high risk first)
+  // Сортування за ризиком
   const sortedDependents = sortByRisk
     ? [...filteredDependents].sort((a, b) => {
         const riskOrder = { high: 0, medium: 1, low: 2 };
@@ -81,46 +81,49 @@ export default function CaregiverDashboardEnhanced({
       })
     : filteredDependents;
 
-  // Load data
+  // Завантаження даних
   useEffect(() => {
     async function loadData() {
       try {
         setLoading(true);
-        const db = await loadDatabase();
-        
-        // Use Catherine Bennett (cg_001)
-        const currentCaregiverId = 'cg_001';
-        const myDependents = db.patients.filter(p => p.caregiverId === currentCaregiverId);
+        const rawDependents = await api.getDependents();
+        const dependentsData: DependentData[] = (rawDependents || []).map((patient: any) => {
+          const displayName = patient.name
+            || `${patient.firstName || ''} ${patient.lastName || ''}`.trim()
+            || patient.email
+            || 'Пацієнт';
+          const gender = patient.gender?.toLowerCase() as 'male' | 'female' | undefined;
 
-        const dependentsData: DependentData[] = myDependents.map(patient => ({
-          id: patient.id,
-          name: `${patient.firstName} ${patient.lastName}`,
-          dateOfBirth: patient.dateOfBirth,
-          adherence: patient.adherenceRate,
-          photoUrl: getAvatarUrl({ 
-            name: `${patient.firstName} ${patient.lastName}`,
-            gender: patient.gender.toLowerCase() as 'male' | 'female',
-            customPhotoUrl: patient.photoUrl
-          }),
-          gender: patient.gender.toLowerCase() as 'male' | 'female',
-          medications: (patient.medications || []).map((med) => ({
-            id: med.id,
-            name: med.name,
-            dosage: med.dosage,
-            time: med.times?.[0] || '08:00',
-            taken: Math.random() > 0.3
-          }))
-        }));
+          return {
+            id: patient.id,
+            name: displayName,
+            dateOfBirth: patient.dateOfBirth || '',
+            adherence: patient.adherenceRate ?? ((patient.medications || []).length > 0 ? 100 : 0),
+            photoUrl: getAvatarUrl({
+              name: displayName,
+              gender,
+              customPhotoUrl: patient.photoUrl
+            }),
+            gender,
+            medications: (patient.medications || []).map((med: any) => ({
+              id: med.id,
+              name: med.name,
+              dosage: med.dosage || med.dosageMg || '',
+              time: med.times?.[0] || med.time || '08:00',
+              taken: Boolean(med.taken)
+            }))
+          };
+        });
 
         setDependents(dependentsData);
         
-        // Save to localStorage for analytics
+        // Зберігаємо для аналітики
         localStorage.setItem('caregiverDependents', JSON.stringify(dependentsData));
         
         setLoading(false);
       } catch (error) {
         console.error('Failed to load dependents:', error);
-        toast.error('Failed to load dependents');
+        toast.error('Не вдалося завантажити підопічних');
         setLoading(false);
       }
     }
@@ -138,27 +141,24 @@ export default function CaregiverDashboardEnhanced({
 
   const getTimeString = (time: string) => {
     const [hours, minutes] = time.split(':');
-    const hour = parseInt(hours);
-    const ampm = hour >= 12 ? 'PM' : 'AM';
-    const displayHour = hour % 12 || 12;
-    return `${displayHour}:${minutes} ${ampm}`;
+    return `${hours}:${minutes}`;
   };
 
-  // Handle edit medication
+  // Редагування ліків
   const handleEditMedication = (med: any, dependent: DependentData) => {
-    // Create a complete medication object for editing
+    // Формуємо дані для редагування
     const editData = {
       id: med.id,
       name: med.name,
       dosage: med.dosage,
-      form: 'Tablet', // Default form
+      form: 'Таблетка',
       times: [med.time],
       mealTiming: 'anytime',
       daysOfWeek: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-      duration: '30 Days',
+      duration: '30 днів',
       instructions: '',
       photo: null,
-      // Context info
+      // Контекст
       context: 'caregiver',
       dependentId: dependent.id,
       dependentName: dependent.name
@@ -166,12 +166,12 @@ export default function CaregiverDashboardEnhanced({
     localStorage.setItem('editMedicationData', JSON.stringify(editData));
     setCurrentPage('edit-medication');
     if ('vibrate' in navigator) navigator.vibrate(30);
-    toast.info(`Editing ${med.name} for ${dependent.name}`);
+    toast.info(`Редагування: ${med.name} для ${dependent.name}`);
   };
 
-  // Handle delete medication
+  // Видалення ліків
   const handleDeleteMedication = async (medId: string, medName: string, dependent: DependentData) => {
-    const confirmMsg = `Are you sure you want to delete ${medName} for ${dependent.name}?\n\nThis action cannot be undone.`;
+    const confirmMsg = `Видалити ${medName} для ${dependent.name}?\n\nЦю дію неможливо скасувати.`;
     if (confirm(confirmMsg)) {
       try {
         setDependents(prev => 
@@ -181,23 +181,24 @@ export default function CaregiverDashboardEnhanced({
               : d
           )
         );
-        toast.success(`${medName} deleted successfully`);
+        toast.success(`${medName} успішно видалено`);
         if ('vibrate' in navigator) navigator.vibrate([30, 50, 30]);
       } catch (error) {
         console.error('Failed to delete medication:', error);
-        toast.error('Failed to delete medication');
+        toast.error('Не вдалося видалити ліки');
       }
     }
   };
 
-  // Handle print all medications
+  // Друк розкладу
   const handlePrintAll = (dependent: DependentData) => {
+    const caregiverProfile = JSON.parse(localStorage.getItem('currentUser') || '{}');
     const printData = {
       personName: dependent.name,
       prescriptions: dependent.medications,
       caregiverInfo: {
-        name: 'Catherine Bennett',
-        relationship: 'Caregiver'
+        name: caregiverProfile?.name || 'Опікун',
+        relationship: 'Опікун'
       }
     };
     localStorage.setItem('printScheduleData', JSON.stringify(printData));
@@ -205,7 +206,7 @@ export default function CaregiverDashboardEnhanced({
     if ('vibrate' in navigator) navigator.vibrate(30);
   };
 
-  // Loading State
+  // Стан завантаження
   if (loading) {
     return (
       <div className={`min-h-screen ${darkMode ? 'bg-slate-950' : 'bg-slate-50/50'}`}>
@@ -226,7 +227,7 @@ export default function CaregiverDashboardEnhanced({
     );
   }
 
-  // Empty State
+  // Порожній стан
   if (dependents.length === 0) {
     return (
       <div className={`min-h-screen overflow-x-hidden ${darkMode ? 'bg-slate-950' : 'bg-slate-50/50'}`}>
@@ -241,11 +242,11 @@ export default function CaregiverDashboardEnhanced({
             </div>
             
             <h2 className={`text-3xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-              No Dependents Yet
+              Підопічних ще немає
             </h2>
             
             <p className={`text-lg mb-8 max-w-md mx-auto ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-              Start caring for your loved ones by adding them as dependents.
+              Додайте близьку людину, щоб почати супровід.
             </p>
 
             <Button
@@ -253,7 +254,7 @@ export default function CaregiverDashboardEnhanced({
               className="h-14 px-8 text-lg bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
             >
               <Plus className="w-6 h-6 mr-2" strokeWidth={2} />
-              Add Your First Dependent
+              Додати першого підопічного
             </Button>
           </motion.div>
         </div>
@@ -261,15 +262,15 @@ export default function CaregiverDashboardEnhanced({
     );
   }
 
-  // Compact Stats - Single Line Format
-  const compactStats = `${totalDependents} Dependent${totalDependents !== 1 ? 's' : ''} • ${averageAdherence}% Adherence • ${totalMedications} Rx${alerts > 0 ? ` • ${alerts} Alert${alerts !== 1 ? 's' : ''}` : ''}`;
+  // Коротка статистика
+  const compactStats = `${totalDependents} підопічн${totalDependents === 1 ? 'ий' : 'их'} • ${averageAdherence}% дотримання • ${totalMedications} призначень${alerts > 0 ? ` • ${alerts} попередження` : ''}`;
 
   // Main Dashboard View - PROFESSIONAL MEDICAL UI
   return (
     <div className={`min-h-screen overflow-x-hidden pb-24 ${darkMode ? 'bg-slate-950' : 'bg-gradient-to-br from-slate-50 to-orange-50/20'}`}>
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8">
         
-        {/* Professional Header */}
+        {/* Заголовок */}
         <div className="flex items-center justify-between mb-6">
           <div>
             <div className="flex items-center gap-3 mb-2">
@@ -277,7 +278,7 @@ export default function CaregiverDashboardEnhanced({
                 <Heart className="w-6 h-6 text-white" strokeWidth={2} />
               </div>
               <h1 className={`text-2xl sm:text-3xl font-bold ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                My Dependents
+                Мої підопічні
               </h1>
             </div>
             <p className={`text-sm lg:text-base ${darkMode ? 'text-slate-400' : 'text-slate-600'} ml-13`}>
@@ -294,10 +295,10 @@ export default function CaregiverDashboardEnhanced({
                   ? 'bg-red-50 border-red-500 text-red-700 dark:bg-red-950/30 dark:border-red-700 dark:text-red-400'
                   : darkMode ? 'border-slate-700 hover:bg-slate-800' : 'border-slate-200 hover:bg-white'
               } shadow-sm hover:shadow transition-all duration-200`}
-              title={filterMissed ? 'Show all' : 'Show only missed today'}
+              title={filterMissed ? 'Показати всіх' : 'Показати лише пропущені сьогодні'}
             >
               <Activity className="w-5 h-5" strokeWidth={2} />
-              <span className="hidden sm:inline ml-2">{filterMissed ? 'Missed' : 'All'}</span>
+              <span className="hidden sm:inline ml-2">{filterMissed ? 'Пропущені' : 'Усі'}</span>
             </Button>
             <Button
               onClick={() => setSortByRisk(!sortByRisk)}
@@ -307,17 +308,17 @@ export default function CaregiverDashboardEnhanced({
                   ? 'bg-orange-50 border-orange-500 text-orange-700 dark:bg-orange-950/30 dark:border-orange-700 dark:text-orange-400'
                   : darkMode ? 'border-slate-700 hover:bg-slate-800' : 'border-slate-200 hover:bg-white'
               } shadow-sm hover:shadow transition-all duration-200`}
-              title={sortByRisk ? 'Sort by name' : 'Sort by risk (high first)'}
+              title={sortByRisk ? 'Сортувати за імʼям' : 'Сортувати за ризиком'}
             >
               <AlertCircle className="w-5 h-5" strokeWidth={2} />
-              <span className="hidden sm:inline ml-2">{sortByRisk ? 'Risk' : 'Name'}</span>
+              <span className="hidden sm:inline ml-2">{sortByRisk ? 'Ризик' : 'Імʼя'}</span>
             </Button>
             <Button
               onClick={() => setCurrentPage('add-dependent')}
               className="h-12 sm:h-14 px-4 sm:px-6 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white shadow-md hover:shadow-lg transition-all duration-200"
             >
               <Plus className="w-5 h-5" strokeWidth={2} />
-              <span className="hidden sm:inline ml-2">Add</span>
+              <span className="hidden sm:inline ml-2">Додати</span>
             </Button>
             <Button
               onClick={() => {
@@ -328,15 +329,15 @@ export default function CaregiverDashboardEnhanced({
               }}
               variant="outline"
               className={`h-12 sm:h-14 px-4 sm:px-6 border-2 ${darkMode ? 'border-slate-700 hover:bg-slate-800' : 'border-slate-200 hover:bg-white'} shadow-sm hover:shadow transition-all duration-200`}
-              title="View Analytics"
+              title="Переглянути аналітику"
             >
               <BarChart3 className="w-5 h-5" strokeWidth={2} />
-              <span className="hidden sm:inline ml-2">Analytics</span>
+              <span className="hidden sm:inline ml-2">Аналітика</span>
             </Button>
           </div>
         </div>
 
-        {/* Professional Dependent Cards */}
+        {/* Картки підопічних */}
         <div className="space-y-4">
           {sortedDependents.map((dependent, index) => {
             const riskStatus = getRiskStatus(dependent.adherence);
@@ -398,12 +399,12 @@ export default function CaregiverDashboardEnhanced({
                             </h3>
                             {riskStatus === 'high' && (
                               <Badge className="bg-red-500 text-white text-xs px-2 py-0.5">
-                                High Risk
+                                Високий ризик
                               </Badge>
                             )}
                             {riskStatus === 'medium' && sortByRisk && (
                               <Badge className="bg-yellow-500 text-white text-xs px-2 py-0.5">
-                                Medium Risk
+                                Середній ризик
                               </Badge>
                             )}
                           </div>
@@ -423,7 +424,7 @@ export default function CaregiverDashboardEnhanced({
                           variant="outline"
                           size="sm"
                           className={`h-12 w-12 sm:h-14 sm:w-14 p-0 rounded-xl border-2 ${darkMode ? 'border-slate-700 hover:bg-slate-800 hover:border-slate-600' : 'border-slate-300 hover:bg-slate-100 hover:border-slate-400'} transition-all duration-200 shadow-sm hover:shadow touch-manipulation`}
-                          title="Print Schedule"
+                          title="Друк розкладу"
                         >
                           <Printer className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2} />
                         </Button>
@@ -436,10 +437,10 @@ export default function CaregiverDashboardEnhanced({
                           }}
                           size="sm"
                           className="h-12 sm:h-14 w-12 sm:w-auto sm:px-6 p-0 sm:p-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white shadow-md hover:shadow-lg transition-all duration-200 border-2 border-orange-600/20 rounded-xl touch-manipulation"
-                          title="View & Edit All Medications"
+                          title="Переглянути та редагувати ліки"
                         >
                           <Edit2 className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2} />
-                          <span className="hidden sm:inline sm:ml-2 font-semibold">Edit</span>
+                          <span className="hidden sm:inline sm:ml-2 font-semibold">Редагувати</span>
                         </Button>
 
                         <div className={`p-2 sm:p-3 rounded-xl ${darkMode ? 'text-slate-400' : 'text-slate-600'} shrink-0 touch-manipulation cursor-pointer`}>
@@ -498,7 +499,7 @@ export default function CaregiverDashboardEnhanced({
                                   size="sm"
                                   variant="ghost"
                                   className={`h-12 w-12 sm:h-14 sm:w-14 p-0 rounded-lg ${darkMode ? 'hover:bg-blue-950/30 text-slate-400 hover:text-blue-400' : 'hover:bg-blue-50 text-slate-600 hover:text-blue-600'} transition-all duration-200 touch-manipulation`}
-                                  title="Edit"
+                                  title="Редагувати"
                                 >
                                   <Edit2 className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2} />
                                 </Button>
@@ -510,7 +511,7 @@ export default function CaregiverDashboardEnhanced({
                                   size="sm"
                                   variant="ghost"
                                   className={`h-12 w-12 sm:h-14 sm:w-14 p-0 rounded-lg ${darkMode ? 'hover:bg-rose-950/30 text-slate-400 hover:text-rose-400' : 'hover:bg-rose-50 text-slate-600 hover:text-rose-600'} transition-all duration-200 touch-manipulation`}
-                                  title="Delete"
+                                  title="Видалити"
                                 >
                                   <Trash2 className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2} />
                                 </Button>
@@ -520,7 +521,7 @@ export default function CaregiverDashboardEnhanced({
                         ))}
                         {dependent.medications.length > 2 && (
                           <p className={`text-sm text-center ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                            +{dependent.medications.length - 2} more • Click to expand
+                            +{dependent.medications.length - 2} ще • Натисніть, щоб розгорнути
                           </p>
                         )}
                       </div>
@@ -537,12 +538,12 @@ export default function CaregiverDashboardEnhanced({
                     >
                       <div className="p-4 sm:p-5 space-y-3">
                         <h4 className={`text-base font-semibold mb-3 ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-                          Medications ({dependent.medications.length})
+                          Ліки ({dependent.medications.length})
                         </h4>
                         
                         {dependent.medications.length === 0 ? (
                           <p className={`text-sm text-center py-4 ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                            No medications yet
+                            Ліків ще немає
                           </p>
                         ) : (
                           <div className="space-y-3">
@@ -586,7 +587,7 @@ export default function CaregiverDashboardEnhanced({
                                       size="sm"
                                       variant="ghost"
                                       className={`h-14 w-14 sm:h-14 sm:w-14 p-0 rounded-xl ${darkMode ? 'hover:bg-blue-950/30 text-slate-400 hover:text-blue-400 border border-slate-700 hover:border-blue-600' : 'hover:bg-blue-50 text-slate-600 hover:text-blue-600 border border-slate-200 hover:border-blue-400'} transition-all duration-200 touch-manipulation`}
-                                      title="Edit Dosage"
+                                      title="Редагувати дозування"
                                     >
                                       <Edit2 className="w-6 h-6" strokeWidth={2} />
                                     </Button>
@@ -595,7 +596,7 @@ export default function CaregiverDashboardEnhanced({
                                       size="sm"
                                       variant="ghost"
                                       className={`h-14 w-14 sm:h-14 sm:w-14 p-0 rounded-xl ${darkMode ? 'hover:bg-rose-950/30 text-slate-400 hover:text-rose-400 border border-slate-700 hover:border-rose-600' : 'hover:bg-rose-50 text-slate-600 hover:text-rose-600 border border-slate-200 hover:border-rose-400'} transition-all duration-200 touch-manipulation`}
-                                      title="Delete Medication"
+                                      title="Видалити ліки"
                                     >
                                       <Trash2 className="w-6 h-6" strokeWidth={2} />
                                     </Button>

@@ -49,14 +49,14 @@ export default function PrintSchedule({ darkMode, setCurrentPage, medications = 
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      toast.success('Photo uploaded successfully', {
-        description: 'Analyzing handwritten checkmarks...',
+      toast.success('Фото завантажено', {
+        description: 'Аналізуємо відмітки на папері...',
         duration: 3000,
       });
       
       setTimeout(() => {
-        toast.success('Analysis complete', {
-          description: 'Found 18 of 21 medications taken this week',
+        toast.success('Аналіз завершено', {
+          description: 'Знайдено 18 з 21 прийому за цей тиждень',
           duration: 5000,
         });
       }, 2000);
@@ -76,7 +76,7 @@ export default function PrintSchedule({ darkMode, setCurrentPage, medications = 
     sunday.setDate(monday.getDate() + 6);
     
     const formatDate = (date: Date) => {
-      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      return date.toLocaleDateString('uk-UA', { month: 'short', day: 'numeric', year: 'numeric' });
     };
     
     return `${formatDate(monday)} - ${formatDate(sunday)}`;
@@ -90,17 +90,16 @@ export default function PrintSchedule({ darkMode, setCurrentPage, medications = 
   // Get doctor info if available
   const doctorInfo = printData?.doctorInfo || null;
 
-  // Days of week for horizontal layout
-  const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  const dayKeys: Record<string, keyof any> = {
-    'Monday': 'mon',
-    'Tuesday': 'tue',
-    'Wednesday': 'wed',
-    'Thursday': 'thu',
-    'Friday': 'fri',
-    'Saturday': 'sat',
-    'Sunday': 'sun'
-  };
+  // Дні тижня для таблиці
+  const daysOfWeek = [
+    { label: 'Понеділок', key: 'mon' },
+    { label: 'Вівторок', key: 'tue' },
+    { label: 'Середа', key: 'wed' },
+    { label: 'Четвер', key: 'thu' },
+    { label: 'Пʼятниця', key: 'fri' },
+    { label: 'Субота', key: 'sat' },
+    { label: 'Неділя', key: 'sun' }
+  ];
 
   // Group medications by time slot for horizontal layout
   const timeSlots = new Set<string>();
@@ -120,7 +119,7 @@ export default function PrintSchedule({ darkMode, setCurrentPage, medications = 
   sortedTimeSlots.forEach(timeSlot => {
     scheduleGrid[timeSlot] = {};
     daysOfWeek.forEach(day => {
-      const dayKey = dayKeys[day];
+      const dayKey = day.key;
       const dayMeds = activeMedications
         .filter((med: any) => {
           // Check if medication is scheduled for this time slot
@@ -154,7 +153,7 @@ export default function PrintSchedule({ darkMode, setCurrentPage, medications = 
           // Then by name (alphabetically)
           return (a.name || a.medication || '').localeCompare(b.name || b.medication || '');
         });
-      scheduleGrid[timeSlot][day] = dayMeds;
+      scheduleGrid[timeSlot][day.label] = dayMeds;
     });
   });
 
@@ -365,21 +364,21 @@ export default function PrintSchedule({ darkMode, setCurrentPage, medications = 
       `}</style>
 
       <div className="min-h-screen bg-[#E8F4F8] pb-6 sm:pb-8">
-        {/* Header - No Print */}
+        {/* Шапка (не друкується) */}
         <div className="bg-white border-b-2 border-gray-300 px-6 lg:px-8 py-5 lg:py-6 sticky top-0 z-10 shadow-sm no-print">
           <div className="flex items-center gap-5">
             <button
               onClick={() => setCurrentPage('main')}
               className="min-w-[60px] min-h-[60px] w-[60px] h-[60px] flex items-center justify-center hover:bg-gray-100 rounded-xl transition-colors touch-manipulation"
-              aria-label="Back to main"
+              aria-label="Назад"
             >
               <ArrowLeft size={32} className="text-gray-700" strokeWidth={2.5} />
             </button>
-            <h1 className="text-gray-900">Print Schedule</h1>
+            <h1 className="text-gray-900">Друк розкладу</h1>
           </div>
         </div>
 
-        {/* Action Buttons - No Print */}
+        {/* Кнопки (не друкується) */}
         <div className="px-6 lg:px-8 py-6 lg:py-8 max-w-7xl mx-auto no-print">
           <div className="grid grid-cols-1 gap-5 lg:gap-6">
             <button
@@ -389,8 +388,8 @@ export default function PrintSchedule({ darkMode, setCurrentPage, medications = 
             >
               <Printer size={36} className="flex-shrink-0" strokeWidth={2.5} />
               <div className="text-left flex-1">
-                <div className="text-xl lg:text-2xl mb-1">Print Schedule</div>
-                <div className="opacity-90">Weekly medication plan (Landscape)</div>
+                <div className="text-xl lg:text-2xl mb-1">Друк розкладу</div>
+                <div className="opacity-90">Тижневий план (альбомна орієнтація)</div>
               </div>
             </button>
 
@@ -400,8 +399,8 @@ export default function PrintSchedule({ darkMode, setCurrentPage, medications = 
             >
               <Camera size={36} className="flex-shrink-0" strokeWidth={2.5} />
               <div className="text-left flex-1">
-                <div className="text-xl lg:text-2xl mb-1">Upload Photo</div>
-                <div className="opacity-90">Analyze checkmarks</div>
+                <div className="text-xl lg:text-2xl mb-1">Завантажити фото</div>
+                <div className="opacity-90">Аналіз відміток</div>
               </div>
             </button>
             <input
@@ -416,18 +415,18 @@ export default function PrintSchedule({ darkMode, setCurrentPage, medications = 
           
           <div className="mt-6 lg:mt-8 p-6 lg:p-8 bg-blue-50 border-2 border-blue-200 rounded-2xl">
             <p className="text-gray-800 leading-relaxed">
-              <strong className="block mb-3 text-xl lg:text-2xl">How to use:</strong>
-              <span className="block mb-2">1. Press "Print Schedule" button</span>
-              <span className="block mb-2">2. Choose your printer and print</span>
-              <span className="block mb-2">3. Mark checkboxes after taking meds</span>
-              <span className="block">4. Upload photo to track progress</span>
+              <strong className="block mb-3 text-xl lg:text-2xl">Як користуватися:</strong>
+              <span className="block mb-2">1. Натисніть "Друк розкладу"</span>
+              <span className="block mb-2">2. Оберіть принтер і роздрукуйте</span>
+              <span className="block mb-2">3. Ставте відмітки після прийому ліків</span>
+              <span className="block">4. Завантажте фото для аналізу</span>
             </p>
           </div>
         </div>
 
-        {/* Printable Content */}
+        {/* Контент для друку */}
         <div className="print-container px-6 lg:px-8 pb-8 max-w-7xl mx-auto">
-          {/* Print Header */}
+          {/* Заголовок для друку */}
           <div className="print-header mb-8 lg:mb-10 bg-white rounded-2xl p-6 lg:p-10 shadow-md">
             <div className="flex items-center gap-4 lg:gap-5 mb-4 lg:mb-5">
               {/* Logo SVG */}
@@ -441,32 +440,32 @@ export default function PrintSchedule({ darkMode, setCurrentPage, medications = 
               </div>
               <div>
                 <h1 className="text-gray-900 mb-1 text-2xl lg:text-3xl">Prescription Clarity</h1>
-                <p className="text-gray-600">Weekly Medication Schedule</p>
+                <p className="text-gray-600">Тижневий розклад ліків</p>
               </div>
             </div>
             <div className="border-t-2 border-gray-200 pt-4 lg:pt-5 mt-4 lg:mt-5">
               <p className="text-gray-700 mb-2">
-                <span className="font-semibold">Patient:</span> {userName}
+                <span className="font-semibold">Пацієнт:</span> {userName}
               </p>
               <p className="text-gray-700 mb-2">
-                <span className="font-semibold">Week of:</span> {weekDateRange}
+                <span className="font-semibold">Тиждень:</span> {weekDateRange}
               </p>
               <p className="text-gray-700">
-                <span className="font-semibold">Generated:</span> {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                <span className="font-semibold">Згенеровано:</span> {new Date().toLocaleDateString('uk-UA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
               </p>
             </div>
           </div>
 
-          {/* Wide Landscape Schedule Table */}
+          {/* Таблиця розкладу */}
           {activeMedications.length === 0 ? (
             <div className="bg-white rounded-xl p-8 text-center">
-              <p className="text-gray-600 text-lg">No medications to display. Please add medications first.</p>
+              <p className="text-gray-600 text-lg">Немає ліків для відображення. Додайте ліки спочатку.</p>
             </div>
           ) : (
             <>
               <div className="mb-4 no-print">
                 <p className="text-gray-700 text-center bg-blue-100 border-2 border-blue-300 rounded-xl p-4">
-                  📄 <strong>Print Preview:</strong> Table will display in wide landscape format when printed
+                  <strong>Попередній перегляд:</strong> таблиця друкується в альбомній орієнтації
                 </p>
               </div>
               
@@ -475,11 +474,11 @@ export default function PrintSchedule({ darkMode, setCurrentPage, medications = 
                   <thead className="bg-[#2196F3]">
                     <tr>
                       <th className="time-col px-3 py-3 text-white border-2 border-[#1976D2]">
-                        Time
+                        Час
                       </th>
                       {daysOfWeek.map((day, index) => (
                         <th key={index} className="px-2 py-3 text-white border-2 border-[#1976D2]">
-                          {day}
+                          {day.label}
                         </th>
                       ))}
                     </tr>
@@ -491,7 +490,7 @@ export default function PrintSchedule({ darkMode, setCurrentPage, medications = 
                           {timeSlot}
                         </td>
                         {daysOfWeek.map((day, dayIndex) => {
-                          const meds = scheduleGrid[timeSlot][day];
+                          const meds = scheduleGrid[timeSlot][day.label];
                           return (
                             <td key={dayIndex} className={`px-2 py-2 border-2 border-gray-200 ${meds.length === 0 ? 'empty-cell' : ''}`}>
                               {meds.length === 0 ? (
@@ -506,9 +505,9 @@ export default function PrintSchedule({ darkMode, setCurrentPage, medications = 
                                         <input 
                                           type="checkbox" 
                                           className="rounded border-2 border-gray-300 bg-white cursor-pointer" 
-                                          aria-label={`${med.name} taken`}
+                                          aria-label={`${med.name} прийнято`}
                                         />
-                                        <span className="text-xs text-gray-600">Taken</span>
+                  <span className="text-xs text-gray-600">Прийнято</span>
                                       </div>
                                     </div>
                                   ))}
@@ -525,16 +524,16 @@ export default function PrintSchedule({ darkMode, setCurrentPage, medications = 
             </>
           )}
 
-          {/* Doctor Contact - WILL PRINT */}
+          {/* Контакти лікаря */}
           {doctorInfo && (
             <div className="print-doctor-contact bg-purple-50 rounded-2xl p-6 border-2 border-purple-200 mb-6">
-              <h3 className="text-gray-900 mb-3 text-xl">Prescribing Doctor</h3>
+              <h3 className="text-gray-900 mb-3 text-xl">Лікар</h3>
               <p className="text-gray-700 mb-2">
-                <span className="font-semibold">Name:</span> {doctorInfo.name}
+                <span className="font-semibold">Імʼя:</span> {doctorInfo.name}
               </p>
               {doctorInfo.phone && (
                 <p className="text-gray-700 mb-2">
-                  <span className="font-semibold">Phone:</span> {doctorInfo.phone}
+                  <span className="font-semibold">Телефон:</span> {doctorInfo.phone}
                 </p>
               )}
               {doctorInfo.email && (
@@ -545,11 +544,11 @@ export default function PrintSchedule({ darkMode, setCurrentPage, medications = 
             </div>
           )}
 
-          {/* QR Code - No Print */}
+          {/* QR-код */}
           {activeMedications.length > 0 && (
             <div className="no-print bg-white rounded-2xl p-6 lg:p-8 shadow-md mb-6 lg:mb-8">
               <h3 className="text-gray-900 mb-5 text-xl lg:text-2xl">
-                Quick Import QR Code
+                QR-код для швидкого імпорту
               </h3>
               <div className="flex flex-col sm:flex-row items-center gap-6">
                 <div className="bg-white p-5 rounded-xl border-2 border-gray-200">
@@ -562,19 +561,19 @@ export default function PrintSchedule({ darkMode, setCurrentPage, medications = 
                 </div>
                 <div className="flex-1 text-gray-700">
                   <p className="mb-3">
-                    Scan this QR code to quickly import your medication schedule to another device or share with your healthcare provider.
+                    Відскануйте QR-код, щоб швидко імпортувати розклад на інший пристрій або поділитися з лікарем.
                   </p>
                   <p className="text-gray-600">
-                    Contains: Patient name, medications, dosages, and schedule information.
+                    Містить: імʼя пацієнта, ліки, дозування та розклад.
                   </p>
                 </div>
               </div>
             </div>
           )}
 
-          {/* Footer for print */}
+          {/* Підвал для друку */}
           <div className="print-footer-text">
-            <p>Prescription Clarity - Weekly Medication Schedule - Generated {new Date().toLocaleDateString('en-US')}</p>
+            <p>Prescription Clarity — тижневий розклад — {new Date().toLocaleDateString('uk-UA')}</p>
           </div>
         </div>
       </div>

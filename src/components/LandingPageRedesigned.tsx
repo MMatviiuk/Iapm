@@ -22,7 +22,7 @@ import {
 import { Button } from './ui/button';
 import { PillShieldLogo } from './PillShieldLogo';
 import { getAvatarUrl } from '../utils/avatarUtils';
-import nurseImage from 'figma:asset/1d64c71f8bddf49650649420b23ec2f86cd09bee.png';
+import nurseImage from '../assets/1d64c71f8bddf49650649420b23ec2f86cd09bee.png';
 
 interface LandingPageRedesignedProps {
   onGetStarted: () => void;

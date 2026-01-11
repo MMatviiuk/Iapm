@@ -63,6 +63,7 @@ import AppLayout from './components/Layout/AppLayout';
 import AppLayoutCompact from './components/Layout/AppLayoutCompact';
 import AppLayoutNormal from './components/Layout/AppLayoutNormal';
 import DashboardWebPro from './components/DashboardWebPro';
+import { useBreakpoints } from './hooks/useMediaQuery';
 
 // API Service
 import api from './services/api';
@@ -106,6 +107,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [selectedDependent, setSelectedDependent] = useState<any>(null);
   const [selectedPatient, setSelectedPatient] = useState<any>(null);
+  const { isDesktop } = useBreakpoints();
   
   // Today's Focus - for elderly users who prefer simplified interface
   const [todayFocus, setTodayFocus] = useState(() => {
@@ -952,12 +954,13 @@ export default function App() {
   // Render authenticated pages
   const renderPage = () => {
     switch (currentPage) {
-      case 'dashboard':
+      case 'dashboard': {
         // Use DashboardWebPro - Professional web SaaS layout
         // Grid-based design with proper spacing and card layouts
         // Corporate-level UX optimized for desktop
+        const DashboardComponent = isDesktop ? DashboardWebPro : DashboardDensityImproved;
         return (
-          <DashboardWebPro 
+          <DashboardComponent 
             darkMode={darkMode} 
             setCurrentPage={setCurrentPage} 
             medications={medications} 
@@ -969,14 +972,15 @@ export default function App() {
                   m.id === id ? { ...m, taken: true } : m
                 );
                 setMedications(updatedMeds);
-                toast.success('Marked as taken!', {
-                  description: `${medication.name} completed`,
+                toast.success('Позначено як прийняте', {
+                  description: `${medication.name} додано до виконаних`,
                   duration: 2000,
                 });
               }
             }}
           />
         );
+      }
       case 'main':
       case 'today':
         return (
@@ -1109,8 +1113,13 @@ export default function App() {
           />
         );
       case 'caregiver':
-        return (
+        return isDesktop ? (
           <CaregiverDashboardWeb 
+            darkMode={darkMode} 
+            setCurrentPage={setCurrentPage} 
+          />
+        ) : (
+          <CaregiverDashboardEnhanced 
             darkMode={darkMode} 
             setCurrentPage={setCurrentPage} 
           />
@@ -1172,9 +1181,15 @@ export default function App() {
           />
         );
       case 'doctor':
-        return (
+        return isDesktop ? (
           <DoctorDashboardWeb 
             darkMode={darkMode} 
+            setCurrentPage={setCurrentPage} 
+          />
+        ) : (
+          <DoctorDashboardEnhanced 
+            darkMode={darkMode} 
+            setDarkMode={setDarkMode}
             setCurrentPage={setCurrentPage} 
           />
         );
@@ -1428,7 +1443,23 @@ export default function App() {
           <DoctorDashboard darkMode={darkMode} setDarkMode={setDarkMode} setCurrentPage={setCurrentPage} />
         );
       default:
-        return <DashboardWebPro darkMode={darkMode} setCurrentPage={setCurrentPage} medications={medications} currentUser={currentUser} onMarkTaken={handleMarkTaken} />;
+        return isDesktop ? (
+          <DashboardWebPro 
+            darkMode={darkMode} 
+            setCurrentPage={setCurrentPage} 
+            medications={medications} 
+            currentUser={currentUser} 
+            onMarkTaken={handleMarkTaken} 
+          />
+        ) : (
+          <DashboardDensityImproved 
+            darkMode={darkMode} 
+            setCurrentPage={setCurrentPage} 
+            medications={medications} 
+            currentUser={currentUser} 
+            onMarkTaken={handleMarkTaken} 
+          />
+        );
     }
   };
 

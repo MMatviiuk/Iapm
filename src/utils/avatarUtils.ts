@@ -28,7 +28,6 @@ const DEMO_AVATARS: Record<string, string> = {
   // PATIENTS - European elderly (unique for each person)
   'Margaret Williams': 'https://images.unsplash.com/photo-1664813495783-a7b19be83624?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
   'Thomas O\'Connor': 'https://images.unsplash.com/photo-1655628591001-ae40b826ae24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
-  "Thomas O'Connor": 'https://images.unsplash.com/photo-1655628591001-ae40b826ae24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
   'Giovanni Russo': 'https://images.unsplash.com/photo-1758686253859-8ef7e940096e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
   'Hans Müller': 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
   'Hans Mueller': 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
@@ -40,7 +39,6 @@ const DEMO_AVATARS: Record<string, string> = {
   'Maria García': 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
   'Maria Garcia': 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
   'Patrick O\'Brien': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
-  "Patrick O'Brien": 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
   'Brigitte Schneider': 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
   'Henrik Larsen': 'https://images.unsplash.com/photo-1556474835-b0f3ac40d4d1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
   'Lars Jensen': 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
@@ -51,7 +49,6 @@ const DEMO_AVATARS: Record<string, string> = {
   // CAREGIVERS - European adults (30-60 years)
   'Catherine Bennett': 'https://images.unsplash.com/photo-1655249481446-25d575f1c054?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjB3b21hbiUyMHBvcnRyYWl0JTIwaGVhZHNob3R8ZW58MXx8fHwxNzYyNzcyNDAzfDA&ixlib=rb-4.1.0&q=80&w=400',
   'Michael O\'Brien': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
-  "Michael O'Brien": 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
   'Martina Rossi': 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
   'Anna Weber': 'https://images.unsplash.com/photo-1580489944761-15a19d654956?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
   'Robert Johnson': 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',

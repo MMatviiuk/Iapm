@@ -243,7 +243,7 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
 
   const calendarDays = generateCalendarDays();
   const today = new Date();
-  const monthName = selectedDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  const monthName = selectedDate.toLocaleDateString('uk-UA', { month: 'long', year: 'numeric' });
 
   const getDayAbbreviation = (date: Date): string => {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -499,16 +499,16 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
       <div className={`shadow-sm sticky top-0 z-10 px-3 sm:px-4 lg:px-6 py-3 sm:py-4 lg:py-5 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between">
-            {/* User info without avatar (photo only in TopBar) */}
+            {/* Інформація про користувача без аватара */}
             <div className="flex flex-col">
               <span className={`font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                 {userName}
               </span>
               <span className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                {selectedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                {selectedDate.toLocaleDateString('uk-UA', { month: 'short', day: 'numeric', year: 'numeric' })}
               </span>
             </div>
-            {/* Print Week Schedule Button */}
+            {/* Кнопка друку розкладу */}
             <button
               onClick={() => setCurrentPage('print')}
               className={`p-3 sm:p-3.5 rounded-full transition-all min-w-[56px] min-h-[56px] sm:min-w-[60px] sm:min-h-[60px] flex items-center justify-center touch-manipulation ${
@@ -516,8 +516,8 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                   ? 'bg-blue-900/30 hover:bg-blue-900/50 text-blue-300' 
                   : 'bg-blue-50 hover:bg-blue-100 text-blue-600'
               }`}
-              aria-label="Print Week Schedule"
-              title="Print Week Schedule"
+              aria-label="Друк розкладу на тиждень"
+              title="Друк розкладу на тиждень"
             >
               <Printer size={24} className="sm:w-7 sm:h-7" strokeWidth={2.5} />
             </button>
@@ -530,7 +530,7 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                     ? 'bg-gray-700 hover:bg-gray-600 text-yellow-400' 
                     : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
                 }`}
-                aria-label="Toggle dark mode"
+                aria-label="Перемкнути темну тему"
               >
                 {darkMode ? <Sun size={24} className="sm:w-7 sm:h-7" strokeWidth={2.5} /> : <Moon size={24} className="sm:w-7 sm:h-7" strokeWidth={2.5} />}
               </button>
@@ -541,15 +541,17 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
 
       <div className="px-3 sm:px-4 py-2">
         <div className="max-w-4xl mx-auto">
-          {/* Medications list */}
+            {/* Список ліків */}
           <div>
             <div className="flex items-center justify-between mb-2 sm:mb-3">
               <h2 className={darkMode ? 'text-white' : 'text-gray-900'}>
-                {selectedDate.toDateString() === today.toDateString() ? "Today's Schedule" : "Schedule for " + selectedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                {selectedDate.toDateString() === today.toDateString()
+                  ? 'Розклад на сьогодні'
+                  : 'Розклад на ' + selectedDate.toLocaleDateString('uk-UA', { month: 'short', day: 'numeric' })}
               </h2>
               
               <div className="flex items-center gap-2">
-                {/* Mark All as Taken button - only show if there are untaken medications */}
+                {/* Кнопка "Позначити все", якщо є неприйняті */}
                 {untakenMedications.length > 0 && (
                   <button
                     onClick={handleMarkAllTaken}
@@ -558,23 +560,23 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                         ? 'bg-green-900/30 hover:bg-green-900/50 text-green-300 border-2 border-green-700' 
                         : 'bg-green-50 hover:bg-green-100 text-green-700 border-2 border-green-200'
                     }`}
-                    title="Mark all medications as taken"
+                    title="Позначити всі як прийняті"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <span className="hidden sm:inline">Mark All</span>
+                    <span className="hidden sm:inline">Позначити все</span>
                   </button>
                 )}
                 
-                {/* 3-Dot Menu - More Options */}
+                {/* Меню з додатковими опціями */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button
                       variant="outline"
                       size="sm"
                       className="h-10 sm:h-12 px-3 border-2"
-                      aria-label="More options"
+                      aria-label="Більше опцій"
                     >
                       <MoreVertical className="w-5 h-5" />
                     </Button>
@@ -582,30 +584,30 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                   <DropdownMenuContent align="end" className="w-56">
                     <DropdownMenuItem onClick={() => setCurrentPage('print')}>
                       <Printer className="w-4 h-4 mr-2" />
-                      Print Schedule
+                      Друк розкладу
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => {
-                      toast.info('Export to PDF', {
-                        description: 'PDF export coming soon!',
+                      toast.info('Експорт у PDF', {
+                        description: 'Експорт у PDF буде додано пізніше.',
                         duration: 2000
                       });
                     }}>
                       <Download className="w-4 h-4 mr-2" />
-                      Export to PDF
+                      Експорт у PDF
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => {
-                      toast.info('Share Schedule', {
-                        description: 'Share feature coming soon!',
+                      toast.info('Поширити розклад', {
+                        description: 'Функція поширення буде додана пізніше.',
                         duration: 2000
                       });
                     }}>
                       <Share2 className="w-4 h-4 mr-2" />
-                      Share Schedule
+                      Поділитися розкладом
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={() => setCurrentPage('settings')}>
                       <Settings className="w-4 h-4 mr-2" />
-                      Settings
+                      Налаштування
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -618,18 +620,18 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
               <EmptyState
                 icon={CalendarIcon}
                 title={selectedDate.toDateString() === today.toDateString() 
-                  ? "No Medications for Today" 
-                  : "No Medications for This Day"}
+                  ? 'На сьогодні ліків немає' 
+                  : 'На цей день ліків немає'}
                 description={selectedDate.toDateString() === today.toDateString()
-                  ? "You don't have any medications scheduled for today. Add medications to your schedule."
-                  : `No medications scheduled for ${selectedDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}. Select another day or add medications.`}
-                actionLabel="Add Medication"
+                  ? 'На сьогодні немає запланованих ліків. Додайте їх у розклад.'
+                  : `На ${selectedDate.toLocaleDateString('uk-UA', { month: 'long', day: 'numeric' })} немає ліків. Оберіть інший день або додайте ліки.`}
+                actionLabel="Додати ліки"
                 onAction={() => setCurrentPage('add')}
                 darkMode={darkMode}
               />
             ) : (
               <>
-                {/* Untaken medications */}
+                {/* Неприйняті ліки */}
                 {untakenMedications.length > 0 && (
                   <div className="space-y-2 sm:space-y-3">
                       <AnimatePresence>
@@ -661,7 +663,7 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                               }`}
                             >
                               <div className="flex items-center gap-3 sm:gap-4">
-                                {/* Checkbox - Color-coded by meal timing */}
+                                {/* Чекбокс з кольором за прийомом їжі */}
                                 <button
                                   onClick={() => toggleMedication(med.id)}
                                   className={`flex-shrink-0 min-w-[56px] min-h-[56px] w-[56px] h-[56px] sm:min-w-[60px] sm:min-h-[60px] sm:w-[60px] sm:h-[60px] rounded-full border-[3px] transition-all touch-manipulation ${
@@ -673,28 +675,28 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                                     med.mealTiming === 'after meal' ? 'bg-green-500' :
                                     darkMode ? 'bg-gray-800' : 'bg-white' // anytime = white/dark gray
                                   }`}
-                                  aria-label="Mark as taken"
+                                  aria-label="Позначити як прийнято"
                                 />
 
                                 {/* Content - NEW layout with time on left */}
                                 <div className="flex-1 min-w-0 flex flex-col gap-1 sm:gap-1.5">
-                                  {/* Row 1: Medication name - ELLIPSIS for elderly readability */}
+                                  {/* Ряд 1: назва ліків */}
                                   <h3 className={`text-2xl sm:text-3xl font-bold truncate ${darkMode ? 'text-white' : 'text-gray-900'}`} title={med.name}>
                                     {med.name}
                                   </h3>
                                   
-                                  {/* Row 2: Dosage • Time • Meal Icon on left, Actions on right */}
+                                  {/* Ряд 2: дозування, час, іконка їжі */}
                                   <div className="flex items-center justify-between gap-3">
-                                    {/* Left: Dosage • Time • Meal Icon */}
+                                    {/* Ліва частина: дозування, час, іконка їжі */}
                                     <div className="flex items-center gap-2 flex-wrap min-w-0">
                                       <p className={darkMode ? 'text-gray-400' : 'text-gray-600'}>
                                         {med.dosage}
                                       </p>
                                       
-                                      {/* Separator bullet */}
+                                      {/* Розділювач */}
                                       <span className={darkMode ? 'text-gray-600' : 'text-gray-400'}>•</span>
                                       
-                                      {/* Time (moved to left) */}
+                                      {/* Час */}
                                       {med.time && (
                                         <span className="whitespace-nowrap text-[#2196F3] font-bold flex items-center gap-1">
                                           <Clock size={16} />
@@ -702,16 +704,16 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                                         </span>
                                       )}
                                       
-                                      {/* Meal Timing Icon */}
+                                      {/* Іконка прийому з їжею */}
                                       {med.mealTiming && med.mealTiming !== 'anytime' && (
                                         <>
                                           <span className={darkMode ? 'text-gray-600' : 'text-gray-400'}>•</span>
                                           <span 
                                             className="flex items-center gap-1 text-[#FB923C]"
                                             title={
-                                              med.mealTiming === 'before meal' ? 'Before meal' :
-                                              med.mealTiming === 'with meal' ? 'With meal' :
-                                              med.mealTiming === 'after meal' ? 'After meal' :
+                                              med.mealTiming === 'before meal' ? 'Перед їжею' :
+                                              med.mealTiming === 'with meal' ? 'Під час їжі' :
+                                              med.mealTiming === 'after meal' ? 'Після їжі' :
                                               med.mealTiming
                                             }
                                           >
@@ -723,9 +725,9 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                                       )}
                                     </div>
 
-                                    {/* Right: Edit & Delete Buttons */}
+                                    {/* Праворуч: редагування та видалення */}
                                     <div className="flex items-center gap-2 flex-shrink-0">
-                                      {/* Edit Button */}
+                                      {/* Кнопка редагування */}
                                       <button
                                         onClick={() => handleEdit(med.id)}
                                         className={`min-w-[56px] min-h-[56px] w-[56px] h-[56px] flex items-center justify-center rounded-lg border-2 transition-all touch-manipulation ${
@@ -733,15 +735,15 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                                             ? 'border-gray-700 hover:bg-blue-950/30 hover:border-blue-600 text-gray-400 hover:text-blue-400' 
                                             : 'border-gray-200 hover:bg-blue-50 hover:border-blue-400 text-gray-600 hover:text-blue-600'
                                         }`}
-                                        aria-label="Edit medication"
+                                        aria-label="Редагувати ліки"
                                       >
                                         <Edit2 size={24} strokeWidth={2.5} />
                                       </button>
 
-                                      {/* Delete Button */}
+                                      {/* Кнопка видалення */}
                                       <button
                                         onClick={() => {
-                                          if (confirm(`Are you sure you want to delete ${med.name}?\n\nThis action cannot be undone.`)) {
+                                          if (confirm(`Видалити ${med.name}?\n\nЦю дію неможливо скасувати.`)) {
                                             handleDelete(med.id);
                                           }
                                         }}
@@ -750,7 +752,7 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                                             ? 'border-gray-700 hover:bg-red-950/30 hover:border-red-600 text-gray-400 hover:text-red-400' 
                                             : 'border-gray-200 hover:bg-red-50 hover:border-red-400 text-gray-600 hover:text-red-600'
                                         }`}
-                                        aria-label="Delete medication"
+                                        aria-label="Видалити ліки"
                                       >
                                         <Trash2 size={24} strokeWidth={2.5} />
                                       </button>
@@ -765,18 +767,18 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                     </div>
                 )}
 
-                {/* Divider between untaken and taken */}
+                {/* Розділювач між неприйнятими і прийнятими */}
                 {untakenMedications.length > 0 && takenMedications.length > 0 && (
                   <div className="my-2 flex items-center gap-2">
                     <div className={`flex-1 h-px ${darkMode ? 'bg-gray-700' : 'bg-gray-300'}`} />
                     <span className={`uppercase tracking-wide ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
-                      Done
+                      Прийнято
                     </span>
                     <div className={`flex-1 h-px ${darkMode ? 'bg-gray-700' : 'bg-gray-300'}`} />
                   </div>
                 )}
 
-                {/* Taken medications */}
+                {/* Прийняті ліки */}
                 {takenMedications.length > 0 && (
                   <div className="space-y-1 sm:space-y-1.5">
                     <AnimatePresence>
@@ -793,12 +795,12 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                             darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
                           }`}
                         >
-                          {/* Compact view for taken medications */}
+                          {/* Компактний вигляд для прийнятих */}
                           <div className="flex items-center gap-2">
                             <button
                               onClick={() => toggleMedication(med.id)}
                               className="flex-shrink-0 min-w-[40px] min-h-[40px] w-[40px] h-[40px] sm:min-w-[44px] sm:min-h-[44px] sm:w-[44px] sm:h-[44px] rounded-full border-2 bg-[#2196F3] border-[#2196F3] transition-all touch-manipulation"
-                              aria-label="Mark as not taken"
+                              aria-label="Зняти позначку прийому"
                             >
                               <svg className="w-full h-full text-white p-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
@@ -812,7 +814,7 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                                 {med.name}
                               </h3>
                               
-                              {/* Time and Meal Icon for taken meds */}
+                              {/* Час і піктограма їжі */}
                               <div className="flex items-center gap-1.5 text-sm">
                                 {med.time && (
                                   <span className={`whitespace-nowrap font-bold flex items-center gap-1 ${
@@ -839,7 +841,7 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                             
                             {/* Edit & Delete buttons for taken meds */}
                             <div className="flex items-center gap-2 flex-shrink-0">
-                              {/* Edit Button */}
+                              {/* Кнопка редагування */}
                               <button
                                 onClick={() => handleEdit(med.id)}
                                 className={`min-w-[48px] min-h-[48px] w-[48px] h-[48px] flex items-center justify-center rounded-lg border-2 transition-all touch-manipulation ${
@@ -847,15 +849,15 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                                     ? 'border-gray-700 hover:bg-blue-950/30 hover:border-blue-600 text-gray-500 hover:text-blue-400' 
                                     : 'border-gray-200 hover:bg-blue-50 hover:border-blue-400 text-gray-500 hover:text-blue-600'
                                 }`}
-                                aria-label="Edit medication"
+                                aria-label="Редагувати ліки"
                               >
                                 <Edit2 size={20} strokeWidth={2.5} />
                               </button>
 
-                              {/* Delete Button */}
+                              {/* Кнопка видалення */}
                               <button
                                 onClick={() => {
-                                  if (confirm(`Are you sure you want to delete ${med.name}?\n\nThis action cannot be undone.`)) {
+                                  if (confirm(`Видалити ${med.name}?\n\nЦю дію неможливо скасувати.`)) {
                                     handleDelete(med.id);
                                   }
                                 }}
@@ -864,7 +866,7 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                                     ? 'border-gray-700 hover:bg-red-950/30 hover:border-red-600 text-gray-500 hover:text-red-400' 
                                     : 'border-gray-200 hover:bg-red-50 hover:border-red-400 text-gray-500 hover:text-red-600'
                                 }`}
-                                aria-label="Delete medication"
+                                aria-label="Видалити ліки"
                               >
                                 <Trash2 size={20} strokeWidth={2.5} />
                               </button>
@@ -893,7 +895,7 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                   className={`min-w-[44px] min-h-[44px] p-2 rounded-lg transition-colors touch-manipulation flex items-center justify-center ${
                     darkMode ? 'hover:bg-gray-700 active:bg-gray-600' : 'hover:bg-gray-100 active:bg-gray-200'
                   }`}
-                  aria-label="Previous day"
+                  aria-label="Попередній день"
                 >
                   <ChevronLeft size={22} className={`${darkMode ? 'text-gray-300' : 'text-gray-700'}`} />
                 </button>
@@ -903,10 +905,10 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                   className="flex-1 flex flex-col items-center py-1 rounded-lg hover:bg-gray-100/50 transition-colors touch-manipulation min-h-[44px] justify-center"
                 >
                   <span className={darkMode ? 'text-white' : 'text-gray-900'}>
-                    {selectedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                    {selectedDate.toLocaleDateString('uk-UA', { month: 'short', day: 'numeric' })}
                   </span>
                   <span className={darkMode ? 'text-gray-400' : 'text-gray-600'}>
-                    {selectedDate.toLocaleDateString('en-US', { weekday: 'long' })}
+                    {selectedDate.toLocaleDateString('uk-UA', { weekday: 'long' })}
                   </span>
                 </button>
                 
@@ -919,7 +921,7 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                   className={`min-w-[44px] min-h-[44px] p-2 rounded-lg transition-colors touch-manipulation flex items-center justify-center ${
                     darkMode ? 'hover:bg-gray-700 active:bg-gray-600' : 'hover:bg-gray-100 active:bg-gray-200'
                   }`}
-                  aria-label="Next day"
+                  aria-label="Наступний день"
                 >
                   <ChevronRight size={22} className={`${darkMode ? 'text-gray-300' : 'text-gray-700'}`} />
                 </button>
@@ -940,7 +942,7 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                       className={`min-w-[40px] min-h-[40px] p-2 rounded-lg transition-colors touch-manipulation ${
                         darkMode ? 'hover:bg-gray-700 active:bg-gray-600' : 'hover:bg-gray-100 active:bg-gray-200'
                       }`}
-                      aria-label="Previous month"
+                      aria-label="Попередній місяць"
                     >
                       <ChevronLeft size={20} className={`${darkMode ? 'text-gray-300' : 'text-gray-700'}`} />
                     </button>
@@ -952,7 +954,7 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                       className={`min-w-[40px] min-h-[40px] p-2 rounded-lg transition-colors touch-manipulation ${
                         darkMode ? 'hover:bg-gray-700 active:bg-gray-600' : 'hover:bg-gray-100 active:bg-gray-200'
                       }`}
-                      aria-label="Next month"
+                      aria-label="Наступний місяць"
                     >
                       <ChevronRight size={20} className={`${darkMode ? 'text-gray-300' : 'text-gray-700'}`} />
                     </button>
@@ -975,7 +977,7 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                       
                       const isSelected = day !== null && day === selectedDate.getDate();
                       
-                      // Check medication status for this day
+                      // Перевіряємо статус ліків на цей день
                       const dayDate = day !== null ? new Date(selectedDate.getFullYear(), selectedDate.getMonth(), day) : null;
                       const dayKey = dayDate ? dayDate.toISOString().split('T')[0] : null;
                       
@@ -992,13 +994,13 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                           ).length;
                           
                           if (takenCount === dayMedications.length) {
-                            // All medications taken - green
+                            // Усі прийнято - зелений
                             dotColor = 'bg-green-500';
                           } else if (takenCount > 0) {
-                            // Some medications taken - yellow
+                            // Частково прийнято - жовтий
                             dotColor = 'bg-yellow-500';
                           } else {
-                            // No medications taken - check if it's past date
+                            // Нічого не прийнято - перевіряємо, чи день минув
                             const isPast = dayDate < new Date(today.getFullYear(), today.getMonth(), today.getDate());
                             dotColor = isPast ? 'bg-red-500' : 'bg-blue-500';
                           }
@@ -1034,23 +1036,23 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
                     })}
                   </div>
 
-                  {/* Calendar legend */}
+                  {/* Легенда календаря */}
                   <div className="mt-2 pt-2 border-t grid grid-cols-2 gap-1.5" style={{ borderColor: darkMode ? '#374151' : '#E5E7EB' }}>
                     <div className="flex items-center gap-1">
                       <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
-                      <span className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>All taken</span>
+                      <span className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Усе прийнято</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <div className="w-1.5 h-1.5 rounded-full bg-yellow-500" />
-                      <span className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Partial</span>
+                      <span className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Частково</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                      <span className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Scheduled</span>
+                      <span className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Заплановано</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <div className="w-1.5 h-1.5 rounded-full bg-red-500" />
-                      <span className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Missed</span>
+                      <span className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Пропущено</span>
                     </div>
                   </div>
                 </motion.div>
@@ -1061,7 +1063,7 @@ export default function MainSchedule({ darkMode, setDarkMode, setCurrentPage, me
         </div>
       </div>
 
-      {/* Quick Actions Modal */}
+      {/* Модальне вікно швидких дій */}
       {quickActionsId !== null && (
         <MedicationQuickActions
           medicationId={quickActionsId}

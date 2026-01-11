@@ -73,7 +73,7 @@ function PageLoader() {
     <div className="flex items-center justify-center min-h-screen bg-slate-50 dark:bg-slate-950">
       <div className="text-center space-y-4">
         <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto" />
-        <p className="text-slate-600 dark:text-slate-400 text-lg">Loading...</p>
+        <p className="text-slate-600 dark:text-slate-400 text-lg">Завантаження...</p>
       </div>
     </div>
   );
@@ -398,18 +398,18 @@ export default function App() {
       setUserRole(data.user.role === 'patient' ? 'myself' : data.user.role);
       setOnboardingComplete(data.user.onboardingComplete || false);
       
-      toast.success(`Welcome back, ${data.user.name}!`);
+      toast.success(`З поверненням, ${data.user.name}!`);
       
       // Redirect to appropriate dashboard
       if (data.user.onboardingComplete) {
         if (data.user.role === 'caregiver') {
           console.log('✅ CAREGIVER LOGIN - Redirecting to caregiver dashboard');
-          setCurrentPage('caregiver');
-        } else if (data.user.role === 'doctor') {
-          console.log('✅ DOCTOR LOGIN - Redirecting to doctor dashboard');
+        setCurrentPage('caregiver');
+      } else if (data.user.role === 'doctor') {
+        console.log('✅ DOCTOR LOGIN - Redirecting to doctor dashboard');
           setCurrentPage('doctor');
         } else {
-          console.log('✅ PATIENT LOGIN - Redirecting to patient dashboard');
+        console.log('✅ PATIENT LOGIN - Redirecting to patient dashboard');
           setCurrentPage(getDefaultPatientPage());
         }
       } else {
@@ -420,6 +420,44 @@ export default function App() {
       console.log('Login complete, redirecting to:', currentPage);
     } catch (error: any) {
       console.error('Login error in App.tsx:', error);
+      const errorInfo = getErrorMessage(error, 'login');
+      toast.error(formatErrorForToast(error, 'login'), {
+        description: errorInfo.message,
+        duration: 5000,
+      });
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      setLoading(true);
+      const data = await api.loginWithGoogle?.(true);
+      if (!data?.user) {
+        return;
+      }
+
+      setIsAuthenticated(true);
+      setCurrentUser(data.user);
+      setUserRole(data.user.role === 'patient' ? 'myself' : data.user.role);
+      setOnboardingComplete(data.user.onboardingComplete || false);
+
+      toast.success(`Вхід через Google успішний, ${data.user.name}!`);
+
+      if (data.user.onboardingComplete) {
+        if (data.user.role === 'caregiver') {
+          setCurrentPage('caregiver');
+        } else if (data.user.role === 'doctor') {
+          setCurrentPage('doctor');
+        } else {
+          setCurrentPage(getDefaultPatientPage());
+        }
+      } else {
+        setCurrentPage('onboarding');
+      }
+    } catch (error: any) {
       const errorInfo = getErrorMessage(error, 'login');
       toast.error(formatErrorForToast(error, 'login'), {
         description: errorInfo.message,
@@ -451,7 +489,7 @@ export default function App() {
       setCurrentUser(data.user);
       setUserRole(data.user.role === 'patient' ? 'myself' : data.user.role);
       
-      toast.success(`Account created! Welcome, ${data.user.name}!`);
+      toast.success(`Обліковий запис створено! Вітаємо, ${data.user.name}!`);
       
       // Redirect to onboarding
       setCurrentPage('onboarding');
@@ -752,6 +790,7 @@ export default function App() {
         <>
           <LoginEnhanced
             onLogin={handleLogin} 
+            onGoogleLogin={handleGoogleLogin}
             setCurrentPage={setCurrentPage} 
             darkMode={darkMode} 
             setDarkMode={setDarkMode} 
@@ -1268,7 +1307,7 @@ export default function App() {
                   printWindow.document.write(`
                     <html>
                       <head>
-                        <title>Medication: ${med.name}</title>
+                        <title>Ліки: ${med.name}</title>
                         <style>
                           body { font-family: Arial, sans-serif; padding: 40px; }
                           h1 { color: #2196F3; margin-bottom: 30px; }
@@ -1282,13 +1321,13 @@ export default function App() {
                       </head>
                       <body>
                         <h1>${med.name}</h1>
-                        <div class="info"><span class="label">Dosage:</span> <span class="value">${med.dosage}</span></div>
-                        <div class="info"><span class="label">Form:</span> <span class="value">${med.form || 'Not specified'}</span></div>
-                        <div class="info"><span class="label">Times:</span> <span class="value">${med.times.join(', ')}</span></div>
-                        <div class="info"><span class="label">Frequency:</span> <span class="value">${med.frequency || 'Not specified'}</span></div>
-                        ${med.mealTiming ? `<div class="info"><span class="label">Meal Timing:</span> <span class="value">${med.mealTiming}</span></div>` : ''}
-                        ${med.specialInstructions ? `<div class="info"><span class="label">Instructions:</span> <span class="value">${med.specialInstructions}</span></div>` : ''}
-                        ${med.duration ? `<div class="info"><span class="label">Duration:</span> <span class="value">${med.duration}</span></div>` : ''}
+                        <div class="info"><span class="label">Дозування:</span> <span class="value">${med.dosage}</span></div>
+                        <div class="info"><span class="label">Форма:</span> <span class="value">${med.form || 'Не вказано'}</span></div>
+                        <div class="info"><span class="label">Час:</span> <span class="value">${med.times.join(', ')}</span></div>
+                        <div class="info"><span class="label">Частота:</span> <span class="value">${med.frequency || 'Не вказано'}</span></div>
+                        ${med.mealTiming ? `<div class="info"><span class="label">Їжа:</span> <span class="value">${med.mealTiming}</span></div>` : ''}
+                        ${med.specialInstructions ? `<div class="info"><span class="label">Інструкції:</span> <span class="value">${med.specialInstructions}</span></div>` : ''}
+                        ${med.duration ? `<div class="info"><span class="label">Тривалість:</span> <span class="value">${med.duration}</span></div>` : ''}
                         <script>window.print(); window.close();</script>
                       </body>
                     </html>
@@ -1429,76 +1468,76 @@ export default function App() {
         theme={darkMode ? 'dark' : 'light'}
       />
 
-      {/* Debug Panel - Development only */}
+      {/* Панель налагодження (лише для dev) */}
       {typeof import.meta !== 'undefined' && import.meta.env?.DEV && (
         <>
           <button
             onClick={() => setShowDebug(!showDebug)}
             className="fixed bottom-4 left-4 z-50 bg-gray-900 text-white px-3 py-2 rounded-lg text-xs opacity-30 hover:opacity-90 transition-opacity shadow-lg"
-            title="Debug Panel"
+            title="Панель налагодження"
           >
-            {showDebug ? '✕' : 'Debug'}
+            {showDebug ? 'Закрити' : 'Налагодження'}
           </button>
           
           {showDebug && (
             <div className="fixed bottom-16 left-4 z-50 bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-4 w-64 border-2 border-blue-500 max-h-[70vh] overflow-y-auto">
-              <h3 className="font-bold mb-3 text-gray-900 dark:text-white">Debug Panel</h3>
+              <h3 className="font-bold mb-3 text-gray-900 dark:text-white">Панель налагодження</h3>
               
               <div className="space-y-2 text-sm">
                 <div className="p-2 bg-gray-100 dark:bg-gray-700 rounded">
-                  <p className="text-xs text-gray-600 dark:text-gray-400">User:</p>
-                  <p className="font-medium">{currentUser?.name || 'Loading...'}</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">Користувач:</p>
+                  <p className="font-medium">{currentUser?.name || 'Завантаження...'}</p>
                   <p className="text-xs text-gray-600 dark:text-gray-400">{currentUser?.email}</p>
                 </div>
 
                 <div className="p-2 bg-gray-100 dark:bg-gray-700 rounded">
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Role:</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">Роль:</p>
                   <p className="font-medium capitalize">{userRole}</p>
                 </div>
 
                 <div className="p-2 bg-gray-100 dark:bg-gray-700 rounded">
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Page:</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">Сторінка:</p>
                   <p className="font-medium">{currentPage}</p>
                 </div>
 
                 <div className="p-2 bg-gray-100 dark:bg-gray-700 rounded">
-                  <p className="text-xs text-gray-600 dark:text-gray-400">Medications:</p>
-                  <p className="font-medium">{medications.length} total</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">Ліки:</p>
+                  <p className="font-medium">{medications.length} всього</p>
                 </div>
               </div>
 
               <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-600">
-                <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">Quick Navigation:</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">Швидка навігація:</p>
                 <div className="grid grid-cols-2 gap-1.5">
                   <button 
                     onClick={() => { setCurrentPage('dashboard'); setShowDebug(false); }} 
                     className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1.5 rounded text-xs transition-colors"
                   >
-                    Dashboard
+                    Панель
                   </button>
                   <button 
                     onClick={() => { setCurrentPage('main'); setShowDebug(false); }} 
                     className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1.5 rounded text-xs transition-colors"
                   >
-                    Today
+                    Сьогодні
                   </button>
                   <button 
                     onClick={() => { setCurrentPage('caregiver'); setShowDebug(false); }} 
                     className="bg-orange-500 hover:bg-orange-600 text-white px-2 py-1.5 rounded text-xs transition-colors"
                   >
-                    Caregiver
+                    Опікун
                   </button>
                   <button 
                     onClick={() => { setCurrentPage('doctor'); setShowDebug(false); }} 
                     className="bg-purple-500 hover:bg-purple-600 text-white px-2 py-1.5 rounded text-xs transition-colors"
                   >
-                    Doctor
+                    Лікар
                   </button>
                   <button 
                     onClick={() => { setCurrentPage('database-test'); setShowDebug(false); }} 
                     className="bg-green-500 hover:bg-green-600 text-white px-2 py-1.5 rounded text-xs transition-colors col-span-2"
                   >
-                    🧪 Test Database
+                    Перевірка бази
                   </button>
                 </div>
               </div>
@@ -1508,7 +1547,7 @@ export default function App() {
                   onClick={() => { handleLogout(); setShowDebug(false); }} 
                   className="w-full bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded text-sm font-medium transition-colors"
                 >
-                  Sign Out
+                  Вийти
                 </button>
               </div>
             </div>

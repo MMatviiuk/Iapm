@@ -145,7 +145,7 @@ export default function MedicationsList({
         darkMode ? 'bg-gray-900' : 'bg-gray-50'
       }`}
     >
-      {/* Compact Mobile Header */}
+      {/* Мобільний заголовок */}
       <div
         className={`sticky top-0 z-10 ${
           darkMode ? 'bg-gray-800' : 'bg-white'
@@ -154,15 +154,23 @@ export default function MedicationsList({
         } px-3 sm:px-6 lg:px-8 py-3 sm:py-4`}
       >
         <div className="max-w-7xl mx-auto">
-          {/* Title Row */}
+          {/* Заголовок */}
           <div className="flex items-center justify-between mb-3">
             <h1
               className={`text-xl sm:text-2xl lg:text-3xl font-bold ${
                 darkMode ? 'text-white' : 'text-gray-900'
               }`}
             >
-              All Medications
+              Усі ліки
             </h1>
+            <Button
+              onClick={onAddMedication}
+              size="sm"
+              className="h-10 sm:h-12 px-3 sm:px-4 bg-[#2196F3] hover:bg-[#1976D2] text-white touch-manipulation"
+            >
+              <Plus className="w-5 h-5 sm:w-6 sm:h-6" />
+              <span className="hidden sm:inline ml-2">Додати</span>
+            </Button>
             <div className="flex gap-2">
               <Button
                 onClick={() => setShowVideoScanner(true)}
@@ -191,14 +199,14 @@ export default function MedicationsList({
             </div>
           </div>
 
-          {/* Search Bar */}
+          {/* Пошук */}
           <div className="relative mb-3">
             <Search className={`absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 ${
               darkMode ? 'text-gray-400' : 'text-gray-500'
             }`} />
             <Input
               type="text"
-              placeholder="Search medications..."
+              placeholder="Пошук ліків..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className={`pl-10 h-11 sm:h-12 ${
@@ -207,7 +215,7 @@ export default function MedicationsList({
             />
           </div>
 
-          {/* Compact Filter Row */}
+          {/* Фільтри */}
           <div className="flex items-center gap-2 overflow-x-auto pb-2 -mx-3 px-3">
             <Button
               onClick={() => setShowFilters(!showFilters)}
@@ -218,7 +226,7 @@ export default function MedicationsList({
               }`}
             >
               <Filter className="w-4 h-4 mr-1.5" />
-              Filters
+              Фільтри
               {activeFiltersCount > 0 && (
                 <Badge className="ml-1.5 bg-[#2196F3] text-white h-5 min-w-[20px] px-1.5">
                   {activeFiltersCount}
@@ -226,7 +234,7 @@ export default function MedicationsList({
               )}
             </Button>
 
-            {/* Status Filter Quick Pills */}
+            {/* Фільтр за статусом */}
             {['all', 'ACTIVE', 'SCHEDULED', 'COMPLETED'].map((status) => (
               <Button
                 key={status}
@@ -239,22 +247,28 @@ export default function MedicationsList({
                     : darkMode ? 'text-gray-300' : 'text-gray-700'
                 }`}
               >
-                {status === 'all' ? 'All' : status.charAt(0) + status.slice(1).toLowerCase()}
+                {status === 'all'
+                  ? 'Усі'
+                  : status === 'ACTIVE'
+                    ? 'Активні'
+                    : status === 'SCHEDULED'
+                      ? 'Заплановані'
+                      : 'Завершені'}
               </Button>
             ))}
 
             <div className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'} ml-auto flex-shrink-0`}>
-              {sortedMedications.length} med{sortedMedications.length !== 1 ? 's' : ''}
+              {sortedMedications.length} ліків
             </div>
           </div>
         </div>
       </div>
 
-      {/* Medications List - Compact Mobile Cards */}
+      {/* Список ліків */}
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-4">
         {sortedMedications.length === 0 ? (
           searchQuery || filterFrequency !== 'all' ? (
-            // Filtered empty state
+            // Порожній стан після фільтрації
             <Card
               className={`p-8 sm:p-12 text-center ${
                 darkMode ? 'bg-gray-800' : 'bg-white'
@@ -266,10 +280,10 @@ export default function MedicationsList({
                   darkMode ? 'text-white' : 'text-gray-900'
                 }`}
               >
-                No medications found
+                Ліків не знайдено
               </h3>
               <p className="text-gray-500 mb-4 sm:mb-6 text-sm sm:text-base">
-                Try adjusting your search or filters
+                Спробуйте змінити пошук або фільтри
               </p>
               <Button
                 onClick={handleClearFilters}
@@ -277,16 +291,16 @@ export default function MedicationsList({
                 className="h-11 sm:h-14 px-4 sm:px-6"
               >
                 <X className="w-5 h-5 mr-2" />
-                Clear Filters
+                Очистити фільтри
               </Button>
             </Card>
           ) : (
-            // True empty state (no medications at all)
+            // Порожній стан (немає ліків)
             <EmptyState
               icon={Pill}
-              title="No Medications Added"
-              description="Add your first medication to start tracking your health and building better habits."
-              actionLabel="Add Medication"
+              title="Ліків ще немає"
+              description="Додайте перші ліки, щоб почати відстеження."
+              actionLabel="Додати ліки"
               onAction={onAddMedication}
               darkMode={darkMode}
             />
@@ -311,9 +325,9 @@ export default function MedicationsList({
                     }`}
                     onClick={() => onSelectMedication(med)}
                   >
-                    {/* Compact Top Row */}
+                    {/* Верхній ряд */}
                     <div className="flex items-start gap-3 mb-3">
-                      {/* Icon */}
+                      {/* Іконка */}
                       <div
                         className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${
                           med.photoUrl ? 'p-0' : 'bg-[#2196F3]/10'
@@ -330,7 +344,7 @@ export default function MedicationsList({
                         )}
                       </div>
 
-                      {/* Name & Dosage */}
+                      {/* Назва і дозування */}
                       <div className="flex-1 min-w-0">
                         <h3
                           className={`text-base sm:text-lg font-bold truncate ${
@@ -404,10 +418,10 @@ export default function MedicationsList({
                             : 'hover:bg-gray-100 text-gray-600 hover:text-gray-900'
                         }`}
                         style={{ minHeight: '40px' }}
-                        aria-label="Actions"
+                        aria-label="Дії"
                       >
                         <MoreVertical className="w-5 h-5" />
-                        <span className="text-sm font-medium">Actions</span>
+                        <span className="text-sm font-medium">Дії</span>
                       </button>
                     </div>
                   </Card>

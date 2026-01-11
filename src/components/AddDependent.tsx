@@ -11,6 +11,7 @@ import { FieldWithTooltip } from './FieldWithTooltip';
 import { toast } from 'sonner';
 import DateOfBirthPicker from './DateOfBirthPicker';
 import PhotoUploader from './PhotoUploader';
+import api from '../services/api';
 
 interface AddDependentProps {
   darkMode: boolean;
@@ -27,6 +28,7 @@ export default function AddDependent({
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
+    email: '',
     dateOfBirth: '',
     gender: '' as 'male' | 'female' | '',
     relationship: '',
@@ -36,50 +38,52 @@ export default function AddDependent({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
 
-  // Validate form
+  // Перевірка форми
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
     if (!formData.firstName.trim()) {
-      newErrors.firstName = 'First name is required';
+      newErrors.firstName = "Імʼя обовʼязкове";
     }
     if (!formData.lastName.trim()) {
-      newErrors.lastName = 'Last name is required';
+      newErrors.lastName = 'Прізвище обовʼязкове';
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email обовʼязковий';
     }
     if (!formData.dateOfBirth) {
-      newErrors.dateOfBirth = 'Date of birth is required';
+      newErrors.dateOfBirth = 'Дата народження обовʼязкова';
     }
     if (!formData.gender) {
-      newErrors.gender = 'Gender is required';
+      newErrors.gender = 'Стать обовʼязкова';
     }
     if (!formData.relationship.trim()) {
-      newErrors.relationship = 'Relationship is required';
+      newErrors.relationship = 'Стосунок обовʼязковий';
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle form submission
+  // Надсилання форми
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) {
-      toast.error('Please fill in all required fields');
+      toast.error('Заповніть усі обовʼязкові поля');
       return;
     }
 
     setLoading(true);
 
     try {
-      // TODO: Call API to add dependent
-      // const response = await api.addDependent(formData);
+      const response = await api.addDependent({
+        patientEmail: formData.email,
+        relationship: formData.relationship,
+      });
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
       const newDependent = {
-        id: `dep_${Date.now()}`,
+        id: response?.id || `dep_${Date.now()}`,
         ...formData,
         name: `${formData.firstName} ${formData.lastName}`,
       };
@@ -88,11 +92,11 @@ export default function AddDependent({
         onAdd(newDependent);
       }
 
-      toast.success(`${formData.firstName} ${formData.lastName} added as dependent`);
+      toast.success(`${formData.firstName} ${formData.lastName} додано як підопічного`);
       setCurrentPage('caregiver');
     } catch (error: any) {
       console.error('Failed to add dependent:', error);
-      toast.error(error.message || 'Failed to add dependent');
+      toast.error(error.message || 'Не вдалося додати підопічного');
     } finally {
       setLoading(false);
     }
@@ -105,7 +109,7 @@ export default function AddDependent({
       }`}>
       <div className="max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
         
-        {/* Header */}
+        {/* Заголовок */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -117,7 +121,7 @@ export default function AddDependent({
             className="mb-4 -ml-2 h-12"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
-            Back to Dashboard
+            Назад до панелі
           </Button>
 
           <div className="flex items-center gap-4 mb-4">
@@ -128,18 +132,18 @@ export default function AddDependent({
               <h1 className={`text-2xl sm:text-3xl lg:text-4xl font-bold ${
                 darkMode ? 'text-white' : 'text-slate-900'
               }`}>
-                Add Dependent
+                Додати підопічного
               </h1>
               <p className={`text-base sm:text-lg ${
                 darkMode ? 'text-slate-400' : 'text-slate-600'
               }`}>
-                Add a family member you'll be caring for
+                Додайте людину, про яку будете дбати
               </p>
             </div>
           </div>
         </motion.div>
 
-        {/* Form */}
+        {/* Форма */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -152,11 +156,11 @@ export default function AddDependent({
           }`}>
             <form onSubmit={handleSubmit} className="space-y-6">
               
-              {/* Photo Upload */}
+              {/* Фото */}
               <div>
                 <FieldWithTooltip
-                  label="Profile Photo (Optional)"
-                  tooltip="<strong>Upload a photo</strong> of your dependent.<br/><br/><strong>Benefits:</strong><br/>• Helps you quickly identify them<br/>• Useful for medical visits<br/>• Personal touch to their profile<br/><br/>✅ <strong>Optional:</strong> Skip if you don't have a photo"
+                  label="Фото профілю (необовʼязково)"
+                  tooltip="<strong>Завантажте фото</strong> підопічного.<br/><br/><strong>Переваги:</strong><br/>• Швидка ідентифікація<br/>• Зручно для візитів до лікаря<br/>• Більш персональний профіль<br/><br/><strong>Необовʼязково:</strong> можна пропустити"
                   required={false}
                   darkMode={darkMode}
                   className="mb-3 block"
@@ -169,12 +173,12 @@ export default function AddDependent({
                 />
               </div>
 
-              {/* Name Fields */}
+              {/* Імʼя та прізвище */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   <FieldWithTooltip
-                    label="First Name"
-                    tooltip="<strong>Enter their first name</strong> (given name).<br/><br/><strong>Examples:</strong><br/>• Margaret<br/>• John<br/>• Mary<br/>• Robert"
+                    label="Імʼя"
+                    tooltip="<strong>Вкажіть імʼя</strong>.<br/><br/><strong>Приклади:</strong><br/>• Марія<br/>• Олександр<br/>• Ірина<br/>• Андрій"
                     required={true}
                     htmlFor="firstName"
                     darkMode={darkMode}
@@ -188,7 +192,7 @@ export default function AddDependent({
                       setFormData(prev => ({ ...prev, firstName: e.target.value }));
                       setErrors(prev => ({ ...prev, firstName: '' }));
                     }}
-                    placeholder="Enter first name"
+                    placeholder="Введіть імʼя"
                     className={`h-14 text-base ${errors.firstName ? 'border-red-500' : ''}`}
                   />
                   {errors.firstName && (
@@ -198,8 +202,8 @@ export default function AddDependent({
 
                 <div>
                   <FieldWithTooltip
-                    label="Last Name"
-                    tooltip="<strong>Enter their last name</strong> (family name).<br/><br/><strong>Examples:</strong><br/>• Williams<br/>• Smith<br/>• Johnson<br/>• Brown"
+                    label="Прізвище"
+                    tooltip="<strong>Вкажіть прізвище</strong>.<br/><br/><strong>Приклади:</strong><br/>• Іваненко<br/>• Петренко<br/>• Ковальчук"
                     required={true}
                     htmlFor="lastName"
                     darkMode={darkMode}
@@ -213,7 +217,7 @@ export default function AddDependent({
                       setFormData(prev => ({ ...prev, lastName: e.target.value }));
                       setErrors(prev => ({ ...prev, lastName: '' }));
                     }}
-                    placeholder="Enter last name"
+                    placeholder="Введіть прізвище"
                     className={`h-14 text-base ${errors.lastName ? 'border-red-500' : ''}`}
                   />
                   {errors.lastName && (
@@ -222,11 +226,36 @@ export default function AddDependent({
                 </div>
               </div>
 
-              {/* Date of Birth */}
               <div>
                 <FieldWithTooltip
-                  label="Date of Birth"
-                  tooltip="<strong>Select their date of birth.</strong><br/><br/><strong>Why we need this:</strong><br/>• Age-specific medication recommendations<br/>• Accurate health tracking<br/>• Birthday reminders<br/><br/>💡 Use the dropdowns to select day, month, and year."
+                  label="Email пацієнта"
+                  tooltip="<strong>Вкажіть email пацієнта</strong>, який вже зареєстрований у додатку."
+                  required={true}
+                  htmlFor="email"
+                  darkMode={darkMode}
+                  className="mb-2 block"
+                />
+                <Input
+                  id="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => {
+                    setFormData(prev => ({ ...prev, email: e.target.value }));
+                    setErrors(prev => ({ ...prev, email: '' }));
+                  }}
+                  placeholder="name@example.com"
+                  className={`h-14 text-base ${errors.email ? 'border-red-500' : ''}`}
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                )}
+              </div>
+
+              {/* Дата народження */}
+              <div>
+                <FieldWithTooltip
+                  label="Дата народження"
+                  tooltip="<strong>Оберіть дату народження.</strong><br/><br/><strong>Навіщо це потрібно:</strong><br/>• Точніші рекомендації<br/>• Коректна аналітика здоровʼя<br/>• Нагадування про день народження"
                   required={true}
                   darkMode={darkMode}
                   className="mb-2 block"
@@ -244,11 +273,11 @@ export default function AddDependent({
                 )}
               </div>
 
-              {/* Gender */}
+              {/* Стать */}
               <div>
                 <FieldWithTooltip
-                  label="Gender"
-                  tooltip="<strong>Select their gender.</strong><br/><br/><strong>Why we need this:</strong><br/>• Some medications differ by gender<br/>• Profile photo suggestions<br/>• Personalized health insights<br/><br/>Choose ♂ Male or ♀ Female."
+                  label="Стать"
+                  tooltip="<strong>Оберіть стать.</strong><br/><br/><strong>Навіщо це потрібно:</strong><br/>• Деякі ліки залежать від статі<br/>• Персоналізована аналітика"
                   required={true}
                   htmlFor="gender"
                   darkMode={darkMode}
@@ -262,19 +291,19 @@ export default function AddDependent({
                   }}
                 >
                   <SelectTrigger className={`h-14 text-base ${errors.gender ? 'border-red-500' : ''}`}>
-                    <SelectValue placeholder="Select gender" />
+                    <SelectValue placeholder="Оберіть стать" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="male" className="text-base py-3">
                       <div className="flex items-center gap-3">
                         <span className="text-xl">♂</span>
-                        <span>Male</span>
+                        <span>Чоловіча</span>
                       </div>
                     </SelectItem>
                     <SelectItem value="female" className="text-base py-3">
                       <div className="flex items-center gap-3">
                         <span className="text-xl">♀</span>
-                        <span>Female</span>
+                        <span>Жіноча</span>
                       </div>
                     </SelectItem>
                   </SelectContent>
@@ -284,11 +313,11 @@ export default function AddDependent({
                 )}
               </div>
 
-              {/* Relationship */}
+              {/* Стосунок */}
               <div>
                 <FieldWithTooltip
-                  label="Relationship"
-                  tooltip="<strong>Your relationship</strong> to this person.<br/><br/><strong>Options:</strong><br/>• Parent<br/>• Grandparent<br/>• Spouse<br/>• Sibling<br/>• Child<br/>• Friend<br/>• Other<br/><br/>💡 This helps us understand your caregiving role."
+                  label="Стосунок"
+                  tooltip="<strong>Ваш стосунок</strong> до цієї людини."
                   required={true}
                   htmlFor="relationship"
                   darkMode={darkMode}
@@ -302,16 +331,16 @@ export default function AddDependent({
                   }}
                 >
                   <SelectTrigger className={`h-14 text-base ${errors.relationship ? 'border-red-500' : ''}`}>
-                    <SelectValue placeholder="Select relationship" />
+                    <SelectValue placeholder="Оберіть стосунок" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="parent" className="text-base py-3">Parent</SelectItem>
-                    <SelectItem value="grandparent" className="text-base py-3">Grandparent</SelectItem>
-                    <SelectItem value="spouse" className="text-base py-3">Spouse</SelectItem>
-                    <SelectItem value="sibling" className="text-base py-3">Sibling</SelectItem>
-                    <SelectItem value="child" className="text-base py-3">Child</SelectItem>
-                    <SelectItem value="friend" className="text-base py-3">Friend</SelectItem>
-                    <SelectItem value="other" className="text-base py-3">Other</SelectItem>
+                    <SelectItem value="parent" className="text-base py-3">Батько/мати</SelectItem>
+                    <SelectItem value="grandparent" className="text-base py-3">Дідусь/бабуся</SelectItem>
+                    <SelectItem value="spouse" className="text-base py-3">Чоловік/дружина</SelectItem>
+                    <SelectItem value="sibling" className="text-base py-3">Брат/сестра</SelectItem>
+                    <SelectItem value="child" className="text-base py-3">Дитина</SelectItem>
+                    <SelectItem value="friend" className="text-base py-3">Друг/подруга</SelectItem>
+                    <SelectItem value="other" className="text-base py-3">Інше</SelectItem>
                   </SelectContent>
                 </Select>
                 {errors.relationship && (
@@ -319,7 +348,7 @@ export default function AddDependent({
                 )}
               </div>
 
-              {/* Info Card */}
+              {/* Інформація */}
               <Card className={`p-4 border-2 ${
                 darkMode 
                   ? 'bg-orange-950/20 border-orange-800' 
@@ -333,18 +362,18 @@ export default function AddDependent({
                     <p className={`text-base font-semibold mb-1 ${
                       darkMode ? 'text-orange-300' : 'text-orange-900'
                     }`}>
-                      Dependent Access
+                      Доступ підопічного
                     </p>
                     <p className={`text-sm ${
                       darkMode ? 'text-orange-400' : 'text-orange-700'
                     }`}>
-                      You'll be able to manage medications and track adherence for this person. They can also use their own account to view their schedule.
+                      Ви зможете керувати ліками та відстежувати дотримання для цієї людини. Пацієнт також може користуватися власним акаунтом.
                     </p>
                   </div>
                 </div>
               </Card>
 
-              {/* Action Buttons */}
+              {/* Кнопки */}
               <div className="flex flex-col sm:flex-row gap-3 pt-4">
                 <Button
                   type="button"
@@ -353,7 +382,7 @@ export default function AddDependent({
                   disabled={loading}
                   className="h-14 px-6 text-base flex-1 border-2"
                 >
-                  Cancel
+                  Скасувати
                 </Button>
                 <Button
                   type="submit"
@@ -367,12 +396,12 @@ export default function AddDependent({
                         transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
                         className="w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-2"
                       />
-                      Adding...
+                      Додаємо...
                     </>
                   ) : (
                     <>
                       <Check className="w-5 h-5 mr-2" />
-                      Add Dependent
+                      Додати підопічного
                     </>
                   )}
                 </Button>
@@ -381,7 +410,7 @@ export default function AddDependent({
           </Card>
         </motion.div>
 
-        {/* Help Text */}
+        {/* Довідка */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -389,7 +418,7 @@ export default function AddDependent({
           className={`text-center text-sm mt-6 ${
             darkMode ? 'text-slate-500' : 'text-slate-500'
           }`}>
-          * Required fields
+          * Обовʼязкові поля
         </motion.p>
       </div>
       </div>

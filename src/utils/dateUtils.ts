@@ -1,7 +1,7 @@
 /**
- * Calculate age from date of birth
- * @param dateOfBirth - Date string in YYYY-MM-DD format
- * @returns Age in years
+ * Обчислює вік за датою народження
+ * @param dateOfBirth - рядок дати у форматі YYYY-MM-DD
+ * @returns Вік у роках
  */
 export function calculateAge(dateOfBirth: string): number {
   if (!dateOfBirth) return 0;
@@ -12,7 +12,7 @@ export function calculateAge(dateOfBirth: string): number {
   let age = today.getFullYear() - birthDate.getFullYear();
   const monthDiff = today.getMonth() - birthDate.getMonth();
   
-  // Adjust if birthday hasn't occurred this year yet
+  // Коригуємо, якщо день народження ще не настав
   if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
     age--;
   }
@@ -21,43 +21,43 @@ export function calculateAge(dateOfBirth: string): number {
 }
 
 /**
- * Validate date of birth
- * @param dateOfBirth - Date string in YYYY-MM-DD format
- * @returns Error message or null if valid
+ * Перевіряє дату народження
+ * @param dateOfBirth - рядок дати у форматі YYYY-MM-DD
+ * @returns Повідомлення про помилку або null
  */
 export function validateDateOfBirth(dateOfBirth: string): string | null {
   if (!dateOfBirth) {
-    return 'Please enter date of birth';
+    return 'Вкажіть дату народження';
   }
   
   const birthDate = new Date(dateOfBirth);
   const today = new Date();
   
-  // Check if date is valid
+  // Перевірка валідності дати
   if (isNaN(birthDate.getTime())) {
-    return 'Please enter a valid date';
+    return 'Вкажіть коректну дату';
   }
   
-  // Check if date is not in the future
+  // Перевірка, що дата не в майбутньому
   if (birthDate > today) {
-    return 'Date of birth cannot be in the future';
+    return 'Дата народження не може бути в майбутньому';
   }
   
-  // Check if age is reasonable (1-120 years)
+  // Перевірка діапазону віку (1-120 років)
   const age = calculateAge(dateOfBirth);
   if (age < 1) {
-    return 'Age must be at least 1 year';
+    return 'Вік має бути не менше 1 року';
   }
   if (age > 120) {
-    return 'Please enter a valid date of birth';
+    return 'Вкажіть коректну дату народження';
   }
   
   return null;
 }
 
 /**
- * Get maximum date for date input (today)
- * @returns Date string in YYYY-MM-DD format
+ * Максимальна дата для поля (сьогодні)
+ * @returns Рядок дати у форматі YYYY-MM-DD
  */
 export function getMaxDate(): string {
   const today = new Date();
@@ -65,8 +65,8 @@ export function getMaxDate(): string {
 }
 
 /**
- * Get minimum date for date input (120 years ago)
- * @returns Date string in YYYY-MM-DD format
+ * Мінімальна дата (120 років тому)
+ * @returns Рядок дати у форматі YYYY-MM-DD
  */
 export function getMinDate(): string {
   const date = new Date();

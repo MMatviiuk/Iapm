@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Offline - Prescription Clarity</title>
+  <title>Офлайн — 120+</title>
   <style>
     * {
       margin: 0;
@@ -140,58 +140,56 @@
 </head>
 <body>
   <div class="container">
-    <div class="icon">
-      📡
-    </div>
+    <div class="icon">!</div>
     
-    <h1>You're Offline</h1>
+    <h1>Немає зʼєднання</h1>
     
     <p>
-      No internet connection detected. Don't worry, you can still view your cached medications and mark them as taken. Your changes will sync when you're back online.
+      Інтернет-зʼєднання відсутнє. Ви можете переглядати кешовані ліки й відмічати прийом. Зміни синхронізуються після відновлення мережі.
     </p>
     
     <button class="button" onclick="window.location.reload()">
-      Try Again
+      Спробувати знову
     </button>
     
     <div class="features">
       <div class="feature">
         <div class="feature-icon">✓</div>
         <div class="feature-text">
-          View cached medications
+          Перегляд кешованих ліків
         </div>
       </div>
       
       <div class="feature">
         <div class="feature-icon">✓</div>
         <div class="feature-text">
-          Mark medications as taken
+          Позначення прийому ліків
         </div>
       </div>
       
       <div class="feature">
         <div class="feature-icon">✓</div>
         <div class="feature-text">
-          Auto-sync when back online
+          Автосинхронізація після відновлення мережі
         </div>
       </div>
     </div>
   </div>
   
   <script>
-    // Auto-retry when online
+    // Автоперезапуск після відновлення мережі
     window.addEventListener('online', () => {
-      console.log('Back online! Reloading...');
+      console.log('Мережу відновлено. Перезавантаження...');
       setTimeout(() => {
         window.location.reload();
       }, 1000);
     });
     
-    // Show online status
+    // Показуємо статус, якщо мережа вже є
     if (navigator.onLine) {
-      document.querySelector('.icon').textContent = '✓';
-      document.querySelector('h1').textContent = 'Back Online!';
-      document.querySelector('p').textContent = 'Connection restored. Reloading...';
+      document.querySelector('.icon').textContent = 'OK';
+      document.querySelector('h1').textContent = 'Мережу відновлено';
+      document.querySelector('p').textContent = 'Зʼєднання є. Перезавантаження...';
       setTimeout(() => {
         window.location.reload();
       }, 1500);

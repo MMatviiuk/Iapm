@@ -1,6 +1,8 @@
 package com.iapm.ui.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MedicalServices
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -66,7 +68,6 @@ fun PillShieldLogo(
     size: androidx.compose.ui.unit.Dp,
     modifier: Modifier = Modifier
 ) {
-    // Simple pill-shaped logo for now
     Surface(
         modifier = modifier.size(size),
         color = MaterialTheme.colorScheme.primary,
@@ -76,9 +77,11 @@ fun PillShieldLogo(
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            Text(
-                text = "💊",
-                fontSize = (size.value * 0.6f).sp
+            Icon(
+                imageVector = Icons.Filled.MedicalServices,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onPrimary,
+                modifier = Modifier.size(size * 0.6f)
             )
         }
     }

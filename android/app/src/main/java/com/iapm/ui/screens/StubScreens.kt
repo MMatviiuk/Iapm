@@ -2,13 +2,34 @@ package com.iapm.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccessTime
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.CloudDownload
+import androidx.compose.material.icons.filled.CloudUpload
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Help
+import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.InsertChart
+import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.VerifiedUser
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun RegisterScreen(
@@ -135,6 +156,13 @@ fun OnboardingScreen(
 @Composable
 fun DashboardScreen(
     onNavigateToAddMedication: () -> Unit,
+    onNavigateToMedications: () -> Unit,
+    onNavigateToHistory: () -> Unit,
+    onNavigateToRewards: () -> Unit,
+    onNavigateToWeekView: () -> Unit,
+    onNavigateToProfile: () -> Unit,
+    onNavigateToNotifications: () -> Unit,
+    onNavigateToShareProfile: () -> Unit,
     onNavigateToSettings: () -> Unit,
     onLogout: () -> Unit,
     modifier: Modifier = Modifier
@@ -147,7 +175,7 @@ fun DashboardScreen(
             .verticalScroll(scrollState)
             .padding(16.dp)
     ) {
-        // Header
+        // Заголовок
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -168,13 +196,16 @@ fun DashboardScreen(
             }
 
             IconButton(onClick = onNavigateToSettings) {
-                Text("⚙️", fontSize = 24.sp)
+                Icon(
+                    imageVector = Icons.Filled.Settings,
+                    contentDescription = "Налаштування"
+                )
             }
         }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Today's medications
+        // Ліки на сьогодні
         Text(
             text = "Сьогоднішні дози",
             style = MaterialTheme.typography.titleLarge.copy(
@@ -184,21 +215,21 @@ fun DashboardScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Medication cards
+        // Картки ліків
         repeat(3) { index ->
             MedicationCard(
                 name = "Аспірин ${index + 1}00mg",
                 time = "08:00",
                 dosage = "1 таблетка",
-                taken = index == 0, // First one is taken
-                onMarkTaken = { /* TODO */ }
+                taken = index == 0, // Перша доза вже прийнята
+                onMarkTaken = { /* TODO: додати збереження прийому */ }
             )
             Spacer(modifier = Modifier.height(8.dp))
         }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Quick stats
+        // Швидка статистика
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(
@@ -222,17 +253,17 @@ fun DashboardScreen(
                     StatItem(
                         title = "Прийнято",
                         value = "2/3",
-                        icon = "✅"
+                        icon = Icons.Filled.CheckCircle
                     )
                     StatItem(
                         title = "Пропущено",
                         value = "0",
-                        icon = "❌"
+                        icon = Icons.Filled.Warning
                     )
                     StatItem(
                         title = "Дотримання",
                         value = "67%",
-                        icon = "📊"
+                        icon = Icons.Filled.InsertChart
                     )
                 }
             }
@@ -240,13 +271,13 @@ fun DashboardScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Action buttons
+        // Кнопки дій
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             OutlinedButton(
-                onClick = { /* TODO: Show all medications */ },
+                onClick = onNavigateToMedications,
                 modifier = Modifier.weight(1f)
             ) {
                 Text("Всі ліки")
@@ -256,13 +287,51 @@ fun DashboardScreen(
                 onClick = onNavigateToAddMedication,
                 modifier = Modifier.weight(1f)
             ) {
-                Text("➕ Додати")
+                Text("Додати")
             }
         }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Upcoming reminders
+        Text(
+            text = "Швидкі дії",
+            style = MaterialTheme.typography.titleLarge.copy(
+                fontWeight = FontWeight.SemiBold
+            )
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        ActionButton(
+            title = "Мої ліки",
+            onClick = onNavigateToMedications
+        )
+        ActionButton(
+            title = "Історія прийому",
+            onClick = onNavigateToHistory
+        )
+        ActionButton(
+            title = "Нагороди",
+            onClick = onNavigateToRewards
+        )
+        ActionButton(
+            title = "Тижневий план",
+            onClick = onNavigateToWeekView
+        )
+        ActionButton(
+            title = "Сповіщення",
+            onClick = onNavigateToNotifications
+        )
+        ActionButton(
+            title = "Профіль",
+            onClick = onNavigateToProfile
+        )
+        ActionButton(
+            title = "Поділитися профілем",
+            onClick = onNavigateToShareProfile
+        )
+
+        // Найближчі нагадування
         Text(
             text = "Найближчі нагадування",
             style = MaterialTheme.typography.titleLarge.copy(
@@ -288,7 +357,7 @@ fun DashboardScreen(
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // Logout button
+        // Кнопка виходу
         TextButton(
             onClick = onLogout,
             modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -298,6 +367,22 @@ fun DashboardScreen(
                 color = MaterialTheme.colorScheme.error
             )
         }
+    }
+}
+
+@Composable
+fun ActionButton(
+    title: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    OutlinedButton(
+        onClick = onClick,
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp)
+    ) {
+        Text(title)
     }
 }
 
@@ -341,7 +426,7 @@ fun MedicationCard(
 
             if (taken) {
                 Text(
-                    text = "✅ Прийнято",
+                    text = "Прийнято",
                     color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.labelMedium
                 )
@@ -358,12 +443,16 @@ fun MedicationCard(
 fun StatItem(
     title: String,
     value: String,
-    icon: String
+    icon: ImageVector
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = icon, fontSize = 24.sp)
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primary
+        )
         Text(
             text = value,
             style = MaterialTheme.typography.headlineSmall.copy(
@@ -412,9 +501,10 @@ fun ReminderItem(
                 )
             }
 
-            Text(
-                text = "⏰",
-                fontSize = 20.sp
+            Icon(
+                imageVector = Icons.Filled.AccessTime,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary
             )
         }
     }
@@ -428,15 +518,15 @@ fun AddMedicationScreen(
 ) {
     val scrollState = rememberScrollState()
 
-    // Form state
+    // Стан форми
     var medicationName by remember { mutableStateOf("") }
     var dosage by remember { mutableStateOf("") }
-    var form by remember { mutableStateOf("tablet") }
-    var frequency by remember { mutableStateOf("once daily") }
+    var form by remember { mutableStateOf("таблетка") }
+    var frequency by remember { mutableStateOf("раз на день") }
     var timesPerDay by remember { mutableStateOf(listOf("08:00")) }
-    var mealTiming by remember { mutableStateOf("anytime") }
+    var mealTiming by remember { mutableStateOf("будь-коли") }
     var daysOfWeek by remember { mutableStateOf(
-        listOf("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
+        listOf("Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя")
     ) }
     var startDate by remember { mutableStateOf(java.time.LocalDate.now()) }
     var duration by remember { mutableStateOf("30 days") }
@@ -444,9 +534,9 @@ fun AddMedicationScreen(
     var condition by remember { mutableStateOf("") }
     var prescribedBy by remember { mutableStateOf("") }
 
-    val forms = listOf("tablet", "capsule", "liquid", "injection", "patch", "other")
-    val mealTimings = listOf("before meal", "with meal", "after meal", "anytime")
-    val weekDays = listOf("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
+    val forms = listOf("таблетка", "капсула", "рідина", "ін'єкція", "пластир", "інше")
+    val mealTimings = listOf("до їжі", "під час їжі", "після їжі", "будь-коли")
+    val weekDays = listOf("Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя")
 
     Column(
         modifier = modifier
@@ -454,13 +544,16 @@ fun AddMedicationScreen(
             .verticalScroll(scrollState)
             .padding(16.dp)
     ) {
-        // Header
+        // Заголовок
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = onBack) {
-                Text("⬅️", fontSize = 20.sp)
+                Icon(
+                    imageVector = Icons.Filled.ArrowBack,
+                    contentDescription = "Назад"
+                )
             }
             Spacer(modifier = Modifier.width(16.dp))
             Text(
@@ -473,7 +566,7 @@ fun AddMedicationScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Basic Information
+        // Основна інформація
         Text(
             text = "Основна інформація",
             style = MaterialTheme.typography.titleLarge.copy(
@@ -483,7 +576,7 @@ fun AddMedicationScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Medication name
+        // Назва ліків
         OutlinedTextField(
             value = medicationName,
             onValueChange = { medicationName = it },
@@ -494,7 +587,7 @@ fun AddMedicationScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-    // Dosage and Form
+    // Дозування та форма
     Row(modifier = Modifier.fillMaxWidth()) {
         OutlinedTextField(
             value = dosage,
@@ -505,27 +598,30 @@ fun AddMedicationScreen(
         )
         Spacer(modifier = Modifier.width(12.dp))
 
-        // Simple form selector - just show current form, tap to cycle
-        OutlinedTextField(
-            value = form,
-            onValueChange = { },
-            readOnly = true,
-            label = { Text("Форма") },
-            trailingIcon = {
-                IconButton(onClick = {
-                    val currentIndex = forms.indexOf(form)
-                    form = forms[(currentIndex + 1) % forms.size]
-                }) {
-                    Text("🔄", fontSize = 16.sp)
-                }
-            },
-            modifier = Modifier.weight(1f)
-        )
+        // Простий вибір форми — показуємо поточну, натисканням перемикаємо
+            OutlinedTextField(
+                value = form,
+                onValueChange = { },
+                readOnly = true,
+                label = { Text("Форма") },
+                trailingIcon = {
+                    IconButton(onClick = {
+                        val currentIndex = forms.indexOf(form)
+                        form = forms[(currentIndex + 1) % forms.size]
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.Refresh,
+                            contentDescription = "Змінити форму"
+                        )
+                    }
+                },
+                modifier = Modifier.weight(1f)
+            )
     }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Schedule
+        // Розклад
         Text(
             text = "Розклад прийому",
             style = MaterialTheme.typography.titleLarge.copy(
@@ -535,7 +631,7 @@ fun AddMedicationScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Frequency
+        // Частота
         OutlinedTextField(
             value = frequency,
             onValueChange = { frequency = it },
@@ -546,7 +642,7 @@ fun AddMedicationScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Times per day
+        // Час прийому
         Text(
             text = "Час прийому",
             style = MaterialTheme.typography.titleMedium
@@ -568,14 +664,17 @@ fun AddMedicationScreen(
                     label = { Text("Час ${index + 1}") },
                     modifier = Modifier.weight(1f)
                 )
-                if (timesPerDay.size > 1) {
-                    IconButton(onClick = {
-                        timesPerDay = timesPerDay.toMutableList().apply { removeAt(index) }
-                    }) {
-                        Text("🗑️", fontSize = 16.sp)
+                    if (timesPerDay.size > 1) {
+                        IconButton(onClick = {
+                            timesPerDay = timesPerDay.toMutableList().apply { removeAt(index) }
+                        }) {
+                            Icon(
+                                imageVector = Icons.Filled.Delete,
+                                contentDescription = "Видалити час"
+                            )
+                        }
                     }
                 }
-            }
             Spacer(modifier = Modifier.height(8.dp))
         }
 
@@ -585,12 +684,12 @@ fun AddMedicationScreen(
             },
             modifier = Modifier.align(Alignment.Start)
         ) {
-            Text("➕ Додати час")
+            Text("Додати час")
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Meal timing
+        // Зв'язок з їжею
         Text(
             text = "Зв'язок з їжею",
             style = MaterialTheme.typography.titleMedium
@@ -610,7 +709,7 @@ fun AddMedicationScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Days of week
+        // Дні тижня
         Text(
             text = "Дні тижня",
             style = MaterialTheme.typography.titleMedium
@@ -637,7 +736,7 @@ fun AddMedicationScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Duration
+        // Тривалість
         Text(
             text = "Тривалість курсу",
             style = MaterialTheme.typography.titleLarge.copy(
@@ -656,7 +755,7 @@ fun AddMedicationScreen(
                 modifier = Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.width(12.dp))
-            // Start date picker would go here
+            // Тут буде вибір дати початку
             OutlinedTextField(
                 value = startDate.toString(),
                 onValueChange = { },
@@ -668,7 +767,7 @@ fun AddMedicationScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Additional Information
+        // Додаткова інформація
         Text(
             text = "Додаткова інформація",
             style = MaterialTheme.typography.titleLarge.copy(
@@ -709,14 +808,14 @@ fun AddMedicationScreen(
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // Save button
+        // Кнопка збереження
         Button(
             onClick = onMedicationAdded,
             modifier = Modifier.fillMaxWidth(),
             enabled = medicationName.isNotBlank() && dosage.isNotBlank()
         ) {
             Text(
-                text = "💊 Зберегти ліки",
+                text = "Зберегти ліки",
                 style = MaterialTheme.typography.titleMedium
             )
         }
@@ -767,7 +866,7 @@ fun FullSettingsScreen(
 ) {
     val scrollState = rememberScrollState()
 
-    // Settings state
+    // Стан налаштувань
     var notificationsEnabled by remember { mutableStateOf(true) }
     var reminderTime by remember { mutableStateOf(15) }
     var soundEnabled by remember { mutableStateOf(true) }
@@ -781,13 +880,16 @@ fun FullSettingsScreen(
             .verticalScroll(scrollState)
             .padding(16.dp)
     ) {
-        // Header
+        // Заголовок
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = onBack) {
-                Text("⬅️", fontSize = 20.sp)
+                Icon(
+                    imageVector = Icons.Filled.ArrowBack,
+                    contentDescription = "Назад"
+                )
             }
             Spacer(modifier = Modifier.width(16.dp))
             Text(
@@ -800,26 +902,26 @@ fun FullSettingsScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Profile section
+        // Розділ профілю
         SettingsSection(title = "Профіль") {
             SettingsItem(
                 title = "Особисті дані",
                 subtitle = "Ім'я, дата народження, фото",
-                icon = "👤",
-                onClick = { /* TODO */ }
+                icon = Icons.Filled.Person,
+                onClick = { /* TODO: додати редагування профілю */ }
             )
 
             SettingsItem(
                 title = "Роль користувача",
-                subtitle = "Пацієнт, сиделка, лікар",
-                icon = "👨‍⚕️",
-                onClick = { /* TODO */ }
+                subtitle = "Пацієнт, опікун, лікар",
+                icon = Icons.Filled.VerifiedUser,
+                onClick = { /* TODO: додати зміну ролі */ }
             )
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Notifications section
+        // Розділ сповіщень
         SettingsSection(title = "Сповіщення") {
             Row(
                 modifier = Modifier
@@ -899,7 +1001,7 @@ fun FullSettingsScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Appearance section
+        // Розділ зовнішнього вигляду
         SettingsSection(title = "Зовнішній вигляд") {
             Row(
                 modifier = Modifier
@@ -976,59 +1078,59 @@ fun FullSettingsScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Data & Privacy section
+        // Розділ даних і конфіденційності
         SettingsSection(title = "Дані та конфіденційність") {
             SettingsItem(
                 title = "Експорт даних",
                 subtitle = "Завантажити всі ваші дані",
-                icon = "📤",
-                onClick = { /* TODO */ }
+                icon = Icons.Filled.CloudDownload,
+                onClick = { /* TODO: додати експорт даних */ }
             )
 
             SettingsItem(
                 title = "Резервна копія",
                 subtitle = "Створити резервну копію даних",
-                icon = "💾",
-                onClick = { /* TODO */ }
+                icon = Icons.Filled.CloudUpload,
+                onClick = { /* TODO: додати резервне копіювання */ }
             )
 
             SettingsItem(
                 title = "Історія прийому",
                 subtitle = "Переглянути історію прийому ліків",
-                icon = "📋",
-                onClick = { /* TODO */ }
+                icon = Icons.Filled.History,
+                onClick = { /* TODO: показати історію */ }
             )
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Support section
+        // Розділ підтримки
         SettingsSection(title = "Підтримка") {
             SettingsItem(
                 title = "Допомога",
                 subtitle = "Посібник користувача",
-                icon = "❓",
-                onClick = { /* TODO */ }
+                icon = Icons.Filled.Help,
+                onClick = { /* TODO: відкрити довідку */ }
             )
 
             SettingsItem(
                 title = "Зв'язатися з нами",
                 subtitle = "Надіслати відгук або повідомити про проблему",
-                icon = "📧",
-                onClick = { /* TODO */ }
+                icon = Icons.Filled.Email,
+                onClick = { /* TODO: відкрити форму звернення */ }
             )
 
             SettingsItem(
                 title = "Про додаток",
                 subtitle = "Версія, умови використання, політика конфіденційності",
-                icon = "ℹ️",
-                onClick = { /* TODO */ }
+                icon = Icons.Filled.Info,
+                onClick = { /* TODO: відкрити інформацію про додаток */ }
             )
         }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Account section
+        // Розділ облікового запису
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(
@@ -1047,13 +1149,18 @@ fun FullSettingsScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 OutlinedButton(
-                    onClick = { /* TODO: Show delete account dialog */ },
+                    onClick = { /* TODO: додати діалог видалення */ },
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = MaterialTheme.colorScheme.error
                     ),
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("🗑️ Видалити обліковий запис")
+                    Icon(
+                        imageVector = Icons.Filled.Delete,
+                        contentDescription = null
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("Видалити обліковий запис")
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -1065,7 +1172,12 @@ fun FullSettingsScreen(
                     ),
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("🚪 Вийти")
+                    Icon(
+                        imageVector = Icons.Filled.ExitToApp,
+                        contentDescription = null
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("Вийти")
                 }
             }
         }
@@ -1097,7 +1209,7 @@ fun SettingsSection(
 fun SettingsItem(
     title: String,
     subtitle: String,
-    icon: String,
+    icon: ImageVector,
     onClick: () -> Unit
 ) {
     Row(
@@ -1112,10 +1224,13 @@ fun SettingsItem(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.weight(1f)
         ) {
-            Text(
-                text = icon,
-                fontSize = 24.sp,
-                modifier = Modifier.padding(end = 16.dp)
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .size(24.dp)
+                    .padding(end = 16.dp)
             )
             Column(modifier = Modifier.weight(1f)) {
                 Text(
@@ -1129,6 +1244,10 @@ fun SettingsItem(
                 )
             }
         }
-        Text("➡️", fontSize = 16.sp)
+        Icon(
+            imageVector = Icons.Filled.ChevronRight,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant
+        )
     }
 }

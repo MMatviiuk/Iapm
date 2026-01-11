@@ -288,7 +288,7 @@ export default function LandingPageRedesigned({
                     120+
                   </h1>
                   <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 hidden sm:block mt-0.5">
-                    120 років здоров'я
+                    120+ років здоров'я
                   </p>
                 </div>
               </div>
@@ -942,7 +942,7 @@ export default function LandingPageRedesigned({
                       120+
                     </span>
                     <span className="text-sm text-slate-500 dark:text-slate-400 hidden sm:block">
-                      120 років здоров'я
+                      120+ років здоров'я
                     </span>
                   </div>
                 </div>

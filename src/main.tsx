@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import './styles/globals.css';
+import './styles/responsive-fixes.css';
 import { initializePWA } from './utils/pwaUtils';
 import { initializeAutoSync } from './utils/offlineQueue';
 

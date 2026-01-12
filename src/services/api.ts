@@ -450,51 +450,44 @@ class ApiService {
 
     // Medications endpoints
     if (endpoint === '/medications' && method === 'GET') {
-      // If using demo data, load from patient's medications
-      if (USE_DEMO_DATA && this.token) {
-        // Extract user ID from token (same regex as /auth/me)
-        const tokenMatch = this.token?.match(/mock_token_(.+?)_(\d{13})/);
-        const userId = tokenMatch ? tokenMatch[1] : null;
+      // Extract user ID from token
+      const tokenMatch = this.token?.match(/mock_token_(.+?)_(\d{13})/);
+      const userId = tokenMatch ? tokenMatch[1] : null;
+
+      // КРИТИЧНО: Завжди повертаємо medications з localStorage (mockStorage)
+      // Це гарантує що нові medications (створені користувачем) будуть показані!
+      const userMedications = mockStorage.medications.filter(m => m.userId === userId);
+
+      console.log(`📦 Returning ${userMedications.length} medications for user ${userId}:`,
+        userMedications.map(m => ({ id: m.id, name: m.name })));
+
+      // Якщо немає medications І використовуємо демо-дані, завантажимо демо один раз
+      if (userMedications.length === 0 && USE_DEMO_DATA && this.token) {
         const user = userId ? mockStorage.users.find(u => u.id === userId) : null;
-        
-        console.log('🔍 getMedications - User lookup:', {
-          token: this.token,
-          userId,
-          user: user ? { id: user.id, name: user.name, role: user.role, hasPatientData: !!user.patientData } : null
-        });
-        
+
         if (user && user.role === 'patient' && user.patientData) {
           try {
-            console.log('🔍 Loading demo medications for patient:', user.patientData.id);
-            const medications = await getDemoMedications(user.patientData.id);
-            console.log(`✅ Loaded ${medications.length} medications for ${user.name}:`, medications.map(m => ({ name: m.name, times: m.times })));
-            
-            // Store demo medications in mockStorage so they can be updated/deleted
-            // Only add medications that aren't already in storage
-            medications.forEach(med => {
-              const exists = mockStorage.medications.find(m => m.id === med.id);
-              if (!exists) {
-                mockStorage.medications.push({
-                  ...med,
-                  userId, // Associate with current user
-                });
-              }
+            console.log('🔍 Loading initial demo medications for patient:', user.patientData.id);
+            const demoMeds = await getDemoMedications(user.patientData.id);
+
+            // Додаємо демо medications в localStorage тільки ОДИН РАЗ
+            demoMeds.forEach(med => {
+              mockStorage.medications.push({
+                ...med,
+                userId, // Асоціюємо з користувачем
+              });
             });
             mockStorage.saveMedications();
-            
-            return medications;
+
+            console.log(`✅ Loaded ${demoMeds.length} demo medications (saved to localStorage)`);
+            return demoMeds;
           } catch (error) {
             console.error('❌ Failed to load demo medications:', error);
             return [];
           }
         }
       }
-      
-      // For new users (no patientData), return only THEIR medications
-      const tokenMatch = this.token?.match(/mock_token_(.+?)_(\d{13})/);
-      const userId = tokenMatch ? tokenMatch[1] : null;
-      const userMedications = mockStorage.medications.filter(m => m.userId === userId);
-      console.log(`📦 Returning ${userMedications.length} medications for user ${userId}`);
+
       return userMedications;
     }
 

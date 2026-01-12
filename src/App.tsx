@@ -734,17 +734,17 @@ export default function App() {
         description: successInfo.message,
         duration: 4000,
         action: successInfo.showUndo ? {
-          label: successInfo.undoLabel || 'Undo',
+          label: successInfo.undoLabel || 'Скасувати',
           onClick: async () => {
             try {
               // Restore to not taken
               await updateMedication(id, { ...previousState, taken: false });
-              toast.success('✅ Undone!', {
-                description: `${medication.name} marked as not taken`,
+              toast.success('Скасовано', {
+                description: `${medication.name} позначено як не прийняте`,
                 duration: 2000,
               });
             } catch (error) {
-              toast.error('Failed to undo');
+              toast.error('Не вдалося скасувати');
             }
           },
         } : undefined,
@@ -754,11 +754,11 @@ export default function App() {
     } catch (error: any) {
       console.error('Failed to mark medication as taken:', error);
       const errorInfo = getErrorMessage(error, 'mark-taken');
-      toast.error('❌ Could Not Mark as Taken', {
+      toast.error('Не вдалося позначити як прийняте', {
         description: errorInfo.message,
         duration: 5000,
         action: {
-          label: 'Try Again',
+          label: 'Спробувати ще раз',
           onClick: () => handleMarkTaken(id),
         },
       });
@@ -966,17 +966,7 @@ export default function App() {
             medications={medications} 
             currentUser={currentUser}
             onMarkTaken={(id) => {
-              const medication = medications.find(m => m.id === id);
-              if (medication) {
-                const updatedMeds = medications.map(m => 
-                  m.id === id ? { ...m, taken: true } : m
-                );
-                setMedications(updatedMeds);
-                toast.success('Позначено як прийняте', {
-                  description: `${medication.name} додано до виконаних`,
-                  duration: 2000,
-                });
-              }
+              void handleMarkTaken(id);
             }}
           />
         );
@@ -1288,9 +1278,8 @@ export default function App() {
         return (
           <WeekView
             medications={medications}
-            onMarkTaken={(medId, date, time) => {
-              // Handle mark taken
-              toast.success('Marked as taken');
+            onMarkTaken={(medId) => {
+              void handleMarkTaken(medId);
             }}
             darkMode={darkMode}
             setCurrentPage={setCurrentPage}

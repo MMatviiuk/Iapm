@@ -11,8 +11,9 @@ import { retryWithBackoff, isRetryableError, isOnline, CircuitBreaker } from '..
 // import { firebaseApi } from './firebaseApi';
 // import { isFirebaseConfigured } from './firebaseClient';
 
-const USE_MOCK_API = true; // Використовується лише для демо-режиму
-const USE_DEMO_DATA = true; // Set to false to use empty localStorage data
+// Вмикаємо демо-режим у дев-середовищі або коли це явно задано.
+const USE_MOCK_API = import.meta.env?.VITE_USE_MOCK_API === 'true' || import.meta.env?.DEV;
+const USE_DEMO_DATA = import.meta.env?.VITE_USE_DEMO_DATA === 'true' || import.meta.env?.DEV;
 
 // Safely access environment variables
 const getApiUrl = () => {
@@ -159,8 +160,10 @@ let mockStorage: any = {
   }
 };
 
-// Initialize storage on load
-mockStorage.ensureInitialized();
+// Ініціалізація демо-сховища потрібна тільки для mock API.
+if (USE_MOCK_API) {
+  mockStorage.ensureInitialized();
+}
 
 class ApiService {
   private token: string | null = null;

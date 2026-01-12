@@ -1,7 +1,7 @@
-/* 🌞 Light Blue Theme - Світла синя тема з прикладу */
+/* Світла синя тема на основі еталонного макета */
 
 :root {
-  /* Light Theme Colors - з вашого HTML прикладу */
+/* Кольори світлої теми з еталонного макета */
   --primary-blue: #2563eb;
   --soft-gray: #f8fafc;
   --dark-blue-text: #0f172a;
@@ -17,38 +17,38 @@
   --blue-600: #2563eb;
 }
 
-/* === GRADIENT BACKGROUND === */
+/* === ГРАДІЄНТНИЙ ФОН === */
 body.theme-light,
 body.theme-light-purple,
-body:not(.dark) {
+html:not(.dark) body {
   background: linear-gradient(to bottom, #ffffff, #f1f5f9) !important;
   background-attachment: fixed;
   color: var(--dark-blue-text) !important;
   min-height: 100dvh;
 }
 
-/* === MEDICATION CARDS === */
+/* === КАРТКИ ЛІКІВ === */
 body.theme-light .medication-card,
 body.theme-light-purple .medication-card,
-body:not(.dark) .medication-card,
-body:not(.dark) .card,
-body:not(.dark) [class*="bg-white"] {
+html:not(.dark) .medication-card,
+html:not(.dark) .card,
+html:not(.dark) [class*="bg-white"] {
   background: var(--card-bg) !important;
   border: 1px solid var(--slate-100) !important;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
 }
 
-/* === MATERIAL ICONS === */
+/* === ІКОНКИ === */
 body.theme-light .material-symbols-outlined,
 body.theme-light-purple .material-symbols-outlined,
-body:not(.dark) .material-symbols-outlined {
+html:not(.dark) .material-symbols-outlined {
   font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 48 !important;
 }
 
-/* === LARGE CHECKBOX === */
+/* === ВЕЛИКІ ЧЕКБОКСИ === */
 body.theme-light .checkbox-large,
 body.theme-light-purple .checkbox-large,
-body:not(.dark) .checkbox-large {
+html:not(.dark) .checkbox-large {
   appearance: none;
   border: 4px solid var(--slate-300) !important;
   border-radius: 1rem !important;
@@ -63,14 +63,14 @@ body:not(.dark) .checkbox-large {
 
 body.theme-light .checkbox-large:checked,
 body.theme-light-purple .checkbox-large:checked,
-body:not(.dark) .checkbox-large:checked {
+html:not(.dark) .checkbox-large:checked {
   background: var(--primary-blue) !important;
   border-color: var(--primary-blue) !important;
 }
 
 body.theme-light .checkbox-large:checked::after,
 body.theme-light-purple .checkbox-large:checked::after,
-body:not(.dark) .checkbox-large:checked::after {
+html:not(.dark) .checkbox-large:checked::after {
   content: '✓';
   display: flex !important;
   align-items: center !important;
@@ -82,7 +82,7 @@ body:not(.dark) .checkbox-large:checked::after {
   inset: 0;
 }
 
-/* === PULSE GLOW ANIMATION - для активних нагадувань === */
+/* === ПУЛЬСАЦІЯ ДЛЯ АКТИВНИХ НАГАДУВАНЬ === */
 @keyframes pulse-glow-light {
   0%, 100% {
     box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.5);
@@ -96,19 +96,19 @@ body:not(.dark) .checkbox-large:checked::after {
 
 body.theme-light .pulse-active,
 body.theme-light-purple .pulse-active,
-body:not(.dark) .pulse-active {
+html:not(.dark) .pulse-active {
   animation: pulse-glow-light 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
   border-color: var(--primary-blue) !important;
 }
 
 body.theme-light .pulse-active .checkbox-large,
 body.theme-light-purple .pulse-active .checkbox-large,
-body:not(.dark) .pulse-active .checkbox-large {
+html:not(.dark) .pulse-active .checkbox-large {
   border-color: var(--primary-blue) !important;
   box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.3) !important;
 }
 
-/* === TYPOGRAPHY === */
+/* === ТИПОГРАФІКА === */
 body.theme-light h1,
 body.theme-light h2,
 body.theme-light h3,
@@ -121,12 +121,12 @@ body.theme-light-purple h3,
 body.theme-light-purple h4,
 body.theme-light-purple h5,
 body.theme-light-purple h6,
-body:not(.dark) h1,
-body:not(.dark) h2,
-body:not(.dark) h3,
-body:not(.dark) h4,
-body:not(.dark) h5,
-body:not(.dark) h6 {
+html:not(.dark) h1,
+html:not(.dark) h2,
+html:not(.dark) h3,
+html:not(.dark) h4,
+html:not(.dark) h5,
+html:not(.dark) h6 {
   color: var(--dark-blue-text) !important;
   font-weight: 900 !important;
   letter-spacing: -0.02em !important;
@@ -136,34 +136,34 @@ body.theme-light p,
 body.theme-light span,
 body.theme-light-purple p,
 body.theme-light-purple span,
-body:not(.dark) p,
-body:not(.dark) span {
+html:not(.dark) p,
+html:not(.dark) span {
   color: var(--slate-600) !important;
 }
 
-/* === HEADER === */
+/* === ШАПКА === */
 body.theme-light header,
 body.theme-light .topbar,
 body.theme-light-purple header,
 body.theme-light-purple .topbar,
-body:not(.dark) header,
-body:not(.dark) .topbar {
+html:not(.dark) header,
+html:not(.dark) .topbar {
   background: rgba(255, 255, 255, 0.9) !important;
   backdrop-filter: blur(20px) !important;
   -webkit-backdrop-filter: blur(20px) !important;
   border-bottom: 1px solid var(--slate-200) !important;
 }
 
-/* === BUTTONS === */
+/* === КНОПКИ === */
 body.theme-light button[class*="bg-blue"],
 body.theme-light button[class*="bg-primary"],
 body.theme-light .btn-primary,
 body.theme-light-purple button[class*="bg-blue"],
 body.theme-light-purple button[class*="bg-primary"],
 body.theme-light-purple .btn-primary,
-body:not(.dark) button[class*="bg-blue"],
-body:not(.dark) button[class*="bg-primary"],
-body:not(.dark) .btn-primary {
+html:not(.dark) button[class*="bg-blue"],
+html:not(.dark) button[class*="bg-primary"],
+html:not(.dark) .btn-primary {
   background: var(--primary-blue) !important;
   color: white !important;
   box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25) !important;
@@ -175,37 +175,37 @@ body:not(.dark) .btn-primary {
 
 body.theme-light button[class*="bg-blue"]:hover,
 body.theme-light-purple button[class*="bg-blue"]:hover,
-body:not(.dark) button[class*="bg-blue"]:hover {
+html:not(.dark) button[class*="bg-blue"]:hover {
   background: #1d4ed8 !important;
   box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35) !important;
 }
 
 body.theme-light button[class*="bg-blue"]:active,
 body.theme-light-purple button[class*="bg-blue"]:active,
-body:not(.dark) button[class*="bg-blue"]:active {
+html:not(.dark) button[class*="bg-blue"]:active {
   transform: scale(0.95);
 }
 
-/* === FLOATING ACTION BUTTON === */
+/* === ПЛАВАЮЧА КНОПКА === */
 body.theme-light .fab,
 body.theme-light [class*="fixed"][class*="bottom"] button:not([class*="nav"]),
 body.theme-light-purple .fab,
 body.theme-light-purple [class*="fixed"][class*="bottom"] button:not([class*="nav"]),
-body:not(.dark) .fab,
-body:not(.dark) [class*="fixed"][class*="bottom"] button:not([class*="nav"]) {
+html:not(.dark) .fab,
+html:not(.dark) [class*="fixed"][class*="bottom"] button:not([class*="nav"]) {
   background: var(--primary-blue) !important;
   color: white !important;
   box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3) !important;
   border-radius: 1.5rem !important;
 }
 
-/* === BOTTOM NAVIGATION === */
+/* === НИЖНЯ НАВІГАЦІЯ === */
 body.theme-light .bottom-nav,
 body.theme-light nav[class*="bottom"],
 body.theme-light-purple .bottom-nav,
 body.theme-light-purple nav[class*="bottom"],
-body:not(.dark) .bottom-nav,
-body:not(.dark) nav[class*="bottom"] {
+html:not(.dark) .bottom-nav,
+html:not(.dark) nav[class*="bottom"] {
   background: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(20px) !important;
   -webkit-backdrop-filter: blur(20px) !important;
@@ -216,24 +216,24 @@ body.theme-light .bottom-nav .text-primary-blue,
 body.theme-light .bottom-nav [class*="text-blue-"],
 body.theme-light-purple .bottom-nav .text-primary-blue,
 body.theme-light-purple .bottom-nav [class*="text-blue-"],
-body:not(.dark) .bottom-nav .text-primary-blue,
-body:not(.dark) .bottom-nav [class*="text-blue-"] {
+html:not(.dark) .bottom-nav .text-primary-blue,
+html:not(.dark) .bottom-nav [class*="text-blue-"] {
   color: var(--primary-blue) !important;
 }
 
 body.theme-light .bottom-nav .text-slate-400,
 body.theme-light-purple .bottom-nav .text-slate-400,
-body:not(.dark) .bottom-nav .text-slate-400 {
+html:not(.dark) .bottom-nav .text-slate-400 {
   color: var(--slate-400) !important;
 }
 
-/* === CALENDAR DAYS === */
+/* === ДНІ У КАЛЕНДАРІ === */
 body.theme-light [class*="calendar"] [class*="selected"],
 body.theme-light [class*="calendar"] [class*="today"],
 body.theme-light-purple [class*="calendar"] [class*="selected"],
 body.theme-light-purple [class*="calendar"] [class*="today"],
-body:not(.dark) [class*="calendar"] [class*="selected"],
-body:not(.dark) [class*="calendar"] [class*="today"] {
+html:not(.dark) [class*="calendar"] [class*="selected"],
+html:not(.dark) [class*="calendar"] [class*="today"] {
   background: var(--primary-blue) !important;
   color: white !important;
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25) !important;
@@ -242,23 +242,23 @@ body:not(.dark) [class*="calendar"] [class*="today"] {
 
 body.theme-light [class*="calendar"] div:not([class*="selected"]),
 body.theme-light-purple [class*="calendar"] div:not([class*="selected"]),
-body:not(.dark) [class*="calendar"] div:not([class*="selected"]) {
+html:not(.dark) [class*="calendar"] div:not([class*="selected"]) {
   background: white !important;
   border: 1px solid var(--slate-200) !important;
   color: var(--dark-blue-text) !important;
   opacity: 0.6;
 }
 
-/* === INPUTS === */
+/* === ПОЛЯ ВВОДУ === */
 body.theme-light input,
 body.theme-light textarea,
 body.theme-light select,
 body.theme-light-purple input,
 body.theme-light-purple textarea,
 body.theme-light-purple select,
-body:not(.dark) input,
-body:not(.dark) textarea,
-body:not(.dark) select {
+html:not(.dark) input,
+html:not(.dark) textarea,
+html:not(.dark) select {
   background: white !important;
   border: 1px solid var(--slate-200) !important;
   color: var(--dark-blue-text) !important;
@@ -270,9 +270,9 @@ body.theme-light select:focus,
 body.theme-light-purple input:focus,
 body.theme-light-purple textarea:focus,
 body.theme-light-purple select:focus,
-body:not(.dark) input:focus,
-body:not(.dark) textarea:focus,
-body:not(.dark) select:focus {
+html:not(.dark) input:focus,
+html:not(.dark) textarea:focus,
+html:not(.dark) select:focus {
   border-color: var(--primary-blue) !important;
   outline: none !important;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
@@ -280,37 +280,37 @@ body:not(.dark) select:focus {
 
 body.theme-light input::placeholder,
 body.theme-light-purple input::placeholder,
-body:not(.dark) input::placeholder {
+html:not(.dark) input::placeholder {
   color: var(--slate-400) !important;
 }
 
-/* === SCROLLBAR === */
+/* === СКРОЛБАР === */
 body.theme-light ::-webkit-scrollbar-track,
 body.theme-light-purple ::-webkit-scrollbar-track,
-body:not(.dark) ::-webkit-scrollbar-track {
+html:not(.dark) ::-webkit-scrollbar-track {
   background: var(--slate-100);
 }
 
 body.theme-light ::-webkit-scrollbar-thumb,
 body.theme-light-purple ::-webkit-scrollbar-thumb,
-body:not(.dark) ::-webkit-scrollbar-thumb {
+html:not(.dark) ::-webkit-scrollbar-thumb {
   background: var(--slate-300);
   border-radius: 10px;
 }
 
 body.theme-light ::-webkit-scrollbar-thumb:hover,
 body.theme-light-purple ::-webkit-scrollbar-thumb:hover,
-body:not(.dark) ::-webkit-scrollbar-thumb:hover {
+html:not(.dark) ::-webkit-scrollbar-thumb:hover {
   background: var(--slate-400);
 }
 
-/* === BADGES === */
+/* === БЕЙДЖІ === */
 body.theme-light .badge,
 body.theme-light [class*="badge"],
 body.theme-light-purple .badge,
 body.theme-light-purple [class*="badge"],
-body:not(.dark) .badge,
-body:not(.dark) [class*="badge"] {
+html:not(.dark) .badge,
+html:not(.dark) [class*="badge"] {
   background: var(--blue-100) !important;
   color: var(--primary-blue) !important;
   font-weight: 900 !important;
@@ -321,34 +321,34 @@ body:not(.dark) [class*="badge"] {
   border-radius: 9999px !important;
 }
 
-/* === ACTIVE MEDICATION HIGHLIGHT === */
+/* === ПІДСВІЧУВАННЯ АКТИВНИХ ЛІКІВ === */
 body.theme-light .medication-card.active,
 body.theme-light-purple .medication-card.active,
-body:not(.dark) .medication-card.active {
+html:not(.dark) .medication-card.active {
   border: 2px solid rgba(37, 99, 235, 0.2) !important;
   box-shadow: 0 4px 20px rgba(37, 99, 235, 0.15) !important;
 }
 
-/* === STAT CARDS === */
+/* === СТАТИСТИКА === */
 body.theme-light .stat-value,
 body.theme-light-purple .stat-value,
-body:not(.dark) .stat-value {
+html:not(.dark) .stat-value {
   color: var(--primary-blue) !important;
   font-weight: 900 !important;
 }
 
 body.theme-light .stat-label,
 body.theme-light-purple .stat-label,
-body:not(.dark) .stat-label {
+html:not(.dark) .stat-label {
   color: var(--slate-500) !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
 }
 
-/* === MEDICATION TIME === */
+/* === ЧАС ПРИЙОМУ === */
 body.theme-light .medication-time,
 body.theme-light-purple .medication-time,
-body:not(.dark) .medication-time {
+html:not(.dark) .medication-time {
   background: var(--blue-100) !important;
   border: 1px solid var(--primary-blue) !important;
   color: var(--primary-blue) !important;
@@ -356,38 +356,38 @@ body:not(.dark) .medication-time {
   font-weight: 900 !important;
 }
 
-/* === ICONS === */
+/* === ІКОНИ === */
 body.theme-light .material-symbols-outlined,
 body.theme-light-purple .material-symbols-outlined,
-body:not(.dark) .material-symbols-outlined {
+html:not(.dark) .material-symbols-outlined {
   color: var(--primary-blue) !important;
 }
 
 body.theme-light .text-yellow-500 .material-symbols-outlined,
 body.theme-light-purple .text-yellow-500 .material-symbols-outlined,
-body:not(.dark) .text-yellow-500 .material-symbols-outlined {
+html:not(.dark) .text-yellow-500 .material-symbols-outlined {
   color: #eab308 !important;
 }
 
 body.theme-light .text-orange-500 .material-symbols-outlined,
 body.theme-light-purple .text-orange-500 .material-symbols-outlined,
-body:not(.dark) .text-orange-500 .material-symbols-outlined {
+html:not(.dark) .text-orange-500 .material-symbols-outlined {
   color: #f97316 !important;
 }
 
 body.theme-light .text-indigo-600 .material-symbols-outlined,
 body.theme-light-purple .text-indigo-600 .material-symbols-outlined,
-body:not(.dark) .text-indigo-600 .material-symbols-outlined {
+html:not(.dark) .text-indigo-600 .material-symbols-outlined {
   color: #4f46e5 !important;
 }
 
-/* === PROGRESS BARS === */
+/* === ПРОГРЕС-БАРИ === */
 body.theme-light [role="progressbar"],
 body.theme-light .progress,
 body.theme-light-purple [role="progressbar"],
 body.theme-light-purple .progress,
-body:not(.dark) [role="progressbar"],
-body:not(.dark) .progress {
+html:not(.dark) [role="progressbar"],
+html:not(.dark) .progress {
   background: var(--slate-100) !important;
   border-radius: 9999px !important;
 }
@@ -396,33 +396,33 @@ body.theme-light [role="progressbar"] > div,
 body.theme-light .progress-fill,
 body.theme-light-purple [role="progressbar"] > div,
 body.theme-light-purple .progress-fill,
-body:not(.dark) [role="progressbar"] > div,
-body:not(.dark) .progress-fill {
+html:not(.dark) [role="progressbar"] > div,
+html:not(.dark) .progress-fill {
   background: linear-gradient(90deg, var(--primary-blue), #60a5fa) !important;
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2) !important;
 }
 
-/* === SIDEBAR === */
+/* === БОКОВА ПАНЕЛЬ === */
 body.theme-light aside,
 body.theme-light .sidebar,
 body.theme-light-purple aside,
 body.theme-light-purple .sidebar,
-body:not(.dark) aside,
-body:not(.dark) .sidebar {
+html:not(.dark) aside,
+html:not(.dark) .sidebar {
   background: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(20px) !important;
   border-right: 1px solid var(--slate-200) !important;
 }
 
-/* === SELECTION === */
+/* === ВИДІЛЕННЯ === */
 body.theme-light ::selection,
 body.theme-light-purple ::selection,
-body:not(.dark) ::selection {
+html:not(.dark) ::selection {
   background: rgba(37, 99, 235, 0.2);
   color: var(--dark-blue-text);
 }
 
-/* === NO SCROLLBAR === */
+/* === ПРИХОВАНИЙ СКРОЛБАР === */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -432,11 +432,11 @@ body:not(.dark) ::selection {
   scrollbar-width: none;
 }
 
-/* === RESPONSIVE === */
+/* === АДАПТИВНІСТЬ === */
 @media (max-width: 640px) {
   body.theme-light .medication-card,
   body.theme-light-purple .medication-card,
-  body:not(.dark) .medication-card {
+  html:not(.dark) .medication-card {
     padding: 1.25rem !important;
     border-radius: 2rem !important;
   }

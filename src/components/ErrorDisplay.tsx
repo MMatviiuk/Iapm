@@ -155,7 +155,7 @@ export default function ErrorDisplay({
           </div>
 
           {/* Technical Details (collapsible for debugging) */}
-          {process.env.NODE_ENV === 'development' && (
+          {typeof import.meta !== 'undefined' && import.meta.env?.DEV && (
             <details className="mt-8 text-left">
               <summary className={`cursor-pointer text-sm ${
                 darkMode ? 'text-slate-400' : 'text-slate-500'

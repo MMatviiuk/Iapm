@@ -187,6 +187,7 @@ export default function MedicationsList({
                 title="Фото інвентаризація"
               >
                 <Package className="w-5 h-5 sm:w-6 sm:h-6" />
+                <span className="hidden sm:inline ml-2">Інвентар</span>
               </Button>
               <Button
                 onClick={onAddMedication}

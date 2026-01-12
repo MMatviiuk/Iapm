@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import './styles/globals.css';
+import './styles/glass-dark-theme.css';
 import './styles/unified-colors.css';
 import './styles/responsive-fixes.css';
 import './styles/compact-ui.css';

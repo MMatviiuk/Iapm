@@ -38,10 +38,7 @@ class Logger {
 
   constructor() {
     // Safe check for import.meta.env (may be undefined in some environments)
-    this.isDevelopment = 
-      (typeof import.meta !== 'undefined' && import.meta.env?.DEV) || 
-      (typeof process !== 'undefined' && process.env?.NODE_ENV === 'development') ||
-      false;
+    this.isDevelopment = Boolean(typeof import.meta !== 'undefined' && import.meta.env?.DEV);
     this.minLevel = this.isDevelopment ? LogLevel.DEBUG : LogLevel.INFO;
   }
 

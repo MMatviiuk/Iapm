@@ -1,0 +1,329 @@
+/* 💜 Doctor Glass Morphism Dark Theme - Purple Accent */
+
+:root {
+  /* Deep Blue Background */
+  --deep-blue-doctor: #0a0c1a;
+  --dark-purple: #1a0a2e;
+  --glass-purple: rgba(157, 78, 221, 0.08);
+
+  /* Purple Accent */
+  --accent-purple: #9d4edd;
+  --accent-purple-dark: #7b2cbf;
+  --accent-purple-light: #c8b6ff;
+
+  /* Glass Effects */
+  --glass-bg-purple: rgba(157, 78, 221, 0.08);
+  --glass-border-purple: rgba(200, 182, 255, 0.15);
+}
+
+/* === MESH GRADIENT BACKGROUND === */
+body.theme-doctor {
+  background-color: #0a0c1a;
+  background-image:
+    radial-gradient(at 0% 0%, rgba(67, 24, 255, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(157, 78, 221, 0.1) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(123, 44, 191, 0.08) 0px, transparent 60%),
+    radial-gradient(at 80% 100%, rgba(157, 78, 221, 0.12) 0px, transparent 50%),
+    radial-gradient(at 20% 80%, rgba(10, 12, 26, 1) 0px, transparent 70%);
+  background-attachment: fixed;
+  color: #f1f5f9;
+}
+
+/* === GLASS MORPHISM CARDS === */
+body.theme-doctor .card,
+body.theme-doctor [class*="rounded"],
+body.theme-doctor .glass-card {
+  background: rgba(157, 78, 221, 0.08) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(200, 182, 255, 0.15) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Glass for navigation */
+body.theme-doctor nav,
+body.theme-doctor header,
+body.theme-doctor .topbar {
+  background: rgba(26, 10, 46, 0.75) !important;
+  backdrop-filter: blur(32px) !important;
+  -webkit-backdrop-filter: blur(32px) !important;
+  border-bottom: 1px solid rgba(200, 182, 255, 0.2) !important;
+}
+
+/* === BUTTONS === */
+body.theme-doctor button,
+body.theme-doctor .btn {
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Primary button - purple accent */
+body.theme-doctor button[class*="bg-blue"],
+body.theme-doctor button[class*="bg-purple"],
+body.theme-doctor .btn-primary {
+  background: var(--accent-purple) !important;
+  color: white !important;
+  box-shadow: 0 12px 40px rgba(157, 78, 221, 0.5) !important;
+  border: 1px solid rgba(200, 182, 255, 0.3) !important;
+}
+
+body.theme-doctor button[class*="bg-blue"]:hover,
+body.theme-doctor button[class*="bg-purple"]:hover,
+body.theme-doctor .btn-primary:hover {
+  background: var(--accent-purple-dark) !important;
+  transform: scale(0.97);
+}
+
+body.theme-doctor button[class*="bg-blue"]:active,
+body.theme-doctor button[class*="bg-purple"]:active {
+  transform: scale(0.95);
+}
+
+/* Glass button */
+body.theme-doctor button[class*="glass"],
+body.theme-doctor .btn-secondary {
+  background: rgba(157, 78, 221, 0.12) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(200, 182, 255, 0.2) !important;
+  color: white !important;
+}
+
+body.theme-doctor button[class*="glass"]:hover {
+  background: rgba(157, 78, 221, 0.18) !important;
+}
+
+/* === TYPOGRAPHY === */
+body.theme-doctor h1,
+body.theme-doctor h2,
+body.theme-doctor h3,
+body.theme-doctor h4,
+body.theme-doctor h5,
+body.theme-doctor h6 {
+  font-weight: 900 !important;
+  letter-spacing: -0.02em !important;
+  color: white !important;
+}
+
+body.theme-doctor h1 {
+  font-size: clamp(2rem, 6vw, 3rem) !important;
+}
+
+body.theme-doctor h2 {
+  font-size: clamp(1.5rem, 4vw, 2rem) !important;
+}
+
+body.theme-doctor p,
+body.theme-doctor span {
+  color: rgba(226, 232, 240, 0.8) !important;
+}
+
+/* === STAT CARDS === */
+body.theme-doctor .stat-card {
+  background: rgba(157, 78, 221, 0.08) !important;
+  backdrop-filter: blur(24px) !important;
+  border-radius: 1.5rem !important;
+  padding: 1.5rem !important;
+  text-align: center !important;
+  border: 1px solid rgba(200, 182, 255, 0.15) !important;
+}
+
+body.theme-doctor .stat-value {
+  font-size: 2rem !important;
+  font-weight: 900 !important;
+  color: var(--accent-purple-light) !important;
+}
+
+body.theme-doctor .stat-label {
+  font-size: 0.625rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  font-weight: 700 !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* === MEDICATION CARDS === */
+body.theme-doctor .medication-card {
+  background: rgba(157, 78, 221, 0.08) !important;
+  backdrop-filter: blur(24px) !important;
+  border-radius: 2.5rem !important;
+  padding: 1.75rem !important;
+  border: 1px solid rgba(200, 182, 255, 0.15) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 15px rgba(157, 78, 221, 0.3) !important;
+}
+
+body.theme-doctor .medication-name {
+  font-size: 2rem !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.02em !important;
+  color: white !important;
+}
+
+body.theme-doctor .medication-time {
+  background: rgba(157, 78, 221, 0.2) !important;
+  border: 1px solid rgba(200, 182, 255, 0.3) !important;
+  border-radius: 9999px !important;
+  padding: 0.5rem 0.75rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+body.theme-doctor .medication-time span {
+  color: var(--accent-purple-light) !important;
+  font-weight: 900 !important;
+  font-size: 1.125rem !important;
+}
+
+/* === ICONS === */
+body.theme-doctor svg,
+body.theme-doctor .icon {
+  color: var(--accent-purple-light) !important;
+  filter: drop-shadow(0 4px 12px rgba(157, 78, 221, 0.4));
+}
+
+body.theme-doctor .material-symbols-outlined {
+  filter: drop-shadow(0 2px 8px rgba(157, 78, 221, 0.5));
+}
+
+/* === INPUTS === */
+body.theme-doctor input,
+body.theme-doctor textarea,
+body.theme-doctor select {
+  background: rgba(157, 78, 221, 0.05) !important;
+  border: 1px solid rgba(200, 182, 255, 0.15) !important;
+  border-radius: 1rem !important;
+  color: white !important;
+  padding: 1rem !important;
+  font-size: 1rem !important;
+  backdrop-filter: blur(16px) !important;
+}
+
+body.theme-doctor input:focus,
+body.theme-doctor textarea:focus,
+body.theme-doctor select:focus {
+  border-color: var(--accent-purple) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(157, 78, 221, 0.2) !important;
+}
+
+body.theme-doctor input::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* === SCROLLBAR === */
+body.theme-doctor ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+body.theme-doctor ::-webkit-scrollbar-track {
+  background: rgba(157, 78, 221, 0.05);
+  border-radius: 10px;
+}
+
+body.theme-doctor ::-webkit-scrollbar-thumb {
+  background: rgba(157, 78, 221, 0.5);
+  border-radius: 10px;
+}
+
+body.theme-doctor ::-webkit-scrollbar-thumb:hover {
+  background: rgba(157, 78, 221, 0.7);
+}
+
+/* === PROGRESS BARS === */
+body.theme-doctor [role="progressbar"],
+body.theme-doctor .progress {
+  background: rgba(157, 78, 221, 0.1) !important;
+  border-radius: 9999px !important;
+  overflow: hidden !important;
+}
+
+body.theme-doctor [role="progressbar"] > div,
+body.theme-doctor .progress-fill {
+  background: linear-gradient(90deg, var(--accent-purple), var(--accent-purple-light)) !important;
+  box-shadow: 0 0 20px rgba(157, 78, 221, 0.5) !important;
+}
+
+/* === BADGES === */
+body.theme-doctor .badge {
+  background: rgba(157, 78, 221, 0.2) !important;
+  border: 1px solid rgba(200, 182, 255, 0.3) !important;
+  color: var(--accent-purple-light) !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  font-size: 0.625rem !important;
+  padding: 0.25rem 0.75rem !important;
+  border-radius: 9999px !important;
+}
+
+/* === FLOATING ACTION BUTTON === */
+body.theme-doctor .fab,
+body.theme-doctor [class*="fixed"][class*="bottom"] button {
+  box-shadow: 0 15px 45px rgba(157, 78, 221, 0.6), 0 0 15px rgba(157, 78, 221, 0.4) !important;
+  border-radius: 50% !important;
+  background: var(--accent-purple) !important;
+}
+
+body.theme-doctor .fab:active {
+  transform: scale(0.9) !important;
+}
+
+/* === SIDEBAR === */
+body.theme-doctor aside,
+body.theme-doctor .sidebar {
+  background: rgba(26, 10, 46, 0.8) !important;
+  backdrop-filter: blur(32px) !important;
+  border-right: 1px solid rgba(200, 182, 255, 0.2) !important;
+}
+
+/* === BOTTOM NAVIGATION === */
+body.theme-doctor .bottom-nav {
+  background: rgba(26, 10, 46, 0.75) !important;
+  backdrop-filter: blur(32px) !important;
+  border-top: 1px solid rgba(200, 182, 255, 0.2) !important;
+  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+}
+
+/* === GLOW EFFECTS === */
+body.theme-doctor .glow-purple,
+body.theme-doctor .purple-glow {
+  box-shadow: 0 0 20px rgba(157, 78, 221, 0.5) !important;
+}
+
+/* === ANIMATIONS === */
+@keyframes shimmer-purple {
+  0% { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
+}
+
+body.theme-doctor .shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(157, 78, 221, 0) 0%,
+    rgba(157, 78, 221, 0.15) 50%,
+    rgba(157, 78, 221, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-purple 2s infinite;
+}
+
+/* === SELECTION === */
+body.theme-doctor ::selection {
+  background: rgba(157, 78, 221, 0.3);
+  color: white;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 640px) {
+  body.theme-doctor .medication-card {
+    padding: 1.25rem !important;
+    border-radius: 2rem !important;
+  }
+
+  body.theme-doctor .medication-name {
+    font-size: 1.5rem !important;
+  }
+}

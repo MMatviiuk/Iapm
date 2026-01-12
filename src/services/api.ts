@@ -93,13 +93,34 @@ const initializeMockStorage = async () => {
 let mockStorage: any = {
   users: [],
   medications: [],
+  dependents: [],
+  patients: [],
+  appointments: [],
   initialized: false,
   initPromise: null as Promise<void> | null,
   saveUsers() {
     localStorage.setItem('mock_users', JSON.stringify(this.users));
   },
   saveMedications() {
+    console.log(`💾 Saving ${this.medications.length} medications to localStorage:`,
+      this.medications.map(m => ({ id: m.id, name: m.name, userId: m.userId })));
     localStorage.setItem('mock_medications', JSON.stringify(this.medications));
+    console.log('✅ Medications saved successfully');
+  },
+  saveDependents() {
+    console.log(`💾 Saving ${this.dependents.length} dependents to localStorage`);
+    localStorage.setItem('mock_dependents', JSON.stringify(this.dependents));
+    console.log('✅ Dependents saved successfully');
+  },
+  savePatients() {
+    console.log(`💾 Saving ${this.patients.length} patients to localStorage`);
+    localStorage.setItem('mock_patients', JSON.stringify(this.patients));
+    console.log('✅ Patients saved successfully');
+  },
+  saveAppointments() {
+    console.log(`💾 Saving ${this.appointments.length} appointments to localStorage`);
+    localStorage.setItem('mock_appointments', JSON.stringify(this.appointments));
+    console.log('✅ Appointments saved successfully');
   },
   async ensureInitialized() {
     if (this.initialized) return;
@@ -112,17 +133,25 @@ let mockStorage: any = {
       console.log('🚀 Initializing mock storage...');
       const initialized = await initializeMockStorage();
       this.users = initialized.users;
-      this.medications = initialized.medications;
+
+      // КРИТИЧНО: Завжди завантажуємо ВСІ дані з localStorage для найсвіжіших значень
+      this.medications = JSON.parse(localStorage.getItem('mock_medications') || '[]');
+      this.dependents = JSON.parse(localStorage.getItem('mock_dependents') || '[]');
+      this.patients = JSON.parse(localStorage.getItem('mock_patients') || '[]');
+      this.appointments = JSON.parse(localStorage.getItem('mock_appointments') || '[]');
+
       this.initialized = true;
       console.log(`✅ Mock storage initialized:`, {
         users: this.users.length,
         medications: this.medications.length,
+        dependents: this.dependents.length,
+        patients: this.patients.length,
+        appointments: this.appointments.length,
         demoAccounts: this.users.filter(u => u.email.includes('demo.com')).map(u => ({
           name: u.name,
           email: u.email,
           role: u.role,
         })),
-        allEmails: this.users.map(u => u.email)
       });
     })();
     
@@ -454,11 +483,14 @@ class ApiService {
       const tokenMatch = this.token?.match(/mock_token_(.+?)_(\d{13})/);
       const userId = tokenMatch ? tokenMatch[1] : null;
 
-      // КРИТИЧНО: Завжди повертаємо medications з localStorage (mockStorage)
-      // Це гарантує що нові medications (створені користувачем) будуть показані!
-      const userMedications = mockStorage.medications.filter(m => m.userId === userId);
+      // КРИТИЧНО: ЗАВЖДИ читаємо з localStorage напряму для найсвіжіших даних!
+      // Не використовуємо mockStorage.medications бо він може бути застарілим
+      const allMedications = JSON.parse(localStorage.getItem('mock_medications') || '[]');
+      mockStorage.medications = allMedications; // Оновлюємо кеш
 
-      console.log(`📦 Returning ${userMedications.length} medications for user ${userId}:`,
+      const userMedications = allMedications.filter(m => m.userId === userId);
+
+      console.log(`📦 Returning ${userMedications.length} medications for user ${userId} (fresh from localStorage):`,
         userMedications.map(m => ({ id: m.id, name: m.name })));
 
       // Якщо немає medications І використовуємо демо-дані, завантажимо демо один раз
@@ -631,13 +663,23 @@ class ApiService {
       const tokenMatch = this.token?.match(/mock_token_(.+?)_(\d{13})/);
       const userId = tokenMatch ? tokenMatch[1] : null;
       const user = userId ? mockStorage.users.find(u => u.id === userId) : null;
-      
-      // ONLY load demo data if user has doctorData (is a demo account)
-      if (USE_DEMO_DATA && user && user.role === 'doctor' && user.doctorData) {
+
+      // КРИТИЧНО: ЗАВЖДИ читаємо з localStorage напряму для найсвіжіших даних!
+      const allPatients = JSON.parse(localStorage.getItem('mock_patients') || '[]');
+      mockStorage.patients = allPatients; // Оновлюємо кеш
+
+      // Фільтруємо patients для поточного лікаря
+      const userPatients = allPatients.filter(p => p.doctorId === userId);
+
+      console.log(`📦 Returning ${userPatients.length} patients for doctor ${userId} (fresh from localStorage)`);
+
+      // Якщо немає patients І використовуємо демо-дані, завантажимо демо один раз
+      if (userPatients.length === 0 && USE_DEMO_DATA && user && user.role === 'doctor' && user.doctorData) {
         try {
-          const patients = await getDemoPatients(user.doctorData.id);
-          console.log(`✅ Loaded ${patients.length} demo patients for Dr. ${user.name}`);
-          return patients.map(p => ({
+          const demoPatients = await getDemoPatients(user.doctorData.id);
+          console.log(`✅ Loading ${demoPatients.length} demo patients for Dr. ${user.name}`);
+
+          const mappedPatients = demoPatients.map(p => ({
             id: p.id,
             name: `${p.firstName} ${p.lastName}`,
             dateOfBirth: p.dateOfBirth,
@@ -645,29 +687,46 @@ class ApiService {
             photoUrl: p.photoUrl,
             adherenceRate: p.adherenceRate || 90,
             medicationsCount: p.medications?.length || 0,
+            doctorId: userId, // Асоціюємо з лікарем
           }));
+
+          // Додаємо демо patients в localStorage тільки ОДИН РАЗ
+          mappedPatients.forEach(pat => {
+            mockStorage.patients.push(pat);
+          });
+          mockStorage.savePatients();
+
+          return mappedPatients;
         } catch (error) {
           console.error('Failed to load demo patients:', error);
           return [];
         }
       }
-      
-      // For new doctors, return empty array
-      console.log('ℹ️ New doctor account - returning empty patients list');
-      return [];
+
+      return userPatients;
     }
     
     if (endpoint === '/dependents' && method === 'GET') {
       const tokenMatch = this.token?.match(/mock_token_(.+?)_(\d{13})/);
       const userId = tokenMatch ? tokenMatch[1] : null;
       const user = userId ? mockStorage.users.find(u => u.id === userId) : null;
-      
-      // ONLY load demo data if user has caregiverData (is a demo account)
-      if (USE_DEMO_DATA && user && user.role === 'caregiver' && user.caregiverData) {
+
+      // КРИТИЧНО: ЗАВЖДИ читаємо з localStorage напряму для найсвіжіших даних!
+      const allDependents = JSON.parse(localStorage.getItem('mock_dependents') || '[]');
+      mockStorage.dependents = allDependents; // Оновлюємо кеш
+
+      // Фільтруємо dependents для поточного користувача
+      const userDependents = allDependents.filter(d => d.userId === userId);
+
+      console.log(`📦 Returning ${userDependents.length} dependents for user ${userId} (fresh from localStorage)`);
+
+      // Якщо немає dependents І використовуємо демо-дані, завантажимо демо один раз
+      if (userDependents.length === 0 && USE_DEMO_DATA && user && user.role === 'caregiver' && user.caregiverData) {
         try {
-          const dependents = await getDemoDependents(user.caregiverData.id);
-          console.log(`✅ Loaded ${dependents.length} demo dependents for ${user.name}`);
-          return dependents.map(d => ({
+          const demoDependents = await getDemoDependents(user.caregiverData.id);
+          console.log(`✅ Loading ${demoDependents.length} demo dependents for ${user.name}`);
+
+          const mappedDependents = demoDependents.map(d => ({
             id: d.id,
             name: `${d.firstName} ${d.lastName}`,
             dateOfBirth: d.dateOfBirth,
@@ -676,25 +735,43 @@ class ApiService {
             adherenceRate: d.adherenceRate || 90,
             medicationsCount: d.medications?.length || 0,
             relationship: 'Family Member',
+            userId, // Асоціюємо з користувачем
           }));
+
+          // Додаємо демо dependents в localStorage тільки ОДИН РАЗ
+          mappedDependents.forEach(dep => {
+            mockStorage.dependents.push(dep);
+          });
+          mockStorage.saveDependents();
+
+          return mappedDependents;
         } catch (error) {
           console.error('Failed to load demo dependents:', error);
           return [];
         }
       }
-      
-      // For new caregivers, return empty array
-      console.log('ℹ️ New caregiver account - returning empty dependents list');
-      return [];
+
+      return userDependents;
     }
 
     if (endpoint.includes('/dependents') && method === 'POST') {
+      // Extract user ID from token
+      const tokenMatch = this.token?.match(/mock_token_(.+?)_(\d{13})/);
+      const userId = tokenMatch ? tokenMatch[1] : null;
+
       const newDependent = {
         id: Date.now().toString(),
         ...body,
+        userId, // Асоціюємо з користувачем
         createdAt: new Date().toISOString(),
       };
-      
+
+      // КРИТИЧНО: Зберігаємо в mockStorage і localStorage
+      mockStorage.dependents.push(newDependent);
+      mockStorage.saveDependents();
+
+      console.log(`✅ Created dependent for user ${userId}:`, newDependent.name);
+
       // Log dependent addition
       logAudit('DEPENDENT_ADDED', 'dependent', {
         resourceId: newDependent.id,
@@ -704,7 +781,7 @@ class ApiService {
           relationship: newDependent.relationship,
         },
       });
-      
+
       return newDependent;
     }
 

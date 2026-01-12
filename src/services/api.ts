@@ -31,61 +31,95 @@ const mockDelay = (ms: number = 500) => new Promise(resolve => setTimeout(resolv
 
 // Initialize mock data storage with demo users
 const initializeMockStorage = async () => {
+  // КРИТИЧНО: ЗАВЖДИ створюємо демо users якщо їх немає
   const existingUsers = localStorage.getItem('mock_users');
-  
-  // ALWAYS reinitialize demo data to ensure demo accounts exist
-  // This fixes the "user not found" error when trying to login
+  let users = existingUsers ? JSON.parse(existingUsers) : [];
+
+  // Перевіряємо чи є демо акаунти
+  const hasPatient = users.some(u => u.email === 'patient@demo.com');
+  const hasCaregiver = users.some(u => u.email === 'caregiver@demo.com');
+  const hasDoctor = users.some(u => u.email === 'doctor@demo.com');
+
+  // Якщо хоча б одного немає - створюємо всі заново
+  if (!hasPatient || !hasCaregiver || !hasDoctor) {
+    console.log('🔄 Creating demo accounts...');
+
+    const demoUsers = [
+      {
+        id: '1',
+        email: 'patient@demo.com',
+        password: 'demo123',
+        name: 'John Smith',
+        role: 'patient',
+        dateOfBirth: '1952-03-15',
+        gender: 'male',
+        photoUrl: 'https://images.unsplash.com/photo-1758686253859-8ef7e940096e?w=400',
+        onboardingComplete: true,
+        createdAt: new Date().toISOString(),
+        patientData: {
+          id: 'p001',
+          firstName: 'John',
+          lastName: 'Smith',
+          medicalHistory: [],
+        },
+      },
+      {
+        id: '2',
+        email: 'caregiver@demo.com',
+        password: 'demo123',
+        name: 'Anna Johnson',
+        role: 'caregiver',
+        dateOfBirth: '1978-07-22',
+        gender: 'female',
+        onboardingComplete: true,
+        createdAt: new Date().toISOString(),
+        caregiverData: {
+          id: 'c001',
+          firstName: 'Anna',
+          lastName: 'Johnson',
+        },
+      },
+      {
+        id: '3',
+        email: 'doctor@demo.com',
+        password: 'demo123',
+        name: 'Dr. Rodriguez',
+        role: 'doctor',
+        dateOfBirth: '1975-11-08',
+        gender: 'male',
+        onboardingComplete: true,
+        createdAt: new Date().toISOString(),
+        doctorData: {
+          id: 'd001',
+          firstName: 'Maria',
+          lastName: 'Rodriguez',
+          specialization: 'General Practice',
+        },
+      },
+    ];
+
+    // Видаляємо старі демо акаунти і додаємо нові
+    users = users.filter(u => !u.email.includes('demo.com'));
+    users.push(...demoUsers);
+
+    localStorage.setItem('mock_users', JSON.stringify(users));
+    console.log('✅ Demo accounts created:', demoUsers.map(u => u.email).join(', '));
+  }
+
+  // Завантажуємо демо дані якщо потрібно
   if (USE_DEMO_DATA) {
     try {
-      console.log('🔄 Reinitializing demo data to ensure demo accounts exist...');
       await initializeDemoUsers();
       console.log('✅ Demo data initialized from complete database');
+      // Перезавантажуємо users після ініціалізації
+      users = JSON.parse(localStorage.getItem('mock_users') || '[]');
     } catch (error) {
-      console.error('❌ Failed to initialize demo data:', error);
-      // Fallback to simple demo users
-      const demoUsers = [
-        {
-          id: '1',
-          email: 'patient@demo.com',
-          password: 'demo123',
-          name: 'John Smith',
-          role: 'patient',
-          dateOfBirth: '1952-03-15',
-          gender: 'male',
-          photoUrl: 'https://images.unsplash.com/photo-1758686253859-8ef7e940096e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGRlcmx5JTIwbWFuJTIwc21pbGluZyUyMHBvcnRyYWl0fGVufDF8fHx8MTc2MjQ2Nzc1N3ww&ixlib=rb-4.1.0&q=80&w=400',
-          onboardingComplete: true,
-          createdAt: new Date().toISOString(),
-        },
-        {
-          id: '2',
-          email: 'caregiver@demo.com',
-          password: 'demo123',
-          name: 'Anna Johnson',
-          role: 'caregiver',
-          dateOfBirth: '1978-07-22',
-          gender: 'female',
-          onboardingComplete: true,
-          createdAt: new Date().toISOString(),
-        },
-        {
-          id: '3',
-          email: 'doctor@demo.com',
-          password: 'demo123',
-          name: 'Dr. Rodriguez',
-          role: 'doctor',
-          dateOfBirth: '1975-11-08',
-          gender: 'male',
-          onboardingComplete: true,
-          createdAt: new Date().toISOString(),
-        },
-      ];
-      
-      localStorage.setItem('mock_users', JSON.stringify(demoUsers));
+      console.error('⚠️ Could not load full demo data, using basic accounts:', error);
     }
   }
-  
+
   return {
-    users: JSON.parse(localStorage.getItem('mock_users') || '[]') as any[],
+    users: users,
     medications: JSON.parse(localStorage.getItem('mock_medications') || '[]') as any[],
   };
 };

@@ -1,336 +1,262 @@
-/* Темна скляна тема для пацієнта */
+/* Dark Glass Morphism Theme - як у прикладі landing page */
 
 :root {
-  /* Navy Deep Background */
   --navy-950: #020617;
   --navy-900: #0f172a;
-  --navy-800: #1e293b;
-
-  /* Glass Effects */
-  --glass-bg: rgba(255, 255, 255, 0.06);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shine: rgba(255, 255, 255, 0.05);
-
-  /* Blue Accent */
-  --accent-blue: #3b82f6;
-  --accent-blue-dark: #2563eb;
-  --accent-blue-light: #60a5fa;
+  --primary-blue: #3b82f6;
+  --medical-blue: #2563eb;
 }
 
-/* === ФОНОВИЙ ГРАДІЄНТ === */
+/* === BACKGROUND === */
+body.dark,
 html.dark body {
-  background-color: #020617;
+  background-color: #020617 !important;
   background-image:
-    radial-gradient(at 0% 0%, rgba(30, 64, 175, 0.6) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.4) 0px, transparent 50%),
-    radial-gradient(at 50% 50%, rgba(29, 78, 216, 0.3) 0px, transparent 60%),
-    radial-gradient(at 80% 100%, rgba(37, 99, 235, 0.4) 0px, transparent 50%),
-    radial-gradient(at 20% 80%, rgba(15, 23, 42, 1) 0px, transparent 70%);
-  background-attachment: fixed;
-  color: #f1f5f9;
+    radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.4) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.25) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(29, 78, 216, 0.2) 0px, transparent 50%) !important;
+  background-attachment: fixed !important;
+  color: #f1f5f9 !important;
 }
 
-/* === СКЛЯНІ КАРТКИ === */
+/* === GLASS CARDS === */
+body.dark .card,
+body.dark [class*="rounded"],
+body.dark .glass-card,
+body.dark .medication-card,
 html.dark .card,
 html.dark [class*="rounded"],
-html.dark .glass-card {
-  background: rgba(255, 255, 255, 0.06) !important;
-  backdrop-filter: blur(24px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+html.dark .glass-card,
+html.dark .medication-card {
+  background: rgba(15, 23, 42, 0.6) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Скло для навігації */
+/* === NAVIGATION === */
+body.dark nav,
+body.dark header,
+body.dark .topbar,
 html.dark nav,
 html.dark header,
 html.dark .topbar {
-  background: rgba(15, 23, 42, 0.75) !important;
-  backdrop-filter: blur(32px) !important;
-  -webkit-backdrop-filter: blur(32px) !important;
+  background: rgba(2, 6, 23, 0.9) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-/* === КНОПКИ === */
-html.dark button,
-html.dark .btn {
-  font-weight: 800 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.05em !important;
-  transition: all 0.2s ease !important;
+/* === SIDEBAR === */
+body.dark aside,
+body.dark .sidebar,
+html.dark aside,
+html.dark .sidebar {
+  background: rgba(2, 6, 23, 0.9) !important;
+  backdrop-filter: blur(20px) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-/* Основна кнопка */
-html.dark button[class*="bg-blue"],
-html.dark .btn-primary {
-  background: var(--accent-blue) !important;
-  color: white !important;
-  box-shadow: 0 12px 40px rgba(37, 99, 235, 0.4) !important;
-  border: 1px solid rgba(96, 165, 250, 0.3) !important;
-}
-
-html.dark button[class*="bg-blue"]:hover,
-html.dark .btn-primary:hover {
-  background: var(--accent-blue-dark) !important;
-  transform: scale(0.97);
-}
-
-html.dark button[class*="bg-blue"]:active {
-  transform: scale(0.95);
-}
-
-/* Скляна кнопка */
-html.dark button[class*="glass"],
-html.dark .btn-secondary {
-  background: rgba(255, 255, 255, 0.08) !important;
-  backdrop-filter: blur(16px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  color: white !important;
-}
-
-html.dark button[class*="glass"]:hover {
-  background: rgba(255, 255, 255, 0.12) !important;
-}
-
-/* === ТИПОГРАФІКА === */
+/* === TYPOGRAPHY === */
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark h4,
+body.dark h5,
+body.dark h6,
 html.dark h1,
 html.dark h2,
 html.dark h3,
 html.dark h4,
 html.dark h5,
 html.dark h6 {
+  color: #ffffff !important;
   font-weight: 900 !important;
   letter-spacing: -0.02em !important;
-  color: white !important;
 }
 
-html.dark h1 {
-  font-size: clamp(2rem, 6vw, 3rem) !important;
-}
-
-html.dark h2 {
-  font-size: clamp(1.5rem, 4vw, 2rem) !important;
-}
-
+body.dark p,
+body.dark span,
+body.dark label,
 html.dark p,
-html.dark span {
-  color: rgba(226, 232, 240, 0.8) !important;
+html.dark span,
+html.dark label {
+  color: rgba(226, 232, 240, 0.9) !important;
 }
 
-/* === КАРТКИ СТАТИСТИКИ === */
-html.dark .stat-card {
-  background: rgba(255, 255, 255, 0.06) !important;
-  backdrop-filter: blur(24px) !important;
-  border-radius: 1.5rem !important;
-  padding: 1.5rem !important;
-  text-align: center !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-html.dark .stat-value {
-  font-size: 2rem !important;
-  font-weight: 900 !important;
-  color: var(--accent-blue) !important;
-}
-
-html.dark .stat-label {
-  font-size: 0.625rem !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.1em !important;
-  font-weight: 700 !important;
-  color: rgba(255, 255, 255, 0.5) !important;
-}
-
-/* === КАРТКИ ЛІКІВ === */
-html.dark .medication-card {
-  background: rgba(255, 255, 255, 0.06) !important;
-  backdrop-filter: blur(24px) !important;
-  border-radius: 2.5rem !important;
-  padding: 1.75rem !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4) !important;
-}
-
-html.dark .medication-name {
-  font-size: 2rem !important;
-  font-weight: 900 !important;
-  letter-spacing: -0.02em !important;
+/* === BUTTONS === */
+body.dark button[class*="bg-blue"],
+body.dark button[class*="bg-primary"],
+body.dark .btn-primary,
+html.dark button[class*="bg-blue"],
+html.dark button[class*="bg-primary"],
+html.dark .btn-primary {
+  background: #3b82f6 !important;
   color: white !important;
+  box-shadow: 0 25px 50px -12px rgba(37, 99, 235, 0.5) !important;
+  border: none !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  transition: all 0.2s ease !important;
 }
 
-html.dark .medication-time {
-  background: rgba(59, 130, 246, 0.2) !important;
-  border: 1px solid rgba(59, 130, 246, 0.3) !important;
-  border-radius: 9999px !important;
-  padding: 0.5rem 0.75rem !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 0.5rem !important;
+body.dark button[class*="bg-blue"]:hover,
+html.dark button[class*="bg-blue"]:hover {
+  background: #2563eb !important;
+  transform: scale(0.98);
 }
 
-html.dark .medication-time span {
-  color: var(--accent-blue) !important;
-  font-weight: 900 !important;
-  font-size: 1.125rem !important;
+body.dark button[class*="bg-blue"]:active,
+html.dark button[class*="bg-blue"]:active {
+  transform: scale(0.95);
 }
 
-/* === ІКОНКИ === */
-html.dark svg,
-html.dark .icon {
-  color: var(--accent-blue) !important;
-  filter: drop-shadow(0 4px 12px rgba(59, 130, 246, 0.3));
-}
-
-/* Підсвічування матеріальних іконок */
-html.dark .material-symbols-outlined {
-  filter: drop-shadow(0 2px 8px rgba(59, 130, 246, 0.4));
-}
-
-/* === ПОЛЯ ВВОДУ === */
+/* === INPUTS === */
+body.dark input,
+body.dark textarea,
+body.dark select,
 html.dark input,
 html.dark textarea,
 html.dark select {
-  background: rgba(255, 255, 255, 0.05) !important;
+  background: rgba(15, 23, 42, 0.6) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 1rem !important;
   color: white !important;
-  padding: 1rem !important;
-  font-size: 1rem !important;
   backdrop-filter: blur(16px) !important;
 }
 
+body.dark input:focus,
+body.dark textarea:focus,
+body.dark select:focus,
 html.dark input:focus,
 html.dark textarea:focus,
 html.dark select:focus {
-  border-color: var(--accent-blue) !important;
+  border-color: #3b82f6 !important;
   outline: none !important;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
 }
 
+body.dark input::placeholder,
 html.dark input::placeholder {
   color: rgba(255, 255, 255, 0.4) !important;
 }
 
-/* === СКРОЛБАР === */
+/* === ICONS === */
+body.dark .material-symbols-outlined,
+html.dark .material-symbols-outlined {
+  color: #3b82f6 !important;
+  font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24 !important;
+}
+
+/* === STAT CARDS === */
+body.dark .stat-value,
+html.dark .stat-value {
+  color: #3b82f6 !important;
+  font-weight: 900 !important;
+  font-size: 2rem !important;
+}
+
+body.dark .stat-label,
+html.dark .stat-label {
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-size: 0.625rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  font-weight: 700 !important;
+}
+
+/* === MEDICATION TIME === */
+body.dark .medication-time,
+html.dark .medication-time {
+  background: rgba(59, 130, 246, 0.2) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  color: #3b82f6 !important;
+}
+
+/* === BADGES === */
+body.dark .badge,
+html.dark .badge {
+  background: rgba(59, 130, 246, 0.2) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  color: #3b82f6 !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+}
+
+/* === PROGRESS === */
+body.dark [role="progressbar"],
+body.dark .progress,
+html.dark [role="progressbar"],
+html.dark .progress {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 9999px !important;
+}
+
+body.dark [role="progressbar"] > div,
+body.dark .progress-fill,
+html.dark [role="progressbar"] > div,
+html.dark .progress-fill {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa) !important;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.5) !important;
+}
+
+/* === SCROLLBAR === */
+body.dark ::-webkit-scrollbar,
 html.dark ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
+body.dark ::-webkit-scrollbar-track,
 html.dark ::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
 }
 
+body.dark ::-webkit-scrollbar-thumb,
 html.dark ::-webkit-scrollbar-thumb {
   background: rgba(59, 130, 246, 0.5);
   border-radius: 10px;
 }
 
+body.dark ::-webkit-scrollbar-thumb:hover,
 html.dark ::-webkit-scrollbar-thumb:hover {
   background: rgba(59, 130, 246, 0.7);
 }
 
-/* === ПРОГРЕС-БАРИ === */
-html.dark [role="progressbar"],
-html.dark .progress {
-  background: rgba(255, 255, 255, 0.1) !important;
-  border-radius: 9999px !important;
-  overflow: hidden !important;
-}
-
-html.dark [role="progressbar"] > div,
-html.dark .progress-fill {
-  background: linear-gradient(90deg, var(--accent-blue), var(--accent-blue-light)) !important;
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.5) !important;
-}
-
-/* === БЕЙДЖІ === */
-html.dark .badge {
-  background: rgba(59, 130, 246, 0.2) !important;
-  border: 1px solid rgba(59, 130, 246, 0.3) !important;
-  color: var(--accent-blue) !important;
-  font-weight: 900 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.1em !important;
-  font-size: 0.625rem !important;
-  padding: 0.25rem 0.75rem !important;
-  border-radius: 9999px !important;
-}
-
-/* === ПЛАВАЮЧА КНОПКА === */
-html.dark .fab,
-html.dark [class*="fixed"][class*="bottom"] button {
-  box-shadow: 0 15px 45px rgba(37, 99, 235, 0.6) !important;
-  border-radius: 50% !important;
-  background: var(--accent-blue) !important;
-}
-
-html.dark .fab:active {
-  transform: scale(0.9) !important;
-}
-
-/* === БОКОВА ПАНЕЛЬ === */
-html.dark aside,
-html.dark .sidebar {
-  background: rgba(15, 23, 42, 0.8) !important;
-  backdrop-filter: blur(32px) !important;
-  border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-/* === НИЖНЯ НАВІГАЦІЯ === */
-html.dark .bottom-nav {
-  background: rgba(15, 23, 42, 0.75) !important;
-  backdrop-filter: blur(32px) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
-}
-
-/* === СВІТІННЯ === */
-html.dark .glow-blue {
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.5) !important;
-}
-
-/* === АНІМАЦІЇ === */
-@keyframes shimmer {
-  0% { background-position: -100% 0; }
-  100% { background-position: 200% 0; }
-}
-
-html.dark .shimmer {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite;
-}
-
-/* === ВИДІЛЕННЯ === */
+/* === SELECTION === */
+body.dark ::selection,
 html.dark ::selection {
   background: rgba(59, 130, 246, 0.3);
   color: white;
 }
 
-/* === НАЛАШТУВАННЯ ДЛЯ ТЕМНОЇ ТЕМИ === */
-html.dark {
-  color-scheme: dark;
+/* === BOTTOM NAV === */
+body.dark .bottom-nav,
+html.dark .bottom-nav {
+  background: rgba(2, 6, 23, 0.9) !important;
+  backdrop-filter: blur(20px) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-html.dark body {
-  background-color: #020617 !important;
+/* === FLOATING ACTION BUTTON === */
+body.dark .fab,
+body.dark [class*="fixed"][class*="bottom"] button,
+html.dark .fab,
+html.dark [class*="fixed"][class*="bottom"] button {
+  background: #3b82f6 !important;
+  box-shadow: 0 15px 45px rgba(59, 130, 246, 0.6) !important;
 }
 
-/* === АДАПТИВНІСТЬ === */
-@media (max-width: 640px) {
-  html.dark .medication-card {
-    padding: 1.25rem !important;
-    border-radius: 2rem !important;
-  }
+/* === HOVER STATES === */
+body.dark .glass-card:hover,
+html.dark .glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
 
-  html.dark .medication-name {
-    font-size: 1.5rem !important;
-  }
+/* === DIVIDERS === */
+body.dark hr,
+body.dark [class*="border"],
+html.dark hr,
+html.dark [class*="border"] {
+  border-color: rgba(255, 255, 255, 0.1) !important;
 }

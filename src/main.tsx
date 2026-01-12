@@ -4,6 +4,7 @@ import App from './App';
 import './index.css';
 import './styles/globals.css';
 import './styles/patient-dark-theme.css';
+import './styles/light-purple-theme.css';
 import './styles/unified-colors.css';
 import './styles/responsive-fixes.css';
 import './styles/compact-ui.css';

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Тест збереження даних - 120+</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #1d4ed8;
+        }
+        .success { color: #059669; font-weight: bold; }
+        .error { color: #dc2626; font-weight: bold; }
+        .info { color: #0284c7; }
+        pre {
+            background: #f9fafb;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Тест збереження даних localStorage</h1>
+
+    <div class="section">
+        <h2>1. Medications</h2>
+        <button onclick="testMedications()">Додати тестовий medication</button>
+        <button onclick="showMedications()">Показати medications</button>
+        <button onclick="clearMedications()">Очистити</button>
+        <div id="medications-result"></div>
+    </div>
+
+    <div class="section">
+        <h2>2. Dependents</h2>
+        <button onclick="testDependents()">Додати тестового dependent</button>
+        <button onclick="showDependents()">Показати dependents</button>
+        <button onclick="clearDependents()">Очистити</button>
+        <div id="dependents-result"></div>
+    </div>
+
+    <div class="section">
+        <h2>3. Patients</h2>
+        <button onclick="testPatients()">Додати тестового patient</button>
+        <button onclick="showPatients()">Показати patients</button>
+        <button onclick="clearPatients()">Очистити</button>
+        <div id="patients-result"></div>
+    </div>
+
+    <div class="section">
+        <h2>4. Перевірка після перезавантаження</h2>
+        <p class="info">Додайте тестові дані, потім перезавантажте сторінку (F5) і перевірте чи вони залишились</p>
+        <button onclick="location.reload()">Перезавантажити сторінку</button>
+    </div>
+
+    <script>
+        // Medications
+        function testMedications() {
+            const meds = JSON.parse(localStorage.getItem('mock_medications') || '[]');
+            const newMed = {
+                id: Date.now(),
+                name: `Test Medication ${new Date().toLocaleTimeString('uk-UA')}`,
+                dosage: '10mg',
+                frequency: '1x day',
+                userId: 'test-user-123',
+                createdAt: new Date().toISOString()
+            };
+            meds.push(newMed);
+            localStorage.setItem('mock_medications', JSON.stringify(meds));
+            document.getElementById('medications-result').innerHTML =
+                `<p class="success">✅ Додано medication: ${newMed.name}</p>`;
+            showMedications();
+        }
+
+        function showMedications() {
+            const meds = JSON.parse(localStorage.getItem('mock_medications') || '[]');
+            const userMeds = meds.filter(m => m.userId === 'test-user-123');
+            document.getElementById('medications-result').innerHTML =
+                `<p class="info">📦 Всього medications: ${meds.length}</p>
+                <p class="info">👤 Для test-user-123: ${userMeds.length}</p>
+                <pre>${JSON.stringify(userMeds, null, 2)}</pre>`;
+        }
+
+        function clearMedications() {
+            let meds = JSON.parse(localStorage.getItem('mock_medications') || '[]');
+            meds = meds.filter(m => m.userId !== 'test-user-123');
+            localStorage.setItem('mock_medications', JSON.stringify(meds));
+            document.getElementById('medications-result').innerHTML =
+                `<p class="success">✅ Тестові medications очищено</p>`;
+        }
+
+        // Dependents
+        function testDependents() {
+            const deps = JSON.parse(localStorage.getItem('mock_dependents') || '[]');
+            const newDep = {
+                id: Date.now().toString(),
+                name: `Test Dependent ${new Date().toLocaleTimeString('uk-UA')}`,
+                relationship: 'Family',
+                userId: 'test-user-123',
+                createdAt: new Date().toISOString()
+            };
+            deps.push(newDep);
+            localStorage.setItem('mock_dependents', JSON.stringify(deps));
+            document.getElementById('dependents-result').innerHTML =
+                `<p class="success">✅ Додано dependent: ${newDep.name}</p>`;
+            showDependents();
+        }
+
+        function showDependents() {
+            const deps = JSON.parse(localStorage.getItem('mock_dependents') || '[]');
+            const userDeps = deps.filter(d => d.userId === 'test-user-123');
+            document.getElementById('dependents-result').innerHTML =
+                `<p class="info">📦 Всього dependents: ${deps.length}</p>
+                <p class="info">👤 Для test-user-123: ${userDeps.length}</p>
+                <pre>${JSON.stringify(userDeps, null, 2)}</pre>`;
+        }
+
+        function clearDependents() {
+            let deps = JSON.parse(localStorage.getItem('mock_dependents') || '[]');
+            deps = deps.filter(d => d.userId !== 'test-user-123');
+            localStorage.setItem('mock_dependents', JSON.stringify(deps));
+            document.getElementById('dependents-result').innerHTML =
+                `<p class="success">✅ Тестові dependents очищено</p>`;
+        }
+
+        // Patients
+        function testPatients() {
+            const pats = JSON.parse(localStorage.getItem('mock_patients') || '[]');
+            const newPat = {
+                id: Date.now().toString(),
+                name: `Test Patient ${new Date().toLocaleTimeString('uk-UA')}`,
+                doctorId: 'test-doctor-123',
+                createdAt: new Date().toISOString()
+            };
+            pats.push(newPat);
+            localStorage.setItem('mock_patients', JSON.stringify(pats));
+            document.getElementById('patients-result').innerHTML =
+                `<p class="success">✅ Додано patient: ${newPat.name}</p>`;
+            showPatients();
+        }
+
+        function showPatients() {
+            const pats = JSON.parse(localStorage.getItem('mock_patients') || '[]');
+            const docPats = pats.filter(p => p.doctorId === 'test-doctor-123');
+            document.getElementById('patients-result').innerHTML =
+                `<p class="info">📦 Всього patients: ${pats.length}</p>
+                <p class="info">👨‍⚕️ Для test-doctor-123: ${docPats.length}</p>
+                <pre>${JSON.stringify(docPats, null, 2)}</pre>`;
+        }
+
+        function clearPatients() {
+            let pats = JSON.parse(localStorage.getItem('mock_patients') || '[]');
+            pats = pats.filter(p => p.doctorId !== 'test-doctor-123');
+            localStorage.setItem('mock_patients', JSON.stringify(pats));
+            document.getElementById('patients-result').innerHTML =
+                `<p class="success">✅ Тестові patients очищено</p>`;
+        }
+
+        // Auto-show data on load
+        window.onload = function() {
+            showMedications();
+            showDependents();
+            showPatients();
+        };
+    </script>
+</body>
+</html>

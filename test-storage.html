@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test LocalStorage</title>
+</head>
+<body>
+    <h1>Test Medication Save</h1>
+    <button onclick="testSave()">Add Test Medication</button>
+    <button onclick="showData()">Show Saved Data</button>
+    <pre id="output"></pre>
+
+    <script>
+        function testSave() {
+            // Simulate what API does
+            const medications = JSON.parse(localStorage.getItem('mock_medications') || '[]');
+
+            const newMed = {
+                id: Date.now(),
+                name: 'Test Medicine',
+                dosage: '100mg',
+                timesPerDay: 2,
+                userId: 'test-user',
+                createdAt: new Date().toISOString()
+            };
+
+            medications.push(newMed);
+            localStorage.setItem('mock_medications', JSON.stringify(medications));
+
+            document.getElementById('output').textContent =
+                '✅ Saved! Now have ' + medications.length + ' medications\n\n' +
+                JSON.stringify(medications, null, 2);
+        }
+
+        function showData() {
+            const medications = JSON.parse(localStorage.getItem('mock_medications') || '[]');
+            const users = JSON.parse(localStorage.getItem('mock_users') || '[]');
+
+            document.getElementById('output').textContent =
+                'USERS (' + users.length + '):\n' +
+                JSON.stringify(users, null, 2) + '\n\n' +
+                'MEDICATIONS (' + medications.length + '):\n' +
+                JSON.stringify(medications, null, 2);
+        }
+
+        // Auto-show on load
+        showData();
+    </script>
+</body>
+</html>

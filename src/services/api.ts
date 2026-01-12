@@ -11,9 +11,9 @@ import { retryWithBackoff, isRetryableError, isOnline, CircuitBreaker } from '..
 // import { firebaseApi } from './firebaseApi';
 // import { isFirebaseConfigured } from './firebaseClient';
 
-// Вмикаємо демо-режим у дев-середовищі або коли це явно задано.
-const USE_MOCK_API = import.meta.env?.VITE_USE_MOCK_API === 'true' || import.meta.env?.DEV;
-const USE_DEMO_DATA = import.meta.env?.VITE_USE_DEMO_DATA === 'true' || import.meta.env?.DEV;
+// Використовуємо демо-режим лише коли це явно задано змінними середовища.
+const USE_MOCK_API = import.meta.env?.VITE_USE_MOCK_API === 'true';
+const USE_DEMO_DATA = import.meta.env?.VITE_USE_DEMO_DATA === 'true';
 
 // Safely access environment variables
 const getApiUrl = () => {

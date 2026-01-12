@@ -1,0 +1,323 @@
+/* 🧡 Caregiver Glass Morphism Dark Theme - Orange Accent */
+
+:root {
+  /* Deep Blue Background */
+  --deep-blue: #0A1128;
+  --navy-blue: #1A237E;
+  --glass-blue: rgba(16, 24, 64, 0.6);
+
+  /* Orange Accent */
+  --accent-orange: #FF8C00;
+  --accent-orange-dark: #E67E00;
+  --accent-orange-light: #FFA500;
+
+  /* Glass Effects */
+  --glass-bg: rgba(255, 140, 0, 0.08);
+  --glass-border: rgba(255, 140, 0, 0.15);
+}
+
+/* === MESH GRADIENT BACKGROUND === */
+body.theme-caregiver {
+  background: radial-gradient(circle at top right, #1A237E, #0A1128, #050811);
+  background-attachment: fixed;
+  color: #f1f5f9;
+}
+
+/* === GLASS MORPHISM CARDS === */
+body.theme-caregiver .card,
+body.theme-caregiver [class*="rounded"],
+body.theme-caregiver .glass-card {
+  background: rgba(255, 140, 0, 0.08) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(255, 140, 0, 0.15) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Glass for navigation */
+body.theme-caregiver nav,
+body.theme-caregiver header,
+body.theme-caregiver .topbar {
+  background: var(--glass-blue) !important;
+  backdrop-filter: blur(32px) !important;
+  -webkit-backdrop-filter: blur(32px) !important;
+  border-bottom: 1px solid rgba(255, 140, 0, 0.2) !important;
+}
+
+/* === BUTTONS === */
+body.theme-caregiver button,
+body.theme-caregiver .btn {
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Primary button - orange accent */
+body.theme-caregiver button[class*="bg-blue"],
+body.theme-caregiver button[class*="bg-orange"],
+body.theme-caregiver .btn-primary {
+  background: var(--accent-orange) !important;
+  color: white !important;
+  box-shadow: 0 12px 40px rgba(255, 140, 0, 0.5) !important;
+  border: 1px solid rgba(255, 165, 0, 0.3) !important;
+}
+
+body.theme-caregiver button[class*="bg-blue"]:hover,
+body.theme-caregiver button[class*="bg-orange"]:hover,
+body.theme-caregiver .btn-primary:hover {
+  background: var(--accent-orange-dark) !important;
+  transform: scale(0.97);
+}
+
+body.theme-caregiver button[class*="bg-blue"]:active,
+body.theme-caregiver button[class*="bg-orange"]:active {
+  transform: scale(0.95);
+}
+
+/* Glass button */
+body.theme-caregiver button[class*="glass"],
+body.theme-caregiver .btn-secondary {
+  background: rgba(255, 140, 0, 0.12) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 140, 0, 0.2) !important;
+  color: white !important;
+}
+
+body.theme-caregiver button[class*="glass"]:hover {
+  background: rgba(255, 140, 0, 0.18) !important;
+}
+
+/* === TYPOGRAPHY === */
+body.theme-caregiver h1,
+body.theme-caregiver h2,
+body.theme-caregiver h3,
+body.theme-caregiver h4,
+body.theme-caregiver h5,
+body.theme-caregiver h6 {
+  font-weight: 900 !important;
+  letter-spacing: -0.02em !important;
+  color: white !important;
+}
+
+body.theme-caregiver h1 {
+  font-size: clamp(2rem, 6vw, 3rem) !important;
+}
+
+body.theme-caregiver h2 {
+  font-size: clamp(1.5rem, 4vw, 2rem) !important;
+}
+
+body.theme-caregiver p,
+body.theme-caregiver span {
+  color: rgba(226, 232, 240, 0.8) !important;
+}
+
+/* === STAT CARDS === */
+body.theme-caregiver .stat-card {
+  background: rgba(255, 140, 0, 0.08) !important;
+  backdrop-filter: blur(24px) !important;
+  border-radius: 1.5rem !important;
+  padding: 1.5rem !important;
+  text-align: center !important;
+  border: 1px solid rgba(255, 140, 0, 0.15) !important;
+}
+
+body.theme-caregiver .stat-value {
+  font-size: 2rem !important;
+  font-weight: 900 !important;
+  color: var(--accent-orange) !important;
+}
+
+body.theme-caregiver .stat-label {
+  font-size: 0.625rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  font-weight: 700 !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* === MEDICATION CARDS === */
+body.theme-caregiver .medication-card {
+  background: rgba(255, 140, 0, 0.08) !important;
+  backdrop-filter: blur(24px) !important;
+  border-radius: 2.5rem !important;
+  padding: 1.75rem !important;
+  border: 1px solid rgba(255, 140, 0, 0.15) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 140, 0, 0.4) !important;
+}
+
+body.theme-caregiver .medication-name {
+  font-size: 2rem !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.02em !important;
+  color: white !important;
+}
+
+body.theme-caregiver .medication-time {
+  background: rgba(255, 140, 0, 0.2) !important;
+  border: 1px solid rgba(255, 140, 0, 0.3) !important;
+  border-radius: 9999px !important;
+  padding: 0.5rem 0.75rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+body.theme-caregiver .medication-time span {
+  color: var(--accent-orange) !important;
+  font-weight: 900 !important;
+  font-size: 1.125rem !important;
+}
+
+/* === ICONS === */
+body.theme-caregiver svg,
+body.theme-caregiver .icon {
+  color: var(--accent-orange) !important;
+  filter: drop-shadow(0 4px 12px rgba(255, 140, 0, 0.4));
+}
+
+body.theme-caregiver .material-symbols-outlined {
+  filter: drop-shadow(0 2px 8px rgba(255, 140, 0, 0.5));
+}
+
+/* === INPUTS === */
+body.theme-caregiver input,
+body.theme-caregiver textarea,
+body.theme-caregiver select {
+  background: rgba(255, 140, 0, 0.05) !important;
+  border: 1px solid rgba(255, 140, 0, 0.15) !important;
+  border-radius: 1rem !important;
+  color: white !important;
+  padding: 1rem !important;
+  font-size: 1rem !important;
+  backdrop-filter: blur(16px) !important;
+}
+
+body.theme-caregiver input:focus,
+body.theme-caregiver textarea:focus,
+body.theme-caregiver select:focus {
+  border-color: var(--accent-orange) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.2) !important;
+}
+
+body.theme-caregiver input::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* === SCROLLBAR === */
+body.theme-caregiver ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+body.theme-caregiver ::-webkit-scrollbar-track {
+  background: rgba(255, 140, 0, 0.05);
+  border-radius: 10px;
+}
+
+body.theme-caregiver ::-webkit-scrollbar-thumb {
+  background: rgba(255, 140, 0, 0.5);
+  border-radius: 10px;
+}
+
+body.theme-caregiver ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 140, 0, 0.7);
+}
+
+/* === PROGRESS BARS === */
+body.theme-caregiver [role="progressbar"],
+body.theme-caregiver .progress {
+  background: rgba(255, 140, 0, 0.1) !important;
+  border-radius: 9999px !important;
+  overflow: hidden !important;
+}
+
+body.theme-caregiver [role="progressbar"] > div,
+body.theme-caregiver .progress-fill {
+  background: linear-gradient(90deg, var(--accent-orange), var(--accent-orange-light)) !important;
+  box-shadow: 0 0 20px rgba(255, 140, 0, 0.5) !important;
+}
+
+/* === BADGES === */
+body.theme-caregiver .badge {
+  background: rgba(255, 140, 0, 0.2) !important;
+  border: 1px solid rgba(255, 140, 0, 0.3) !important;
+  color: var(--accent-orange) !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  font-size: 0.625rem !important;
+  padding: 0.25rem 0.75rem !important;
+  border-radius: 9999px !important;
+}
+
+/* === FLOATING ACTION BUTTON === */
+body.theme-caregiver .fab,
+body.theme-caregiver [class*="fixed"][class*="bottom"] button {
+  box-shadow: 0 15px 45px rgba(255, 140, 0, 0.6), 0 0 15px rgba(255, 140, 0, 0.4) !important;
+  border-radius: 50% !important;
+  background: var(--accent-orange) !important;
+}
+
+body.theme-caregiver .fab:active {
+  transform: scale(0.9) !important;
+}
+
+/* === SIDEBAR === */
+body.theme-caregiver aside,
+body.theme-caregiver .sidebar {
+  background: var(--glass-blue) !important;
+  backdrop-filter: blur(32px) !important;
+  border-right: 1px solid rgba(255, 140, 0, 0.2) !important;
+}
+
+/* === BOTTOM NAVIGATION === */
+body.theme-caregiver .bottom-nav {
+  background: var(--glass-blue) !important;
+  backdrop-filter: blur(32px) !important;
+  border-top: 1px solid rgba(255, 140, 0, 0.2) !important;
+  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+}
+
+/* === GLOW EFFECTS === */
+body.theme-caregiver .glow-orange,
+body.theme-caregiver .orange-glow {
+  box-shadow: 0 0 20px rgba(255, 140, 0, 0.5) !important;
+}
+
+/* === ANIMATIONS === */
+@keyframes shimmer-orange {
+  0% { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
+}
+
+body.theme-caregiver .shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 140, 0, 0) 0%,
+    rgba(255, 140, 0, 0.15) 50%,
+    rgba(255, 140, 0, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-orange 2s infinite;
+}
+
+/* === SELECTION === */
+body.theme-caregiver ::selection {
+  background: rgba(255, 140, 0, 0.3);
+  color: white;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 640px) {
+  body.theme-caregiver .medication-card {
+    padding: 1.25rem !important;
+    border-radius: 2rem !important;
+  }
+
+  body.theme-caregiver .medication-name {
+    font-size: 1.5rem !important;
+  }
+}

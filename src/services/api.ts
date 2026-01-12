@@ -99,7 +99,10 @@ let mockStorage: any = {
     localStorage.setItem('mock_users', JSON.stringify(this.users));
   },
   saveMedications() {
+    console.log(`💾 Saving ${this.medications.length} medications to localStorage:`,
+      this.medications.map(m => ({ id: m.id, name: m.name, userId: m.userId })));
     localStorage.setItem('mock_medications', JSON.stringify(this.medications));
+    console.log('✅ Medications saved successfully');
   },
   async ensureInitialized() {
     if (this.initialized) return;
@@ -112,7 +115,12 @@ let mockStorage: any = {
       console.log('🚀 Initializing mock storage...');
       const initialized = await initializeMockStorage();
       this.users = initialized.users;
-      this.medications = initialized.medications;
+
+      // КРИТИЧНО: Завжди завантажуємо medications з localStorage при кожному request
+      // щоб отримати найсвіжіші дані (це виправляє проблему втрати даних)
+      const freshMedications = JSON.parse(localStorage.getItem('mock_medications') || '[]');
+      this.medications = freshMedications;
+
       this.initialized = true;
       console.log(`✅ Mock storage initialized:`, {
         users: this.users.length,
@@ -454,11 +462,14 @@ class ApiService {
       const tokenMatch = this.token?.match(/mock_token_(.+?)_(\d{13})/);
       const userId = tokenMatch ? tokenMatch[1] : null;
 
-      // КРИТИЧНО: Завжди повертаємо medications з localStorage (mockStorage)
-      // Це гарантує що нові medications (створені користувачем) будуть показані!
-      const userMedications = mockStorage.medications.filter(m => m.userId === userId);
+      // КРИТИЧНО: ЗАВЖДИ читаємо з localStorage напряму для найсвіжіших даних!
+      // Не використовуємо mockStorage.medications бо він може бути застарілим
+      const allMedications = JSON.parse(localStorage.getItem('mock_medications') || '[]');
+      mockStorage.medications = allMedications; // Оновлюємо кеш
 
-      console.log(`📦 Returning ${userMedications.length} medications for user ${userId}:`,
+      const userMedications = allMedications.filter(m => m.userId === userId);
+
+      console.log(`📦 Returning ${userMedications.length} medications for user ${userId} (fresh from localStorage):`,
         userMedications.map(m => ({ id: m.id, name: m.name })));
 
       // Якщо немає medications І використовуємо демо-дані, завантажимо демо один раз
